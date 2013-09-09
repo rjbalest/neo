@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--set any default configuration parameters here-->
+<Configuration version="1">
+  <Property name="source" value="file"/>
+  <Property name="dataFile" value="csv/file_1.csv"/>
+  <Property name="mongoURL" value="localhost"/>
+  <Property name="mongoInsertMode" value="a"/>
+  <Property name="mongoPort" value="27017"/>
+  <Property name="mongoDatabase" value="healthcare"/>
+  <Property name="mongoCollectionName" value="providers"/>
+  <Property name="mongoCollectionSource" value="fake_file_1"/>
+  <Property name="mongoCollectionFields" value="npi,employ_id,name,mailing_address,zip, mailing_phone,taxonomy,license_id,tag1,tag2,tag3"/>
+  <Property name="fieldGrouping:tag1" value="tag"/>
+  <Property name="fieldGrouping:tag2" value="tag"/>
+  <Property name="fieldGrouping:tag3" value="tag"/>
+  <Property name="mongoCollectionFieldsToDisintegrate" value="npi,employ_id,mailing_address,mailing_phone,taxonomy,license_id,tag"/>
+  <Property name="seperator" value=","/>
+ </Configuration>

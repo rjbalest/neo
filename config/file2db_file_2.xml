@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--set any default configuration parameters here-->
+<Configuration version="1">
+  <Property name="dataFile" value="csv/file_2.csv"/>
+  <Property name="dbURL" value="jdbc:mysql://localhost:3306/test"/>
+  <Property name="dbUser" value="liza183"/>
+  <Property name="dbPassword" value="cmsproject"/>
+  <Property name="dbInsertMode" value="n"/>
+  <Property name="tableName" value="file_2"/>
+  <Property name="dbCreateTableQuery" value="
+  
+  CREATE TABLE file_2 (
+  	npi varchar(45) DEFAULT NULL,
+  	employ_id varchar(45) DEFAULT NULL,
+  	name varchar(45) DEFAULT NULL,
+  	mailing_address varchar(45) DEFAULT NULL,
+  	mailing_phone varchar(45) DEFAULT NULL,
+  	taxonomy varchar(45) DEFAULT NULL,
+  	license_id varchar(45) DEFAULT NULL,
+  	tag1 varchar(45) DEFAULT NULL,
+  	tag2 varchar(45) DEFAULT NULL,
+  	tag3 varchar(45) DEFAULT NULL
+  ) 
+
+  "/>
+  
+  <Property name="fileFields" value="npi,employ_id,name,mailing_address,mailing_phone,taxonomy,license_id,tag1,tag2,tag3"/>
+  <Property name="seperator" value=","/>
+</Configuration>

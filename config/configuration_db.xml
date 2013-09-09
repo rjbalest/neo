@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--set any default configuration parameters here-->
+<Configuration version="1">
+  <Property name="source" value="db"/>
+  <Property name="dbURL" value="jdbc:mysql://localhost:3306/test"/>
+  <Property name="dbUser" value="liza183"/>
+  <Property name="dbPassword" value="cmsproject"/>
+  <Property name="mongoURL" value="localhost"/>
+  <Property name="mongoInsertMode" value="a"/>
+  <Property name="mongoPort" value="27017"/>
+  <Property name="mongoDatabase" value="healthcare"/>
+  <Property name="mongoCollectionName" value="providers"/>
+  <Property name="mongoCollectionSource" value="fake_db"/>
+  <Property name="mongoCollectionFields" value="db_id, name, mailing_address, mailing_phone, zip,specialty_1,specialty_2"/>
+  <Property name="fieldGrouping:specialty_1" value="specialty"/>
+  <Property name="fieldGrouping:specialty_2" value="specialty"/>
+  <Property name="mongoCollectionFieldsToDisintegrate" value="db_id, mailing_address, mailing_phone, specialty"/>
+  <Property name="dbQuery" value="SELECT
+					db_id, name, mailing_address, mailing_phone, zip, specialty_1, specialty_2
+				FROM fake_db"/>
+</Configuration>
