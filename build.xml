@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project name="Neo" default="src" basedir=".">
+    <description>
+        simple example build file
+    </description>
+  <!-- set global properties for this build -->
+  <property name="src" location="src/gov/ornl/healthcare"/>
+  <property name="build" location="bin"/>
+  <property name="dist"  location="lib"/>
+
+  <path id="jars">
+    <pathelement location="lib/mongo-java-driver-2.11.2.jar"/>
+    <pathelement location="lib/hive-service-0.11.0.jar"/>
+  </path>
+  
+  <target name="init">
+    <!-- Create the build directory structure used by compile -->
+    <mkdir dir="${build}"/>
+  </target>
+
+  <target name="config" depends="init"
+        description="compile the ${src}/config package" >
+    <!-- Compile the java code from ${src} into ${build} -->
+    <javac srcdir="${src}/config" destdir="${build}"/>
+  </target>
+
+  <target name="standardization" depends="config"
+        description="compile the ${src}/standardization package" >
+    <!-- Compile the java code from ${src}/standardization into ${build} -->
+    <javac srcdir="${src}/standardization" destdir="${build}">
+     <classpath refid="jars"/>
+    </javac>
+  </target>
+  
+  <target name="core" depends="standardization"
+        description="compile the ${src}/core package" >
+    <!-- Compile the java code from ${src}/core into ${build} -->
+    <javac srcdir="${src}/core" destdir="${build}">
+     <classpath refid="jars"/>
+    </javac>
+  </target>
+  
+  <target name="src">
+    <javac srcdir="${src}" destdir="${build}">
+     <classpath refid="jars"/>
+    </javac>
+  </target>
+  
+  <target name="clean"
+        description="clean up" >
+    <!-- Delete the ${build} directory trees -->
+    <delete dir="${build}"/>
+  </target>
+</project>
