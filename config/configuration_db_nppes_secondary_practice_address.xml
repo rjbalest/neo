@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--set any default configuration parameters here-->
+<Configuration version="1">
+  <Property name="mongoURL" value="localhost"/>
+  <Property name="mongoInsertMode" value="a"/>
+  <Property name="mongoPort" value="27017"/>
+  <Property name="mongoDatabase" value="healthcare"/>
+  <Property name="mongoCollectionName" value="Provider_Business_Mailing_Address"/>
+  <Property name="mongoCollectionFieldsToDisintegrate" value="City,State,Zip_Code,Country_Code"/>
+</Configuration>
