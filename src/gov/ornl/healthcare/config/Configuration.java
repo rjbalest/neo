@@ -1,3 +1,4 @@
+
 /**
  * 
  */
@@ -22,12 +23,11 @@ import org.w3c.dom.Node;
 import org.w3c.dom.NodeList;
 
 /**
- * Manages configuration information. Loads configuration properties through XML config file.
  * 
  * @author chandola
- * @author matt lee
- *
+ * 
  */
+
 public class Configuration // Singleton
 {
 	public static final String DEFAULT_LOGGER_NAME = "gov.ornl.healthcare";	

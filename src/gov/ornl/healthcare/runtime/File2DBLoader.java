@@ -4,7 +4,11 @@ import java.util.logging.Level;
 
 import gov.ornl.healthcare.config.Configuration;
 import gov.ornl.healthcare.core.TableLoader;
-
+/**
+ * 
+ * @author matt lee
+ * 
+ */
 public class File2DBLoader {
 
 	public static void main(String args[]) {

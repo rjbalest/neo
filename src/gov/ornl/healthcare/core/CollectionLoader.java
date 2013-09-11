@@ -28,8 +28,6 @@ import gov.ornl.healthcare.standardization.EntityResolver;
 import gov.ornl.healthcare.standardization.IdAssigner;
 
 /**
- * Class to load a collection of providers from a JDBC accessible database into
- * Mongo
  * 
  * @author chandola
  * @author matt lee
@@ -164,7 +162,7 @@ public class CollectionLoader {
 									BasicDBObject searchQuery = new BasicDBObject().append("_id", id);
 									if (fieldGroup != null)
 										fieldName = fieldGroup;
-									BasicDBObject newDocument = new BasicDBObject().append("$addToSet", new BasicDBObject().append("ref", fieldName + " | " + assigned_id ));
+									BasicDBObject newDocument = new BasicDBObject().append("$addToSet", new BasicDBObject().append("ref", fieldName + " | " + assigned_id));
 									mongoUtils.update(searchQuery, newDocument);
 								}
 							} else if (dbo.get(fieldName).getClass() == com.mongodb.BasicDBList.class) {
@@ -331,13 +329,13 @@ public class CollectionLoader {
 			try {
 				String value = rs.getString(field);
 				String fieldGroup = Configuration.getStringValue("fieldGrouping:" + field);
-				 if (field.endsWith("_Address")) {
-				 value = resolver.resolveAddress(value);
-				 } else if (field.endsWith("_Number")) {
-				 value = resolver.resolveNumber(value);
-				 } else {
-				value = resolver.resolveOthers(value);
-				 }
+				if (field.endsWith("_Address")) {
+					value = resolver.resolveAddress(value);
+				} else if (field.endsWith("_Number")) {
+					value = resolver.resolveNumber(value);
+				} else {
+					value = resolver.resolveOthers(value);
+				}
 				if (fieldGroup == null) {
 
 					if (!value.equals("")) {
@@ -406,13 +404,13 @@ public class CollectionLoader {
 
 			String fieldGroup = Configuration.getStringValue("fieldGrouping:" + field);
 
-			 if (field.endsWith("_Address")) {
-			 value = resolver.resolveAddress(value);
-			 } else if (field.endsWith("_Number")) {
-			value = resolver.resolveNumber(value);
-			 } else {
-			value = resolver.resolveOthers(value);
-			 }
+			if (field.endsWith("_Address")) {
+				value = resolver.resolveAddress(value);
+			} else if (field.endsWith("_Number")) {
+				value = resolver.resolveNumber(value);
+			} else {
+				value = resolver.resolveOthers(value);
+			}
 
 			if (fieldGroup == null) {
 

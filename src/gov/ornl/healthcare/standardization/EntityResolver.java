@@ -1,5 +1,10 @@
 package gov.ornl.healthcare.standardization;
-
+/**
+ * 
+ * @author chandola
+ * @author matt lee
+ * 
+ */
 public class EntityResolver {
 
 	public EntityResolver() {

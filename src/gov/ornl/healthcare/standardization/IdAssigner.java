@@ -1,5 +1,9 @@
 package gov.ornl.healthcare.standardization;
-
+/**
+ * 
+ * @author matt lee
+ * 
+ */
 import gov.ornl.healthcare.config.Configuration;
 
 import java.util.StringTokenizer;

@@ -18,13 +18,11 @@ import gov.ornl.healthcare.config.Configuration;
 import gov.ornl.healthcare.dbutils.JDBCUtils;
 
 /**
- * Class to load a collection of providers from a JDBC accessible database into
- * Mongo
  * 
- * @author chandola
  * @author matt lee
  * 
  */
+
 public class TableLoader {
 
 	public static void run() {
