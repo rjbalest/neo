@@ -9,19 +9,19 @@ public class ProviderLoader
 {
 	public static void main(String args[])
 	{
-		String configurationURL = "config/configuration_file_1.xml";
+		String configurationURL = "config/config_csv2db_nppes.xml";
 		Configuration.getLogger().setLevel(Level.FINEST);
 		Configuration.addConfigDocument(configurationURL);
 		CollectionLoader.clearDB();
-		CollectionLoader.run();
+		//CollectionLoader.run();
 		
-		configurationURL = "config/configuration_file_2.xml";
+		configurationURL = "config/configuration_csv_example.xml";
 		Configuration.getLogger().setLevel(Level.FINEST);
 		Configuration.addConfigDocument(configurationURL);
-		CollectionLoader.run();
+		//CollectionLoader.run();
 		
 		// to run below, db setup is required
-		configurationURL = "config/configuration_db.xml";
+		configurationURL = "config/configuration_db_nppes.xml";
 		Configuration.getLogger().setLevel(Level.FINEST);
 		Configuration.addConfigDocument(configurationURL);
 		CollectionLoader.run();

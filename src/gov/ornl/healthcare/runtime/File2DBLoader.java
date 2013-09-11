@@ -8,14 +8,15 @@ import gov.ornl.healthcare.core.TableLoader;
 public class File2DBLoader {
 
 	public static void main(String args[]) {
-		String configurationURL = "config/file2db_file_1.xml";
+		//load NPPES csv into RDB
+		String configurationURL = "config/config_nppes_db_load.xml";
 		Configuration.getLogger().setLevel(Level.FINEST);
 		Configuration.addConfigDocument(configurationURL);
 		TableLoader.run();
-		
-		configurationURL = "config/file2db_file_2.xml";
-		Configuration.getLogger().setLevel(Level.FINEST);
-		Configuration.addConfigDocument(configurationURL);
-		TableLoader.run();
+
+		//configurationURL = "config/file2db_file_2.xml";
+		//Configuration.getLogger().setLevel(Level.FINEST);
+		//Configuration.addConfigDocument(configurationURL);
+		//TableLoader.run();
 	}
 }

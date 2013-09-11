@@ -111,25 +111,39 @@ public class CollectionLoader {
 			try {
 				while (cursor.hasNext()) {
 					DBObject dbo = cursor.next();
+
 					for (int i = 0; i < fieldList.size(); i++) {
 						String docId = dbo.get("_id").toString();
 						String fieldName = fieldList.get(i);
 						if (dbo.get(fieldName) != null) {
-
-							// document generated from other data source may be
-							// missing some fields
 
 							if (dbo.get(fieldName).getClass() == String.class) {
 								String fieldValue = dbo.get(fieldName).toString();
 								if (fieldValue == null)
 									fieldValue = "";
 								fieldValue = fieldValue.toString().trim();
-								mongoUtils.setCollection(fieldName);
+								String fieldGroup = Configuration.getStringValue("fieldGrouping:" + fieldName);
+								if (fieldGroup != null)
+									mongoUtils.setCollection(fieldGroup);
+								else
+									mongoUtils.setCollection(fieldName);
 								ArrayList<String> ref_list = new ArrayList<String>();
 								ref_list.add(docId); // ok
+
 								if (!fieldValue.equals("")) {
 									String assigned_id = idAssigner.assignId(mongoCollectionSource, fieldName, fieldValue, dbo);
 									BasicDBObject doc = new BasicDBObject("_id", assigned_id).append("value", fieldValue).append("ref", ref_list);
+
+									String subFieldNames = Configuration.getStringValue("subFields:" + fieldName);
+									if (subFieldNames != null) {
+										String[] subFields = subFieldNames.split(",");
+										for (String s : subFields) {
+											String[] parsed_s = s.split(":");
+											if (dbo.get(parsed_s[0].trim()) != null)
+												doc = doc.append(parsed_s[1].trim(), dbo.get(parsed_s[0].trim()));
+										}
+
+									}
 
 									try {
 										mongoUtils.addToCollection(doc);
@@ -138,7 +152,7 @@ public class CollectionLoader {
 											// if duplicate key already exists;
 											// update db
 											BasicDBObject searchQuery = new BasicDBObject().append("_id", assigned_id);
-											BasicDBObject newDocument = new BasicDBObject().append("$push", new BasicDBObject().append("ref", docId));
+											BasicDBObject newDocument = new BasicDBObject().append("$addToSet", new BasicDBObject().append("ref", docId));
 
 											mongoUtils.update(searchQuery, newDocument);
 										}
@@ -148,46 +162,63 @@ public class CollectionLoader {
 									ObjectId id = new ObjectId(docId);
 									mongoUtils.setCollection(collectionName);
 									BasicDBObject searchQuery = new BasicDBObject().append("_id", id);
-									BasicDBObject newDocument = new BasicDBObject().append("$push", new BasicDBObject().append("ref", assigned_id));
+									if (fieldGroup != null)
+										fieldName = fieldGroup;
+									BasicDBObject newDocument = new BasicDBObject().append("$addToSet", new BasicDBObject().append("ref", fieldName + " | " + assigned_id ));
 									mongoUtils.update(searchQuery, newDocument);
 								}
 							} else if (dbo.get(fieldName).getClass() == com.mongodb.BasicDBList.class) {
 
-								BasicDBList list = (BasicDBList) dbo.get(fieldName);
-								for (int j = 0; j < list.size(); j++) {
-									String fieldValue = list.get(j).toString();
-									String assigned_id = idAssigner.assignId(mongoCollectionSource, fieldName, fieldValue, dbo);
-
-									fieldValue = fieldValue.toString().trim();
-									mongoUtils.setCollection(fieldName);
-									ArrayList<String> ref_list = new ArrayList<String>();
-									ref_list.add(docId); // ok
-									if (!fieldValue.equals("")) {
-										BasicDBObject doc = new BasicDBObject("_id", assigned_id).append("value", fieldValue).append("ref", ref_list);
-
-										try {
-											mongoUtils.addToCollection(doc);
-										} catch (com.mongodb.MongoException e) {
-											if (e.getCode() == 11000) {
-												// if duplicate key already
-												// exists;
-												// update db
-												BasicDBObject searchQuery = new BasicDBObject().append("_id", assigned_id);
-												BasicDBObject newDocument = new BasicDBObject().append("$push", new BasicDBObject().append("ref", docId));
-
-												mongoUtils.update(searchQuery, newDocument);
-											}
-											// do nothing
-										}
-
-										ObjectId id = new ObjectId(docId);
-										mongoUtils.setCollection(collectionName);
-										BasicDBObject searchQuery = new BasicDBObject().append("_id", id);
-										BasicDBObject newDocument = new BasicDBObject().append("$push", new BasicDBObject().append("ref", assigned_id));
-										mongoUtils.update(searchQuery, newDocument);
-									}
-								}
-
+								// do nothing
+								/*
+								 * BasicDBList list = (BasicDBList)
+								 * dbo.get(fieldName); for (int j = 0; j <
+								 * list.size(); j++) { String fieldValue =
+								 * list.get(j).toString(); String assigned_id =
+								 * idAssigner.assignId(mongoCollectionSource,
+								 * fieldName, fieldValue, dbo);
+								 * 
+								 * fieldValue = fieldValue.toString().trim();
+								 * mongoUtils.setCollection(fieldName);
+								 * ArrayList<String> ref_list = new
+								 * ArrayList<String>(); ref_list.add(docId); //
+								 * ok if (!fieldValue.trim().equals("")) {
+								 * BasicDBObject doc = new BasicDBObject("_id",
+								 * assigned_id).append("value",
+								 * fieldValue).append("ref", ref_list);
+								 * 
+								 * System.out.println("subFields:" + fieldName);
+								 * String subFieldNames =
+								 * Configuration.getStringValue("subFields:" +
+								 * fieldName); if (subFieldNames != null) {
+								 * String[] subFields =
+								 * subFieldNames.split(","); for (String s :
+								 * subFields) { doc = doc.append(s, dbo.get(s));
+								 * }
+								 * 
+								 * } try { mongoUtils.addToCollection(doc); }
+								 * catch (com.mongodb.MongoException e) { if
+								 * (e.getCode() == 11000) { // if duplicate key
+								 * already // exists; // update db BasicDBObject
+								 * searchQuery = new
+								 * BasicDBObject().append("_id", assigned_id);
+								 * BasicDBObject newDocument = new
+								 * BasicDBObject().append("$push", new
+								 * BasicDBObject().append("ref", docId));
+								 * 
+								 * mongoUtils.update(searchQuery, newDocument);
+								 * } // do nothing }
+								 * 
+								 * ObjectId id = new ObjectId(docId);
+								 * mongoUtils.setCollection(collectionName);
+								 * BasicDBObject searchQuery = new
+								 * BasicDBObject().append("_id", id);
+								 * BasicDBObject newDocument = new
+								 * BasicDBObject().append("$push", new
+								 * BasicDBObject().append("ref", assigned_id));
+								 * mongoUtils.update(searchQuery, newDocument);
+								 * } }
+								 */
 							}
 						}
 					}
@@ -256,12 +287,21 @@ public class CollectionLoader {
 			if (mongoInsertMode == 'w')
 				mongoUtils.clearCollection();
 			String line;
+			int lineNo = 0;
 			while ((line = br.readLine()) != null) {
+				System.out.println(line);
+				line = line.replaceAll("\"", "");
 				BasicDBObject dbObject = createMongoObject(line, fieldNames);
 				if (dbObject != null) {
 					mongoUtils.addToCollection(dbObject);
 				}
+				lineNo++;
+				if (lineNo % 10000 == 0) {
+					System.out.println(lineNo + " lines processed.");
+				}
 			}
+			System.out.println("DONE: " + lineNo + " lines processed.");
+
 			br.close();
 		} catch (FileNotFoundException e) {
 			Configuration.getLogger().log(Level.SEVERE, e.getMessage(), e);
@@ -291,25 +331,29 @@ public class CollectionLoader {
 			try {
 				String value = rs.getString(field);
 				String fieldGroup = Configuration.getStringValue("fieldGrouping:" + field);
-
+				 if (field.endsWith("_Address")) {
+				 value = resolver.resolveAddress(value);
+				 } else if (field.endsWith("_Number")) {
+				 value = resolver.resolveNumber(value);
+				 } else {
+				value = resolver.resolveOthers(value);
+				 }
 				if (fieldGroup == null) {
-					if (field.endsWith("address")) {
-						value = resolver.resolveAddress(value);
-					} else if (field.endsWith("phone")) {
-						value = resolver.resolvePhoneNumber(value);
-					} else {
-						value = resolver.resolveOthers(value);
-					}
+
 					if (!value.equals("")) {
 						dbObject = dbObject.append(field, value);
 					}
 				} else {
 
 					try {
-						if (!value.equals("")) {
+
+						if (!value.trim().equals("")) {
+							dbObject = dbObject.append(field, value);
+						}
+						if (!value.trim().equals("")) {
 							dbObject = dbObject.append(fieldGroup, value);
 							ArrayList<String> list = ht.get(fieldGroup);
-							list.add(value);
+							list.add(value.trim());
 						}
 
 					} catch (Exception e) {
@@ -335,6 +379,7 @@ public class CollectionLoader {
 			mongoCollectionSource = "NA";
 		String rexSeperator = java.util.regex.Pattern.quote(seperator);
 		line = line.replaceAll(rexSeperator, seperator + " ");
+
 		StringTokenizer lineTokenizer = new StringTokenizer(line, seperator);
 		BasicDBObject dbObject = new BasicDBObject("source", mongoCollectionSource);
 		EntityResolver resolver = new EntityResolver();
@@ -350,32 +395,42 @@ public class CollectionLoader {
 		}
 
 		int i = 0;
-		while (lineTokenizer.hasMoreTokens()) {
-
+		String[] tokens = line.split(seperator + "(?=([^\"]*\"[^\"]*\")*[^\"]*$)");
+		for (String t : tokens) {
+			if (t.equals("<UNAVAIL>"))
+				t = "";
+			t = t.replaceAll("\"", "");
 			String field = fieldNames[i];
 			i++;
 			String value = lineTokenizer.nextToken();
 
 			String fieldGroup = Configuration.getStringValue("fieldGrouping:" + field);
 
+			 if (field.endsWith("_Address")) {
+			 value = resolver.resolveAddress(value);
+			 } else if (field.endsWith("_Number")) {
+			value = resolver.resolveNumber(value);
+			 } else {
+			value = resolver.resolveOthers(value);
+			 }
+
 			if (fieldGroup == null) {
-				if (field.endsWith("address")) {
-					value = resolver.resolveAddress(value);
-				} else if (field.endsWith("phone")) {
-					value = resolver.resolvePhoneNumber(value);
-				} else {
-					value = resolver.resolveOthers(value);
-				}
-				if (!value.equals("")) {
+
+				if (!value.trim().equals("")) {
 					dbObject = dbObject.append(field, value);
 				}
 			} else {
 
 				try {
-					if (!value.equals("")) {
-						dbObject = dbObject.append(fieldGroup, value);
+
+					if (!value.trim().equals("")) {
+						dbObject = dbObject.append(field, value);
+					}
+
+					if (!value.trim().equals("")) {
+						dbObject = dbObject.append(fieldGroup, value.trim());
 						ArrayList<String> list = ht.get(fieldGroup);
-						list.add(value);
+						list.add(value.trim());
 					}
 
 				} catch (Exception e) {

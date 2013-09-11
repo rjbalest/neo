@@ -13,7 +13,7 @@ public class EntityResolver {
 	 */
 	public String resolveAddress(String raw) {
 		if(raw==null) raw="";
-		String resolved = raw.toUpperCase().trim();
+		String resolved = resolveOthers(raw.trim());
 		return resolved;
 	}
 
@@ -22,16 +22,16 @@ public class EntityResolver {
 	 * @param raw
 	 * @return
 	 */
-	public String resolvePhoneNumber(String raw) {
+	public String resolveNumber(String raw) {
 		if(raw==null) raw="";
-		String resolved = raw.toUpperCase().trim();
+		String resolved = resolveOthers(raw.trim());
 		resolved = resolved.replaceAll( "[^\\d]", "" );
 		return resolved;
 	}
 
 	public String resolveOthers(String raw) {
 		if(raw==null) raw="";
-		String resolved = raw.trim();
+		String resolved = raw.trim().replaceAll(" +", " ");
 		return resolved;
 	}
 }
