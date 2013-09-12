@@ -50,6 +50,67 @@ public class MongoLoader {
 		mongoUtils.closeDB();
 	}
 
+	public static void run() {
+
+		String clearDB = Configuration.getStringValue("clearDB").trim();
+		String primaryConfig = Configuration.getStringValue("primary").trim();
+		String supplementConfigs = Configuration.getStringValue("supplement");
+		String secondaryConfigs = Configuration.getStringValue("secondary");
+
+		if (clearDB.trim().toUpperCase().equals("Y")) {
+			clearDB();
+		}
+
+		// build primary
+		Configuration.getLogger().setLevel(Level.FINEST);
+		Configuration.addConfigDocument(primaryConfig);
+		create_primary();
+
+		// build supplements
+		if (supplementConfigs != null) {
+			String[] supplementConfigArray = supplementConfigs.split(",");
+			for (String supplementConfig : supplementConfigArray) {
+				supplementConfig = supplementConfig.trim();
+				Configuration.getLogger().setLevel(Level.FINEST);
+				Configuration.addConfigDocument(supplementConfig);
+				create_supplement();
+			}
+		}
+
+		// build secondaries
+		if (secondaryConfigs != null) {
+			String[] secondaryConfigArray = secondaryConfigs.split(",");
+			for (String secondaryConfig : secondaryConfigArray) {
+				secondaryConfig = secondaryConfig.trim();
+				Configuration.getLogger().setLevel(Level.FINEST);
+				Configuration.addConfigDocument(secondaryConfig);
+				create_secondary();
+			}
+		}
+	}
+
+	public static void create_supplement() {
+		String mongoURL = Configuration.getStringValue("mongoURL");
+		int mongoPort = Configuration.getIntegerValue("mongoPort");
+		String mongoDatabase = Configuration.getStringValue("mongoDatabase");
+
+		MongoUtils mongoUtils;
+		if (mongoURL == null)
+			mongoUtils = new MongoUtils(mongoDatabase);
+		else
+			mongoUtils = new MongoUtils(mongoURL, mongoPort, mongoDatabase);
+		mongoUtils.initDB();
+		long time_s, time_e;
+		time_s = System.currentTimeMillis();
+		Configuration.getLogger().log(Level.FINE, "Creating primary collection");
+		createSupplementInfo(mongoUtils);
+		Configuration.getLogger().log(Level.FINE, "Finished creating primary collection");
+		time_e = System.currentTimeMillis();
+
+		System.out.println("- Supplment added created in " + (time_e - time_s) / 1000 + " seconds.	");
+		mongoUtils.closeDB();
+	}
+
 	public static void create_primary() {
 		String mongoURL = Configuration.getStringValue("mongoURL");
 		int mongoPort = Configuration.getIntegerValue("mongoPort");
@@ -139,7 +200,7 @@ public class MongoLoader {
 								else
 									mongoUtils.setCollection(fieldName);
 								ArrayList<String> ref_list = new ArrayList<String>();
-								ref_list.add(collectionName + " | "+docId); // ok
+								ref_list.add(collectionName + " | " + docId); // ok
 
 								if (!fieldValue.equals("")) {
 									String assigned_id = idAssigner.assignId(mongoCollectionSource, fieldName, fieldValue, dbo);
@@ -187,55 +248,7 @@ public class MongoLoader {
 							} else if (dbo.get(fieldName).getClass() == com.mongodb.BasicDBList.class) {
 
 								// do nothing
-								/*
-								 * BasicDBList list = (BasicDBList)
-								 * dbo.get(fieldName); for (int j = 0; j <
-								 * list.size(); j++) { String fieldValue =
-								 * list.get(j).toString(); String assigned_id =
-								 * idAssigner.assignId(mongoCollectionSource,
-								 * fieldName, fieldValue, dbo);
-								 * 
-								 * fieldValue = fieldValue.toString().trim();
-								 * mongoUtils.setCollection(fieldName);
-								 * ArrayList<String> ref_list = new
-								 * ArrayList<String>(); ref_list.add(docId); //
-								 * ok if (!fieldValue.trim().equals("")) {
-								 * BasicDBObject doc = new BasicDBObject("_id",
-								 * assigned_id).append("value",
-								 * fieldValue).append("ref", ref_list);
-								 * 
-								 * System.out.println("subFields:" + fieldName);
-								 * String subFieldNames =
-								 * Configuration.getStringValue("subFields:" +
-								 * fieldName); if (subFieldNames != null) {
-								 * String[] subFields =
-								 * subFieldNames.split(","); for (String s :
-								 * subFields) { doc = doc.append(s, dbo.get(s));
-								 * }
-								 * 
-								 * } try { mongoUtils.addToCollection(doc); }
-								 * catch (com.mongodb.MongoException e) { if
-								 * (e.getCode() == 11000) { // if duplicate key
-								 * already // exists; // update db BasicDBObject
-								 * searchQuery = new
-								 * BasicDBObject().append("_id", assigned_id);
-								 * BasicDBObject newDocument = new
-								 * BasicDBObject().append("$push", new
-								 * BasicDBObject().append("ref", docId));
-								 * 
-								 * mongoUtils.update(searchQuery, newDocument);
-								 * } // do nothing }
-								 * 
-								 * ObjectId id = new ObjectId(docId);
-								 * mongoUtils.setCollection(collectionName);
-								 * BasicDBObject searchQuery = new
-								 * BasicDBObject().append("_id", id);
-								 * BasicDBObject newDocument = new
-								 * BasicDBObject().append("$push", new
-								 * BasicDBObject().append("ref", assigned_id));
-								 * mongoUtils.update(searchQuery, newDocument);
-								 * } }
-								 */
+
 							}
 						}
 					}
@@ -254,6 +267,178 @@ public class MongoLoader {
 		if (source.compareToIgnoreCase("file") == 0) {
 			createEntityCollectionFromFile(mongoUtils);
 		}
+	}
+
+	private static void createSupplementInfo(MongoUtils mongoUtils) {
+		String source = Configuration.getStringValue("source");
+		if (source.compareToIgnoreCase("db") == 0) {
+			createSupplementInfoFromDB(mongoUtils);
+		}
+		if (source.compareToIgnoreCase("file") == 0) {
+			createSupplementInfoFromFile(mongoUtils);
+		}
+	}
+
+	private static void createSupplementInfoFromFile(MongoUtils mongoUtils) {
+		String dataFile = Configuration.getStringValue("dataFile");
+
+		BufferedReader br;
+		try {
+			br = new BufferedReader(new FileReader(dataFile));
+			char mongoInsertMode = Configuration.getStringValue("mongoInsertMode").charAt(0);
+			String mongoCollectionName = Configuration.getStringValue("mongoCollectionName");
+			String mongoCollectionFieldsList = Configuration.getStringValue("mongoCollectionFieldsList");
+			String mongoCollectionFields = Configuration.getStringValue("mongoCollectionFields");
+			String keyOfSource = Configuration.getStringValue("keyOfSource");
+			String keyOfTargetCollection = Configuration.getStringValue("keyOfTargetCollection");
+			String seperator = Configuration.getStringValue("seperator");
+			String isMultiple = Configuration.getStringValue("isMultiple").toUpperCase().trim();
+			String[] fieldNamesList = getTokens(mongoCollectionFieldsList);
+			String[] fieldNames = getTokens(mongoCollectionFields);
+			HashMap<String, Integer> fieldName2Idx = new HashMap<String, Integer>();
+			for (int i = 0; i < fieldNames.length; i++) {
+				fieldName2Idx.put(fieldNames[i].trim(), i);
+			}
+			HashMap<String, Integer> indexHash = new HashMap<String, Integer>();
+			mongoUtils.setCollection(mongoCollectionName);
+			if (mongoInsertMode == 'w')
+				mongoUtils.clearCollection();
+			String line;
+			int lineNo = 0;
+			mongoUtils.setCollection(mongoCollectionName);
+			System.out.println("Indexing Mongo Documents: " + keyOfTargetCollection);
+			mongoUtils.createIndex(new BasicDBObject(keyOfTargetCollection, 1));
+			System.out.println("Indexing DONE.");
+			int index = 1;
+			while ((line = br.readLine()) != null) {
+				String[] parsed = line.split(seperator + "(?=([^\"]*\"[^\"]*\")*[^\"]*$)");
+				String keyOfSourceValue = parsed[fieldName2Idx.get(keyOfSource)];
+				keyOfSourceValue = keyOfSourceValue.replaceAll("\"", "");
+				BasicDBObject query = new BasicDBObject(keyOfTargetCollection, keyOfSourceValue);
+				for (String fieldName : fieldNamesList) {
+					if (!fieldName.equals(keyOfSource)) {
+						String fieldValue = parsed[fieldName2Idx.get(fieldName)];
+						if (fieldValue == null)
+							fieldValue = "";
+						fieldValue = fieldValue.replaceAll("\"", "");
+						if (isMultiple.equals("Y")) {
+							BasicDBObject newDocument = new BasicDBObject().append("$addToSet", new BasicDBObject().append(fieldName, fieldValue));
+							if (!fieldValue.equals(""))
+								mongoUtils.update(query, newDocument);
+						}
+
+					}
+				}
+
+				for (String fieldName : fieldNames) {
+					if (!fieldName.equals(keyOfSource)) {
+						String fieldValue = parsed[fieldName2Idx.get(fieldName)];
+						if (fieldValue == null)
+							fieldValue = "";
+						fieldValue = fieldValue.replaceAll("\"", "");
+						if (isMultiple.equals("Y")) {
+
+							if (indexHash.containsKey(keyOfSourceValue)) {
+								index = indexHash.get(keyOfSourceValue);
+							} else {
+								index = 1;
+							}
+
+							BasicDBObject newDocument = new BasicDBObject().append("$set", new BasicDBObject().append(fieldName + "_" + index, fieldValue));
+							if (!fieldValue.equals(""))
+								mongoUtils.update(query, newDocument);
+
+						} else {
+							BasicDBObject newDocument = new BasicDBObject().append("$set", new BasicDBObject().append(fieldName, fieldValue));
+							if (!fieldValue.equals(""))
+								mongoUtils.update(query, newDocument);
+						}
+
+					}
+				}
+				indexHash.put(keyOfSourceValue, index + 1);
+				lineNo++;
+			}
+
+			System.out.println("DONE: " + lineNo + " lines processed.");
+
+			br.close();
+		} catch (FileNotFoundException e) {
+			Configuration.getLogger().log(Level.SEVERE, e.getMessage(), e);
+		} catch (IOException e) {
+			Configuration.getLogger().log(Level.SEVERE, e.getMessage(), e);
+		}
+	}
+
+	private static void createSupplementInfoFromDB(MongoUtils mongoUtils) {
+		String dbURL = Configuration.getStringValue("dbURL");
+		String dbUser = Configuration.getStringValue("dbUser");
+		String dbPassword = Configuration.getStringValue("dbPassword");
+		String mongoCollectionName = Configuration.getStringValue("mongoCollectionName");
+		String mongoCollectionFieldsList = Configuration.getStringValue("mongoCollectionFieldsList");
+		String mongoCollectionFields = Configuration.getStringValue("mongoCollectionFields");
+		String keyOfSource = Configuration.getStringValue("keyOfSource");
+		String keyOfTargetCollection = Configuration.getStringValue("keyOfTargetCollection");
+		String isMultiple = Configuration.getStringValue("isMultiple").toUpperCase().trim();
+		String[] fieldNamesList = getTokens(mongoCollectionFieldsList);
+		String[] fieldNames = getTokens(mongoCollectionFields);
+		String dbQuery = Configuration.getStringValue("dbQuery");
+		JDBCUtils dbUtils = new JDBCUtils(dbURL, dbUser, dbPassword);
+		dbUtils.initDB();
+		Configuration.getLogger().log(Level.FINE, "Extract Query Started");
+		dbUtils.executeQuery(dbQuery);
+		Configuration.getLogger().log(Level.FINE, "Extract Query Finished");
+		HashMap<String, Integer> indexHash = new HashMap<String, Integer>();
+
+		if (dbUtils.getResultset() != null) {
+			mongoUtils.setCollection(mongoCollectionName);
+			System.out.println("Indexing Mongo Documents: " + keyOfTargetCollection);
+			mongoUtils.createIndex(new BasicDBObject(keyOfTargetCollection, 1));
+			System.out.println("Indexing DONE.");
+			ResultSet rs = dbUtils.getResultset();
+			int index = 1;
+			try {
+
+				while (rs.next()) {
+					BasicDBObject query = new BasicDBObject(keyOfTargetCollection, rs.getString(keyOfSource));
+
+					for (String fieldName : fieldNamesList) {
+						if (!fieldName.equals(keyOfSource)) {
+							if (isMultiple.equals("Y")) {
+								BasicDBObject newDocument = new BasicDBObject().append("$addToSet", new BasicDBObject().append(fieldName, rs.getString(fieldName)));
+								mongoUtils.update(query, newDocument);
+							}
+
+						}
+					}
+
+					for (String fieldName : fieldNames) {
+						if (!fieldName.equals(keyOfSource)) {
+							if (isMultiple.equals("Y")) {
+
+								if (indexHash.containsKey(rs.getString(keyOfSource))) {
+									index = indexHash.get(rs.getString(keyOfSource));
+								} else {
+									index = 1;
+								}
+
+								BasicDBObject newDocument = new BasicDBObject().append("$set", new BasicDBObject().append(fieldName + "_" + index, rs.getString(fieldName)));
+								mongoUtils.update(query, newDocument);
+							} else {
+								BasicDBObject newDocument = new BasicDBObject().append("$set", new BasicDBObject().append(fieldName, rs.getString(fieldName)));
+								mongoUtils.update(query, newDocument);
+							}
+
+						}
+					}
+					indexHash.put(rs.getString(keyOfSource), index + 1);
+
+				}
+			} catch (SQLException e) {
+				Configuration.getLogger().log(Level.SEVERE, e.getMessage(), e);
+			}
+		}
+		dbUtils.closeDB();
 	}
 
 	private static void createEntityCollectionFromDB(MongoUtils mongoUtils) {
@@ -306,13 +491,13 @@ public class MongoLoader {
 			String line;
 			int lineNo = 0;
 			while ((line = br.readLine()) != null) {
-				System.out.println(line);
-				line = line.replaceAll("\"", "");
 				BasicDBObject dbObject = createMongoObject(line, fieldNames);
 				if (dbObject != null) {
 					mongoUtils.addToCollection(dbObject);
 				}
 				lineNo++;
+				if (lineNo == 5)
+					break;
 				if (lineNo % 10000 == 0) {
 					System.out.println(lineNo + " lines processed.");
 				}
@@ -347,6 +532,8 @@ public class MongoLoader {
 			String field = fieldNames[i];
 			try {
 				String value = rs.getString(field);
+				if (value.equals("<UNAVAIL>"))
+					value = "";
 				String fieldGroup = Configuration.getStringValue("fieldGrouping:" + field);
 				if (field.endsWith("_Address")) {
 					value = resolver.resolveAddress(value);
@@ -397,7 +584,6 @@ public class MongoLoader {
 		String rexSeperator = java.util.regex.Pattern.quote(seperator);
 		line = line.replaceAll(rexSeperator, seperator + " ");
 
-		StringTokenizer lineTokenizer = new StringTokenizer(line, seperator);
 		BasicDBObject dbObject = new BasicDBObject("source", mongoCollectionSource);
 		EntityResolver resolver = new EntityResolver();
 		HashMap<String, ArrayList<String>> ht = new HashMap<String, ArrayList<String>>();
@@ -414,12 +600,13 @@ public class MongoLoader {
 		int i = 0;
 		String[] tokens = line.split(seperator + "(?=([^\"]*\"[^\"]*\")*[^\"]*$)");
 		for (String t : tokens) {
-			if (t.equals("<UNAVAIL>"))
-				t = "";
+			t = t.trim();
 			t = t.replaceAll("\"", "");
 			String field = fieldNames[i];
 			i++;
-			String value = lineTokenizer.nextToken();
+			String value = t;
+			if (value.equals("<UNAVAIL>"))
+				value = "";
 
 			String fieldGroup = Configuration.getStringValue("fieldGrouping:" + field);
 
@@ -434,6 +621,7 @@ public class MongoLoader {
 			if (fieldGroup == null) {
 
 				if (!value.trim().equals("")) {
+					// System.out.println(value);
 					dbObject = dbObject.append(field, value);
 				}
 			} else {

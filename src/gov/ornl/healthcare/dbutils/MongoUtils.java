@@ -49,6 +49,23 @@ public class MongoUtils {
 		db = client.getDB(database);
 	}
 	
+	BasicDBObject query = new BasicDBObject("i", 71);
+
+	
+	
+	public DBCursor query(BasicDBObject query){
+		if (collection != null) {
+			DBCursor cursor = collection.find(query);
+			return cursor;
+		} else
+			return null;
+	}
+	
+	public void createIndex(BasicDBObject dbObject){
+		if (collection != null)
+			collection.createIndex(dbObject);
+	}
+	
 	public void dropDB(String db) {
 		System.out.println("Drop database:"+db);
 		client.dropDatabase(db);

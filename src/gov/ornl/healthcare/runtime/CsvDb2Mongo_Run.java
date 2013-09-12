@@ -12,25 +12,15 @@ import gov.ornl.healthcare.core.MongoLoader;
  */
 public class CsvDb2Mongo_Run {
 	public static void main(String args[]) {
-		String configurationURL = "config/configuration_db_nppes_primary.xml";
+		
+		String configurationURL = "config/nppes_db.xml";
 		Configuration.getLogger().setLevel(Level.FINEST);
 		Configuration.addConfigDocument(configurationURL);
-		MongoLoader.clearDB();
-		MongoLoader.create_primary();
-
-		configurationURL = "config/configuration_db_nppes_secondary_provider.xml";
-		Configuration.getLogger().setLevel(Level.FINEST);
-		Configuration.addConfigDocument(configurationURL);
-		MongoLoader.create_secondary();
-
-		configurationURL = "config/configuration_db_nppes_secondary_practice_address.xml";
-		Configuration.getLogger().setLevel(Level.FINEST);
-		Configuration.addConfigDocument(configurationURL);
-		MongoLoader.create_secondary();
-
-		configurationURL = "config/configuration_db_nppes_secondary_license_state.xml";
-		Configuration.getLogger().setLevel(Level.FINEST);
-		Configuration.addConfigDocument(configurationURL);
-		MongoLoader.create_secondary();
+		MongoLoader.run();
+		
+		//String configurationURL = "config/nppes_file.xml";
+		//Configuration.getLogger().setLevel(Level.FINEST);
+		//Configuration.addConfigDocument(configurationURL);
+		//MongoLoader.run();
 	}
 }
