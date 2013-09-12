@@ -11,30 +11,6 @@
   <path id="jars">
     <pathelement location="lib/mongo-java-driver-2.11.2.jar"/>
     <pathelement location="lib/hive-service-0.11.0.jar"/>
-    <pathelement location="lib/commons-logging-1.0.4.jar"/>
-    <pathelement location="lib/concurrentlinkedhashmap-lru-1.3.1.jar"/>
-    <pathelement location="lib/geronimo-jta_1.1_spec-1.1.1.jar"/>
-    <pathelement location="lib/hadoop-core-1.0.3.jar"/>
-    <pathelement location="lib/hive-exec-0.11.0.jar"/>
-    <pathelement location="lib/hive-jdbc-0.11.0.jar"/>
-    <pathelement location="lib/hive-metastore-0.11.0.jar"/>
-    <pathelement location="lib/hive-service-0.11.0.jar"/>
-    <pathelement location="lib/libfb303-0.9.0.jar"/>
-    <pathelement location="lib/lucene-core-3.6.2.jar"/>
-    <pathelement location="lib/mongo-java-driver-2.11.2.jar"/>
-    <pathelement location="lib/mysql-connector-java-5.1.22-bin.jar"/>
-    <pathelement location="lib/neo4j-cypher-1.9.1.jar"/>
-    <pathelement location="lib/neo4j-graph-algo-1.9.1.jar"/>
-    <pathelement location="lib/neo4j-graph-matching-1.9.1.jar"/>
-    <pathelement location="lib/neo4j-jmx-1.9.1.jar"/>
-    <pathelement location="lib/neo4j-kernel-1.9.1.jar"/>
-    <pathelement location="lib/neo4j-lucene-index-1.9.1.jar"/>
-    <pathelement location="lib/neo4j-shell-1.9.1.jar"/>
-    <pathelement location="lib/neo4j-udc-1.9.1.jar"/>
-    <pathelement location="lib/org.apache.servicemix.bundles.jline-0.9.94_1.jar"/>
-    <pathelement location="lib/scala-library-2.10.0.jar"/>
-    <pathelement location="lib/server-api-1.9.1.jar"/>
-    <pathelement location="lib/slf4j-api-1.6.1.jar"/>
   </path>
   
   <target name="init">
