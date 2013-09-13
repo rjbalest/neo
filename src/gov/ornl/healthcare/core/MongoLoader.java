@@ -524,7 +524,6 @@ public class MongoLoader {
 				}
 
 				lineNo++;
-
 				if (lineNo % 10000 == 0) {
 					System.out.println(lineNo + " lines processed.");
 				}
@@ -548,16 +547,25 @@ public class MongoLoader {
 		HashMap<String, ArrayList<String>> ht = new HashMap<String, ArrayList<String>>();
 
 		for (int i = 0; i < fieldNames.length; i++) {
-			String fieldGroup = Configuration.getStringValue("fieldGrouping:" + fieldNames[i]);
+			String fieldGroup = Configuration.getStringValue("fieldGrouping:" + fieldNames[i].trim());
 			// System.out.println(fieldGroup);
 			if (fieldGroup != null) {
 				ArrayList<String> list = new ArrayList<String>();
 				ht.put(fieldGroup, list);
 			}
 		}
-
+		
 		String concatFields = Configuration.getStringValue("concatFields");
 		String[] concatFieldsArray = concatFields.split(",");
+		for (String concatField: concatFieldsArray) {
+			concatField = concatField.trim();
+			String fieldGroup = Configuration.getStringValue("fieldGrouping:" + concatField);
+			if (fieldGroup != null) {
+				ArrayList<String> list = new ArrayList<String>();
+				ht.put(fieldGroup, list);
+			}
+		}
+		
 		for (int i = 0; i < concatFieldsArray.length; i++) {
 			String concatField = concatFieldsArray[i].trim();
 			try {
@@ -668,7 +676,7 @@ public class MongoLoader {
 		HashMap<String, ArrayList<String>> ht = new HashMap<String, ArrayList<String>>();
 
 		for (int i = 0; i < fieldNames.length; i++) {
-			String fieldGroup = Configuration.getStringValue("fieldGrouping:" + fieldNames[i]);
+			String fieldGroup = Configuration.getStringValue("fieldGrouping:" + fieldNames[i].trim());
 			// System.out.println(fieldGroup);
 			if (fieldGroup != null) {
 				ArrayList<String> list = new ArrayList<String>();
@@ -686,6 +694,16 @@ public class MongoLoader {
 		// System.out.println(line);
 		String concatFields = Configuration.getStringValue("concatFields");
 		String[] concatFieldsArray = concatFields.split(",");
+		
+		for (String concatField: concatFieldsArray) {
+			concatField = concatField.trim();
+			String fieldGroup = Configuration.getStringValue("fieldGrouping:" + concatField);
+			if (fieldGroup != null) {
+				ArrayList<String> list = new ArrayList<String>();
+				ht.put(fieldGroup, list);
+			}
+		}
+		
 
 		for (String concatField : concatFieldsArray) {
 			// System.out.println("* " + concatField);
@@ -703,6 +721,7 @@ public class MongoLoader {
 			}
 
 			String fieldGroup = Configuration.getStringValue("fieldGrouping:" + concatField);
+			
 			if (concatField.endsWith("_Address")) {
 				value = resolver.resolveAddress(value);
 			} else if (concatField.endsWith("_Number")) {
@@ -710,6 +729,7 @@ public class MongoLoader {
 			} else {
 				value = resolver.resolveOthers(value);
 			}
+			
 			if (fieldGroup == null) {
 				if (!value.equals("")) {
 					dbObject = dbObject.append(concatField, value);
@@ -733,7 +753,7 @@ public class MongoLoader {
 			}
 
 		}
-
+		
 		for (String t : tokens) {
 			t = t.trim();
 			t = t.replaceAll("\"", "");
