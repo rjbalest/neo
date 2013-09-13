@@ -12,15 +12,11 @@ import gov.ornl.healthcare.core.MongoLoader;
  */
 public class CsvDb2Mongo_Run {
 	public static void main(String args[]) {
-		
-		String configurationURL = "config/nppes_file.xml";
-		//if (args[0] == null) {
-		//	System.out.println("Error: Insufficient Arguments..");
-		//} else {
-			//String configurationURL = args[0];
-			Configuration.getLogger().setLevel(Level.FINEST);
-			Configuration.addConfigDocument(configurationURL);
-			MongoLoader.run();
-		//}
+
+		String configurationURL = "config/simple_example.xml";
+		// String configurationURL = "config/nppes_csv.xml";
+		Configuration.getLogger().setLevel(Level.FINEST);
+		Configuration.addConfigDocument(configurationURL);
+		MongoLoader.run();
 	}
 }

@@ -110,7 +110,7 @@ public class MongoLoader {
 		Configuration.getLogger().log(Level.FINE, "Finished creating primary collection");
 		time_e = System.currentTimeMillis();
 
-		System.out.println("- Supplment added created in " + (time_e - time_s) / 1000 + " seconds.	");
+		System.out.println("- Supplment added in " + (time_e - time_s) / 1000 + " seconds.	");
 		mongoUtils.closeDB();
 	}
 
@@ -322,15 +322,40 @@ public class MongoLoader {
 			mongoUtils.createIndex(new BasicDBObject(keyOfTargetCollection, 1));
 			System.out.println("* Indexing DONE.");
 			int index = 1;
+
+			String concatFields = Configuration.getStringValue("concatFields");
+			HashMap<String, String[]> concatInfo = new HashMap<String, String[]>();
+			if (concatFields != null) {
+				String[] concatFieldsArray = concatFields.split(",");
+				for (String concatField : concatFieldsArray) {
+					concatField = concatField.trim();
+					String fieldsToMerge = Configuration.getStringValue("concatFields:" + concatField);
+					String[] fieldsToMergeArray = fieldsToMerge.split(",");
+					concatInfo.put(concatField, fieldsToMergeArray);
+				}
+			}
+
 			while ((line = br.readLine()) != null) {
 				String[] parsed = line.split(seperator + "(?=([^\"]*\"[^\"]*\")*[^\"]*$)");
 				String keyOfSourceValue = parsed[fieldName2Idx.get(keyOfSource)];
 				keyOfSourceValue = keyOfSourceValue.replaceAll("\"", "");
+
 				BasicDBObject query = new BasicDBObject(keyOfTargetCollection, keyOfSourceValue);
+
 				if (fieldNamesList != null) {
+
 					for (String fieldName : fieldNamesList) {
 						if (!fieldName.equals(keyOfSource)) {
-							String fieldValue = parsed[fieldName2Idx.get(fieldName)];
+
+							String fieldValue = "";
+							if (!concatInfo.containsKey(fieldName)) {
+								fieldValue = parsed[fieldName2Idx.get(fieldName)];
+							} else {
+								for (String field : concatInfo.get(fieldName)) {
+									field = field.trim();
+									fieldValue += " " + parsed[fieldName2Idx.get(field)];
+								}
+							}
 							if (fieldValue == null)
 								fieldValue = "";
 							fieldValue = fieldValue.replaceAll("\"", "");
@@ -341,6 +366,7 @@ public class MongoLoader {
 							}
 
 						}
+
 					}
 				}
 
@@ -368,6 +394,43 @@ public class MongoLoader {
 								mongoUtils.update(query, newDocument);
 						}
 
+					}
+				}
+				if (concatFields != null) {
+					String[] concatFieldsArray = concatFields.split(",");
+					for (String fieldName : concatFieldsArray) {
+						if (!fieldName.equals(keyOfSource)) {
+							String fieldValue = "";
+							if (!concatInfo.containsKey(fieldName)) {
+								fieldValue = parsed[fieldName2Idx.get(fieldName)];
+							} else {
+								for (String field : concatInfo.get(fieldName)) {
+									field = field.trim();
+									fieldValue += " " + parsed[fieldName2Idx.get(field)];
+								}
+							}
+							if (fieldValue == null)
+								fieldValue = "";
+							fieldValue = fieldValue.replaceAll("\"", "");
+							if (isMultiple.equals("Y")) {
+
+								if (indexHash.containsKey(keyOfSourceValue)) {
+									index = indexHash.get(keyOfSourceValue);
+								} else {
+									index = 1;
+								}
+
+								BasicDBObject newDocument = new BasicDBObject().append("$set", new BasicDBObject().append(fieldName + "_" + index, fieldValue));
+								if (!fieldValue.equals(""))
+									mongoUtils.update(query, newDocument);
+
+							} else {
+								BasicDBObject newDocument = new BasicDBObject().append("$set", new BasicDBObject().append(fieldName, fieldValue));
+								if (!fieldValue.equals(""))
+									mongoUtils.update(query, newDocument);
+							}
+
+						}
 					}
 				}
 				indexHash.put(keyOfSourceValue, index + 1);
@@ -413,6 +476,19 @@ public class MongoLoader {
 			System.out.println("* Indexing DONE.");
 			ResultSet rs = dbUtils.getResultset();
 			int index = 1;
+
+			String concatFields = Configuration.getStringValue("concatFields");
+			HashMap<String, String[]> concatInfo = new HashMap<String, String[]>();
+			if (concatFields != null) {
+				String[] concatFieldsArray = concatFields.split(",");
+				for (String concatField : concatFieldsArray) {
+					concatField = concatField.trim();
+					String fieldsToMerge = Configuration.getStringValue("concatFields:" + concatField);
+					String[] fieldsToMergeArray = fieldsToMerge.split(",");
+					concatInfo.put(concatField, fieldsToMergeArray);
+				}
+			}
+
 			try {
 
 				while (rs.next()) {
@@ -420,9 +496,20 @@ public class MongoLoader {
 
 					if (fieldNamesList != null) {
 						for (String fieldName : fieldNamesList) {
+							fieldName = fieldName.trim();
 							if (!fieldName.equals(keyOfSource)) {
+
+								String fieldValue = "";
+								if (!concatInfo.containsKey(fieldName)) {
+									fieldValue = rs.getString(fieldName);
+								} else {
+									for (String field : concatInfo.get(fieldName)) {
+										field = field.trim();
+										fieldValue += " " + rs.getString(fieldName);
+									}
+								}
 								if (isMultiple.equals("Y")) {
-									BasicDBObject newDocument = new BasicDBObject().append("$addToSet", new BasicDBObject().append(fieldName, rs.getString(fieldName)));
+									BasicDBObject newDocument = new BasicDBObject().append("$addToSet", new BasicDBObject().append(fieldName, fieldValue));
 									mongoUtils.update(query, newDocument);
 								}
 
@@ -447,6 +534,38 @@ public class MongoLoader {
 								mongoUtils.update(query, newDocument);
 							}
 
+						}
+					}
+					if (concatFields != null) {
+						String[] concatFieldsArray = concatFields.split(",");
+						for (String fieldName : concatFieldsArray) {
+							fieldName = fieldName.trim();
+							if (!fieldName.equals(keyOfSource)) {
+								String fieldValue = "";
+								if (!concatInfo.containsKey(fieldName)) {
+									fieldValue = rs.getString(fieldName);
+								} else {
+									for (String field : concatInfo.get(fieldName)) {
+										field = field.trim();
+										fieldValue += " " + rs.getString(fieldName);
+									}
+								}
+								if (isMultiple.equals("Y")) {
+
+									if (indexHash.containsKey(rs.getString(keyOfSource))) {
+										index = indexHash.get(rs.getString(keyOfSource));
+									} else {
+										index = 1;
+									}
+
+									BasicDBObject newDocument = new BasicDBObject().append("$set", new BasicDBObject().append(fieldName + "_" + index, fieldValue));
+									mongoUtils.update(query, newDocument);
+								} else {
+									BasicDBObject newDocument = new BasicDBObject().append("$set", new BasicDBObject().append(fieldName, fieldValue));
+									mongoUtils.update(query, newDocument);
+								}
+
+							}
 						}
 					}
 					indexHash.put(rs.getString(keyOfSource), index + 1);
@@ -524,6 +643,8 @@ public class MongoLoader {
 				}
 
 				lineNo++;
+				// if (lineNo == 100)
+				// break;
 				if (lineNo % 10000 == 0) {
 					System.out.println(lineNo + " lines processed.");
 				}
@@ -554,66 +675,68 @@ public class MongoLoader {
 				ht.put(fieldGroup, list);
 			}
 		}
-		
+
 		String concatFields = Configuration.getStringValue("concatFields");
-		String[] concatFieldsArray = concatFields.split(",");
-		for (String concatField: concatFieldsArray) {
-			concatField = concatField.trim();
-			String fieldGroup = Configuration.getStringValue("fieldGrouping:" + concatField);
-			if (fieldGroup != null) {
-				ArrayList<String> list = new ArrayList<String>();
-				ht.put(fieldGroup, list);
-			}
-		}
-		
-		for (int i = 0; i < concatFieldsArray.length; i++) {
-			String concatField = concatFieldsArray[i].trim();
-			try {
-				String fieldsToMerge = Configuration.getStringValue("concatFields:" + concatField);
-				String[] fields = fieldsToMerge.split(",");
-				String value = "";
 
-				for (String field : fields) {
-					if (!value.equals("<UNAVAIL>"))
-						value = value + " " + rs.getString(field);
-
-				}
+		if (concatFields != null) {
+			String[] concatFieldsArray = concatFields.split(",");
+			for (String concatField : concatFieldsArray) {
+				concatField = concatField.trim();
 				String fieldGroup = Configuration.getStringValue("fieldGrouping:" + concatField);
-				if (concatField.endsWith("_Address")) {
-					value = resolver.resolveAddress(value);
-				} else if (concatField.endsWith("_Number")) {
-					value = resolver.resolveNumber(value);
-				} else {
-					value = resolver.resolveOthers(value);
+				if (fieldGroup != null) {
+					ArrayList<String> list = new ArrayList<String>();
+					ht.put(fieldGroup, list);
 				}
-				if (fieldGroup == null) {
+			}
 
-					if (!value.equals("")) {
-						dbObject = dbObject.append(concatField, value);
+			for (int i = 0; i < concatFieldsArray.length; i++) {
+				String concatField = concatFieldsArray[i].trim();
+				try {
+					String fieldsToMerge = Configuration.getStringValue("concatFields:" + concatField);
+					String[] fields = fieldsToMerge.split(",");
+					String value = "";
+
+					for (String field : fields) {
+						if (!value.equals("<UNAVAIL>"))
+							value = value + " " + rs.getString(field);
+
 					}
-				} else {
+					String fieldGroup = Configuration.getStringValue("fieldGrouping:" + concatField);
+					if (concatField.endsWith("_Address")) {
+						value = resolver.resolveAddress(value);
+					} else if (concatField.endsWith("_Number")) {
+						value = resolver.resolveNumber(value);
+					} else {
+						value = resolver.resolveOthers(value);
+					}
+					if (fieldGroup == null) {
 
-					try {
-
-						if (!value.trim().equals("")) {
+						if (!value.equals("")) {
 							dbObject = dbObject.append(concatField, value);
 						}
-						if (!value.trim().equals("")) {
-							dbObject = dbObject.append(fieldGroup, value);
-							ArrayList<String> list = ht.get(fieldGroup);
-							list.add(value.trim());
+					} else {
+
+						try {
+
+							if (!value.trim().equals("")) {
+								dbObject = dbObject.append(concatField, value);
+							}
+							if (!value.trim().equals("")) {
+								dbObject = dbObject.append(fieldGroup, value);
+								ArrayList<String> list = ht.get(fieldGroup);
+								list.add(value.trim());
+							}
+
+						} catch (Exception e) {
+
 						}
-
-					} catch (Exception e) {
-
 					}
-				}
 
-			} catch (SQLException e) {
-				Configuration.getLogger().log(Level.WARNING, "Could not extract field " + concatField);
+				} catch (SQLException e) {
+					Configuration.getLogger().log(Level.WARNING, "Could not extract field " + concatField);
+				}
 			}
 		}
-
 		for (int i = 0; i < fieldNames.length; i++) {
 			String field = fieldNames[i];
 			try {
@@ -693,67 +816,69 @@ public class MongoLoader {
 
 		// System.out.println(line);
 		String concatFields = Configuration.getStringValue("concatFields");
-		String[] concatFieldsArray = concatFields.split(",");
-		
-		for (String concatField: concatFieldsArray) {
-			concatField = concatField.trim();
-			String fieldGroup = Configuration.getStringValue("fieldGrouping:" + concatField);
-			if (fieldGroup != null) {
-				ArrayList<String> list = new ArrayList<String>();
-				ht.put(fieldGroup, list);
-			}
-		}
-		
 
-		for (String concatField : concatFieldsArray) {
-			// System.out.println("* " + concatField);
-			concatField = concatField.trim();
-			String fieldsToMerge = Configuration.getStringValue("concatFields:" + concatField);
-			String[] fields = fieldsToMerge.split(",");
-			String value = "";
+		if (concatFields != null) {
+			String[] concatFieldsArray = concatFields.split(",");
 
-			for (String field : fields) {
-				field = field.trim();
-				// System.out.println(field);
-				if (!value.equals("<UNAVAIL>")) {
-					value = value + " " + tokens[fieldName2Idx.get(field)].replaceAll("\"", "").trim();
+			for (String concatField : concatFieldsArray) {
+				concatField = concatField.trim();
+				String fieldGroup = Configuration.getStringValue("fieldGrouping:" + concatField);
+				if (fieldGroup != null) {
+					ArrayList<String> list = new ArrayList<String>();
+					ht.put(fieldGroup, list);
 				}
 			}
 
-			String fieldGroup = Configuration.getStringValue("fieldGrouping:" + concatField);
-			
-			if (concatField.endsWith("_Address")) {
-				value = resolver.resolveAddress(value);
-			} else if (concatField.endsWith("_Number")) {
-				value = resolver.resolveNumber(value);
-			} else {
-				value = resolver.resolveOthers(value);
-			}
-			
-			if (fieldGroup == null) {
-				if (!value.equals("")) {
-					dbObject = dbObject.append(concatField, value);
+			for (String concatField : concatFieldsArray) {
+				// System.out.println("* " + concatField);
+				concatField = concatField.trim();
+				String fieldsToMerge = Configuration.getStringValue("concatFields:" + concatField);
+				String[] fields = fieldsToMerge.split(",");
+				String value = "";
+
+				for (String field : fields) {
+					field = field.trim();
+					// System.out.println(field);
+					if (!value.equals("<UNAVAIL>")) {
+						value = value + " " + tokens[fieldName2Idx.get(field)].replaceAll("\"", "").trim();
+					}
 				}
-			} else {
 
-				try {
+				String fieldGroup = Configuration.getStringValue("fieldGrouping:" + concatField);
 
-					if (!value.trim().equals("")) {
+				if (concatField.endsWith("_Address")) {
+					value = resolver.resolveAddress(value);
+				} else if (concatField.endsWith("_Number")) {
+					value = resolver.resolveNumber(value);
+				} else {
+					value = resolver.resolveOthers(value);
+				}
+
+				if (fieldGroup == null) {
+					if (!value.equals("")) {
 						dbObject = dbObject.append(concatField, value);
 					}
-					if (!value.trim().equals("")) {
-						dbObject = dbObject.append(fieldGroup, value);
-						ArrayList<String> list = ht.get(fieldGroup);
-						list.add(value.trim());
+				} else {
+
+					try {
+
+						if (!value.trim().equals("")) {
+							dbObject = dbObject.append(concatField, value);
+						}
+						if (!value.trim().equals("")) {
+							dbObject = dbObject.append(fieldGroup, value);
+							ArrayList<String> list = ht.get(fieldGroup);
+							list.add(value.trim());
+						}
+
+					} catch (Exception e) {
+
 					}
-
-				} catch (Exception e) {
-
 				}
-			}
 
+			}
 		}
-		
+
 		for (String t : tokens) {
 			t = t.trim();
 			t = t.replaceAll("\"", "");
