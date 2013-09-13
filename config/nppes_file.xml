@@ -4,4 +4,8 @@
 	<Property name="clearDB" value="Y"/>
 	<Property name="primary" value="config/mongo/nppes_file/nppes_primary.xml"/>
 	<Property name="supplement" value="config/mongo/nppes_file/nppes_supplement_supp_1.xml,config/mongo/nppes_file/nppes_supplement_supp_2.xml"/>
+	<Property name="secondary" value="
+		config/mongo/nppes_file/nppes_secondary_provider.xml,
+		config/mongo/nppes_file/nppes_secondary_practice_address.xml,
+		config/mongo/nppes_file/nppes_secondary_license_state.xml"/>
 </Configuration>

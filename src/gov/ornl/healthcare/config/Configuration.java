@@ -8,6 +8,7 @@ import java.io.File;
 import java.io.FileInputStream;
 import java.io.InputStream;
 import java.util.Properties;
+import java.util.Set;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
@@ -64,6 +65,11 @@ public class Configuration // Singleton
 	 * Return the default logger
 	 * @return
 	 */
+	public static void init()
+	{
+		getInstance().properties.clear();
+	}
+	
 	public static Logger getLogger()
 	{
 		return getInstance().logger;

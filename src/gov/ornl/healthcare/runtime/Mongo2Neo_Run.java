@@ -14,7 +14,7 @@ public class Mongo2Neo_Run
 {
 	public static void main(String args[])
 	{
-		String configurationURL = "config/neo4j_nppes.xml";
+		String configurationURL = "config/neo4j/nppes/neo4j_nppes.xml";
 		Configuration.getLogger().setLevel(Level.FINEST);
 		Configuration.addConfigDocument(configurationURL);
 		Neo4JLoader.run();
