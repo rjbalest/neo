@@ -11,5 +11,7 @@ git add src/gov/ornl/healthcare/runtime/*.*
 git add src/gov/ornl/healthcare/dbutils/*.*
 git add src/gov/ornl/healthcare/config/*.*
 git add src/gov/ornl/healthcare/core/*.*
-
-
+git add config/examples/*.*
+git add config/csv2db/*.*
+git add config/mongo/*.*
+git add config/neo4j/*.*

@@ -64,9 +64,12 @@ public class IdAssigner {
 	}
 
 	public String assignId_other_id_nppes(String mongoCollectionSource, String fieldName, String raw, DBObject dbo) {
+		
 		String abbr = "other_id::";
 		String[] parsed = raw.split(" ");
 		String id = parsed[0];
+		
+		try {
 		if (parsed[1].trim().equals("01")) {
 			abbr = "other_id::";
 		}
@@ -87,6 +90,10 @@ public class IdAssigner {
 		}
 		if (parsed[1].trim().equals("08")) {
 			abbr = "medicare_pin::";
+		}
+		} catch (Exception e){
+			System.out.println("* Warning:" + raw);
+			abbr = "other_id::";
 		}
 		String assigned_id = abbr + id;
 		return assigned_id;
