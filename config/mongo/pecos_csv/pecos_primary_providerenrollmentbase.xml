@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--set any default configuration parameters here-->
+<Configuration version="1">
+  <Property name="source" value="file"/>
+  <Property name="dataFile" value="csv/pecos_providerenrollmentbase.csv"/>
+  <Property name="mongoURL" value="localhost"/>
+  <Property name="mongoInsertMode" value="a"/>
+  <Property name="mongoPort" value="27017"/>
+  <Property name="mongoDatabase" value="healthcare"/>
+  <Property name="mongoCollectionName" value="Provider_PECOS"/>
+  <Property name="mongoCollectionSource" value="pecos"/>
+  <Property name="mongoCollectionFields" value="
+	  Record_Type, 
+	  Medicare_Contractor_ID,
+	  Create_Date,
+	  PAC_ID,
+	  Enrollment_ID,
+	  Provider_Organization_Name_Legal_Business_Name,
+	  TIN_Name,
+	  Provider_Type,
+	  Provider_First_Name,
+	  Provider_Middle_Name,
+	  Provider_Last_Name_Legal_Name,
+	  Supplier_Type,
+	  Non_Physician_Type,
+	  Non_Physician_Specialty_Type,
+	  Foreign_Address_Indicator_Field,
+	  Provider_First_Line_Base_Address,
+	  Provider_Second_Line_Base_Address,
+	  Provider_Base_Address_City_Name,
+	  Provider_Base_Address_State_Name,
+	  Foreign_Address_State_Field,
+	  Provider_Base_Address_Postal_Code,
+	  Foreign_Address_Postal_Code,
+	  Foreign_Address_Country,
+	  Start_Date,
+	  Provider_Base_Telephone_Number,
+	  Form_Type_Description_Code,
+	  Enrollment_State,
+	  Medical_School_ID,
+	  Medical_School_Graduation_Year,
+	  Date_Of_Death,
+	  Accepting_New_Patients
+  "/>
+  <Property name="concatFields" value="Provider_Full_Name,Provider_Base_Address"/>
+  <Property name="concatFields:Provider_Full_Name" value="Provider_First_Name,Provider_Middle_Name,Provider_Last_Name_Legal_Name"/>
+  <Property name="fieldGrouping:PAC_ID" value="Other_Provider_Identifier_Info"/>
+  <Property name="concatFields:Provider_Base_Address" value="
+  	Provider_First_Line_Base_Address,
+  	Provider_Second_Line_Base_Address, 
+  	Provider_Base_Address_City_Name, 
+  	Provider_Base_Address_State_Name,
+  	Provider_Base_Address_Postal_Code,
+  	Foreign_Address_State_Field, 
+  	Foreign_Address_Postal_Code,
+  	Foreign_Address_Country"/>
+  <Property name="seperator" value=","/>
+</Configuration>

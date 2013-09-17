@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--set any default configuration parameters here-->
+<Configuration version="1">
+  <Property name="mongoURL" value="localhost"/>
+  <Property name="mongoInsertMode" value="a"/>
+  <Property name="mongoPort" value="27017"/>
+  <Property name="mongoDatabase" value="healthcare"/>
+  <Property name="mongoCollectionSource" value="pecos"/>
+  <Property name="mongoCollectionName" value="Provider_PECOS"/>
+  <Property name="mongoCollectionFieldsToDisintegrate" value="Provider_Full_Name, Provider_Base_Address, Provider_Base_Telephone_Number"/>
+  <Property name="subFields:Provider_Full_Name" value="Provider_Last_Name_Legal_Name:Last_Name,Provider_First_Name:First_Name,Provider_Middle_Name:Middle_Name"/>
+  <Property name="subFields:Provider_Base_Address" value="
+  	Provider_First_Line_Base_Address:First_Line,
+  	Provider_Second_Line_Base_Address:Second_Line, 
+  	Provider_Base_Address_City_Name:City, 
+  	Provider_Base_Address_State_Name:State,
+  	Provider_Base_Address_Postal_Code:Zip_Code,
+  	Foreign_Address_State_Field:Foreign_State, 
+  	Foreign_Address_Postal_Code:Foreign_Zip_Code,
+  	Foreign_Address_Country:Foreign_Country,
+  	Start_Date:Start_Date"/>
+</Configuration>

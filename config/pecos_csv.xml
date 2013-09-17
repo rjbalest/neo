@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--set any default configuration parameters here-->
+<Configuration version="1">
+	<Property name="clearDB" value="Y"/>
+	<Property name="primary" value="config/mongo/pecos_csv/pecos_primary_providerenrollmentbase.xml"/>
+	<Property name="supplement" value="config/mongo/pecos_csv/pecos_supplement_pecos_hospital_type.xml"/>
+	<Property name="secondary" value="
+		config/mongo/pecos_csv/pecos_secondary_provider.xml"/>
+</Configuration>

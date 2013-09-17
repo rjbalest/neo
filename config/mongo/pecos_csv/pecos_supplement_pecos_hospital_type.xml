@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--set any default configuration parameters here-->
+<Configuration version="1">
+  <Property name="source" value="file"/>
+  <Property name="dataFile" value="csv/nppes_supplement_1.csv"/>
+  <Property name="mongoURL" value="localhost"/>
+  <Property name="mongoInsertMode" value="a"/>
+  <Property name="mongoPort" value="27017"/>
+  <Property name="mongoDatabase" value="healthcare"/>
+  <Property name="mongoCollectionName" value="Provider_NPPES"/>
+  <Property name="keyOfSource" value="NPI_CHILD"/>
+  <Property name="keyOfTargetCollection" value="NPI"/>
+  <Property name="mongoCollectionFields" value="NPI_CHILD, OTHER_ID, OTHER_ID_TYPE"/>
+  <Property name="concatFields" value="OTHER_ID_INFO"/>
+  <Property name="concatFields:OTHER_ID_INFO" value="OTHER_ID, OTHER_ID_TYPE"/>
+  <Property name="mongoCollectionFieldsList" value="OTHER_ID_INFO"/>
+  <Property name="isMultiple" value="Y"/>
+  <Property name="seperator" value=","/>
+</Configuration>

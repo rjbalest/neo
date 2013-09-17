@@ -3,7 +3,7 @@
 <Configuration version="1">
 	<Property name="clearDB" value="Y"/>
 	<Property name="primary" value="config/mongo/nppes_csv/nppes_primary.xml"/>
-	<Property name="supplement" value="config/mongo/nppes_csv/nppes_supplement_supp_1.xml,config/mongo/nppes_csv/nppes_supplement_supp_2.xml"/>
+	<!-- Property name="supplement" value="config/mongo/nppes_csv/nppes_supplement_supp_1.xml,config/mongo/nppes_csv/nppes_supplement_supp_2.xml"/ -->
 	<Property name="secondary" value="
 		config/mongo/nppes_csv/nppes_secondary_provider.xml,
 		config/mongo/nppes_csv/nppes_secondary_practice_address.xml,

@@ -18,6 +18,7 @@ import org.bson.types.ObjectId;
 
 import com.mongodb.BasicDBList;
 import com.mongodb.BasicDBObject;
+import com.mongodb.Bytes;
 import com.mongodb.DBCursor;
 import com.mongodb.DBObject;
 
@@ -61,12 +62,13 @@ public class MongoLoader {
 			clearDB();
 		}
 
-		// build primary
-		Configuration.init();
-		Configuration.getLogger().setLevel(Level.FINEST);
-		Configuration.addConfigDocument(primaryConfig);
-		create_primary();
-
+		if (primaryConfig != null) {
+			// build primary
+			Configuration.init();
+			Configuration.getLogger().setLevel(Level.FINEST);
+			Configuration.addConfigDocument(primaryConfig);
+			create_primary();
+		}
 		// build supplements
 		if (supplementConfigs != null) {
 			String[] supplementConfigArray = supplementConfigs.split(",");
@@ -184,6 +186,7 @@ public class MongoLoader {
 			mongoUtils.setCollection(collectionName);
 			int entryNo = 0;
 			DBCursor cursor = mongoUtils.getCursor();
+			cursor.addOption(Bytes.QUERYOPTION_NOTIMEOUT);
 			try {
 				while (cursor.hasNext()) {
 					DBObject dbo = cursor.next();
@@ -643,8 +646,8 @@ public class MongoLoader {
 				}
 
 				lineNo++;
-				// if (lineNo == 100)
-				// break;
+				if (lineNo == 100000)
+					break;
 				if (lineNo % 10000 == 0) {
 					System.out.println(lineNo + " lines processed.");
 				}
@@ -810,6 +813,8 @@ public class MongoLoader {
 		int i = 0;
 		String[] tokens = line.split(seperator + "(?=([^\"]*\"[^\"]*\")*[^\"]*$)");
 		if (fieldName2Idx.size() != tokens.length) {
+			System.out.println(fieldName2Idx.size());
+			System.out.println(tokens.length);
 			System.out.println("* Warning (wrong data format): " + line);
 			return null;
 		}
