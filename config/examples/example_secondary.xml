@@ -7,14 +7,27 @@
   <Property name="mongoInsertMode" value="a"/>
   <Property name="mongoPort" value="27017"/>
   <Property name="mongoDatabase" value="healthcare"/>
-  <Property name="mongoCollectionName" value="providers"/>
-  <Property name="mongoCollectionFields" value="npi,employ_id,name,mailing_address,country, zipcode, mailing_phone,taxonomy,license_id,tag1,tag1_code,tag2,tag2_code,tag3, tag3_code"/>
-  <Property name="fieldGrouping:tag1" value="tag"/>
-  <Property name="fieldGrouping:tag2" value="tag"/>
-  <Property name="fieldGrouping:tag3" value="tag"/>
+  <Property name="mongoUsername" value="liza183"/>
+  <Property name="mongoPassword" value="cmsproject"/>
+  <Property name="mongoCollectionName" value="Providers"/>
+  <Property name="mongoCollectionFieldsToDisintegrate" value="
+  	npi:ID,
+  	employ_id:ID,
+  	mailing_address:Address,
+  	mailing_phone:Phone,
+  	taxonomy:Taxonomy,
+  	license_id:ID, 
+  	tag[1-3]:Tag
+  	"/>
   <Property name="subFields:mailing_address" value="country:country,zipcode:zipcode"/>
-  <Property name="subFields:tag1" value="tag1_code:code"/>
-  <Property name="subFields:tag2" value="tag2_code:code"/>
-  <Property name="subFields:tag3" value="tag3_code:code"/>
-  <Property name="mongoCollectionFieldsToDisintegrate" value="npi,employ_id,mailing_address,mailing_phone,taxonomy,license_id, tag1,tag2,tag3"/>
+  <Property name="subFields:tag[1-3]" value="tag[n]_code:code"/>
+  
+  <Property name="edgeName:npi" value="hasNPI"/>
+  <Property name="edgeName:employ_id" value="hasEmployeeID"/>
+  <Property name="edgeName:mailing_address" value="hasMailingAddress"/>
+  <Property name="edgeName:mailing_phone" value="hasMailingPhone"/>
+  <Property name="edgeName:taxonomy" value="hasTaxonomy"/>
+  <Property name="edgeName:license_id" value="hasLicenseID"/>
+  <Property name="edgeName:tag[1-3]" value="hasTag"/>
+  
  </Configuration>

@@ -1,0 +1,67 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--set any default configuration parameters here-->
+<Configuration version="1">
+  <Property name="source" value="file"/>
+  <Property name="dataFile" value="csv/pecos_practice_location.csv"/>
+  <Property name="mongoURL" value="localhost"/>
+  <Property name="mongoInsertMode" value="a"/>
+  <Property name="mongoPort" value="27017"/>
+  <Property name="mongoDatabase" value="healthcare"/>
+  <Property name="mongoUsername" value="liza183"/>
+  <Property name="mongoPassword" value="cmsproject"/>
+  <Property name="mongoCollectionName" value="Provider_PECOS"/>
+  <Property name="keyOfSource" value="Enrollment_ID_Child"/>
+  <Property name="keyOfTargetCollection" value="Enrollment_ID"/>
+  <Property name="mongoCollectionFields" value="
+    Record_Type,
+    Contractor_ID_Child,
+    Creation_Date_Child,
+    Child_PAC_ID,
+    Enrollment_ID_Child,
+    Practice_Location_Name,
+    HHA_Branch,
+    Hospital_Psychiatric_Unit,
+    Hospital_Rehabilitation_Unit,
+    OPT_Extension_Site,
+    Hospital_Swing_Bed_Unit,
+    Other,
+    Other_Specify,
+    Location_Type,
+    First_Line_Practice_Address,
+    Second_Line_Practice_Address,
+    Practice_Address_City_Name,
+    Practice_Address_State_Name,
+    Practice_Address_Postal_Code,
+    Practice_Telephone_Number,
+    NPI,
+    NPI_Indicator,
+    Start_Date_Practice,
+    Claims_System_PIN,
+    Clinical_Laboratory_Improvement_Act,
+    Railroad_Board_Indicator,
+    Railroad_Board_PIN,
+    Create_Date_Practice,
+    Primary_Practice_Location_Indicator
+  "/>
+  <Property name="concatFields" value="Practice_Location, Practice_Full_Address"/>
+  <Property name="concatFields:Practice_Location" value="
+  	Practice_Location_Name,
+  	First_Line_Practice_Address,
+  	Second_Line_Practice_Address, 
+  	Practice_Address_City_Name, 
+  	Practice_Address_State_Name,
+  	Practice_Address_Postal_Code
+  	"/>
+  <Property name="concatFields:Practice_Full_Address" value="
+  	First_Line_Practice_Address,
+  	Second_Line_Practice_Address, 
+  	Practice_Address_City_Name, 
+  	Practice_Address_State_Name,
+  	Practice_Address_Postal_Code
+  	"/>
+  	
+  <Property name="mongoCollectionFieldsList" value="Practice_Location"/>
+  <Property name="ignoreFields" value="Record_Type,Contractor_ID_Child,Creation_Date_Child,Child_PAC_ID, Enrollment_ID_Child"/>
+  <Property name="isMultiple" value="Y"/>
+  <Property name="seperator" value=","/>
+</Configuration>

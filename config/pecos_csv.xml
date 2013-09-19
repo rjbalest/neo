@@ -2,8 +2,21 @@
 <!--set any default configuration parameters here-->
 <Configuration version="1">
 	<Property name="clearDB" value="Y"/>
+	<Property name="clearDB" value="Y"/>
+	<Property name="mongoURL" value="localhost"/>
+	<Property name="mongoPort" value="27017"/>
+	<Property name="mongoDatabase" value="healthcare"/>
+	<Property name="mongoUsername" value="liza183"/>
+	<Property name="mongoPassword" value="cmsproject"/>
 	<Property name="primary" value="config/mongo/pecos_csv/pecos_primary_providerenrollmentbase.xml"/>
-	<Property name="supplement" value="config/mongo/pecos_csv/pecos_supplement_pecos_hospital_type.xml"/>
-	<Property name="secondary" value="
-		config/mongo/pecos_csv/pecos_secondary_provider.xml"/>
+	<Property name="supplement" value="
+	  config/mongo/pecos_csv/pecos_supplement_pecos_hospital_type.xml,
+	  config/mongo/pecos_csv/pecos_supplement_pecos_medicareid.xml,
+	  config/mongo/pecos_csv/pecos_supplement_pecos_practice_location.xml,
+	  config/mongo/pecos_csv/pecos_supplement_subunit_consolidation.xml
+	"/>
+	<Property name="secondary" value="config/mongo/pecos_csv/pecos_secondary_provider.xml,
+		config/mongo/pecos_csv/pecos_secondary_practice_location.xml,
+		config/mongo/pecos_csv/pecos_secondary_department.xml
+	"/>
 </Configuration>

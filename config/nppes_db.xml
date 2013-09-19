@@ -2,6 +2,12 @@
 <!--set any default configuration parameters here-->
 <Configuration version="1">
 	<Property name="clearDB" value="Y"/>
+	<Property name="clearDB" value="Y"/>
+	<Property name="mongoURL" value="localhost"/>
+	<Property name="mongoPort" value="27017"/>
+	<Property name="mongoDatabase" value="healthcare"/>
+	<Property name="mongoUsername" value="liza183"/>
+	<Property name="mongoPassword" value="cmsproject"/>
 	<Property name="primary" value="config/mongo/nppes_db/nppes_primary.xml"/>
 	<Property name="supplement" value="config/mongo/nppes_db/nppes_supplement_supp_1.xml,config/mongo/nppes_db/nppes_supplement_supp_2.xml"/>
 	<Property name="secondary" value="

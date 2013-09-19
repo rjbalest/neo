@@ -5,10 +5,38 @@
   <Property name="mongoInsertMode" value="a"/>
   <Property name="mongoPort" value="27017"/>
   <Property name="mongoDatabase" value="healthcare"/>
+  <Property name="mongoUsername" value="liza183"/>
+  <Property name="mongoPassword" value="cmsproject"/>
   <Property name="mongoCollectionSource" value="pecos"/>
   <Property name="mongoCollectionName" value="Provider_PECOS"/>
-  <Property name="mongoCollectionFieldsToDisintegrate" value="Provider_Full_Name, Provider_Base_Address, Provider_Base_Telephone_Number"/>
-  <Property name="subFields:Provider_Full_Name" value="Provider_Last_Name_Legal_Name:Last_Name,Provider_First_Name:First_Name,Provider_Middle_Name:Middle_Name"/>
+  
+  <!-- what to disintegrate -->   
+  <Property name="mongoCollectionFieldsToDisintegrate" value="
+  	Provider_Full_Name:Full_Name, 
+  	Provider_Base_Address:Address,
+  	Provider_Base_Telephone_Number:Phone,
+  	PAC_ID:ID, 
+  	Subunit_Consolidation_[1-9999]:Department,
+ 	Other_Provider_Identifier_Info_[1-9999]:ID,
+	Practice_Location_[1-9999]:Practice_Location,
+"/>
+
+  <!--edgeName -->
+  <Property name="edgeName:Provider_Full_Name" value="hasFullName"/>
+  <Property name="edgeName:Provider_Base_Address" value="hasBaseAddress"/>
+  <Property name="edgeName:Provider_Base_Telephone_Number" value="hasBaseTelephone"/>
+  <Property name="edgeName:PAC_ID" value="hasOtherID"/>
+  <Property name="edgeName:Subunit_Consolidation_[1-9999]" value="hasDepartment"/>
+  <Property name="edgeName:Other_Provider_Identifier_Info_[1-9999]" value="hasOtherID"/>
+  <Property name="edgeName:Practice_Location_[1-9999]" value="hasPracticeLocation"/> 
+
+  <!--subFields -->
+  
+  <Property name="subFields:Provider_Full_Name" value="
+  	Provider_Last_Name_Legal_Name:Last_Name,
+  	Provider_First_Name:First_Name,
+  	Provider_Middle_Name:Middle_Name"/>
+
   <Property name="subFields:Provider_Base_Address" value="
   	Provider_First_Line_Base_Address:First_Line,
   	Provider_Second_Line_Base_Address:Second_Line, 
@@ -18,5 +46,47 @@
   	Foreign_Address_State_Field:Foreign_State, 
   	Foreign_Address_Postal_Code:Foreign_Zip_Code,
   	Foreign_Address_Country:Foreign_Country,
-  	Start_Date:Start_Date"/>
+  	Start_Date:Start_Date"/>   
+  
+  <Property name="subFields:Subunit_Consolidation_[1-9999]" value="
+    Department_Name_[n]:Department_Name,
+  	Medicare_ID_Number_of_Buyer_Seller_Old_New_[n]:Medicare_ID_Number_of_Buyer_Seller_Old_New,
+  	Medicare_Type_[n]:Medicare_Type,
+  	NPI_of_Buyer_Seller_Old_New_[n]:NPI_of_Buyer_Seller_Old_New
+   "/>
+
+  <Property name="subFields:Other_Provider_Identifier_Info_[1-9999]" value="
+    MED_ID_TYPE_[n]:Other_Provider_Identifier_Type_Code,
+    MED_ID_[n]:Other_Provider_Identifier,
+    MED_Effective_Date_[n]:Effective_Date
+  "/>
+  	    
+  <Property name="subFields:Practice_Location_[1-9999]" value="
+  	Practice_Location_Name_[n]:Practice_Location_Name,
+    HHA_Branch_[n]:HHA_Branch,
+    Hospital_Psychiatric_Unit_[n]:Hospital_Psychiatric_Unit,
+    Hospital_Rehabilitation_Unit_[n]:Hospital_Rehabilitation_Unit,
+    OPT_Extension_Site_[n]:OPT_Extension_Site,
+    Hospital_Swing_Bed_Unit_[n]:Hospital_Swing_Bed_Unit,
+    Other_[n]:Other,
+    Other_Specify_[n]:Other_Specify,
+    Location_Type_[n]:Location_Type,
+    Practice_Full_Address_[n]:Practice_Full_Address,
+    First_Line_Practice_Address_[n]:First_Line_Practice_Address,
+    Second_Line_Practice_Address_[n]:Second_Line_Practice_Address,
+    Practice_Address_City_Name_[n]:Practice_Address_City_Name,
+    Practice_Address_State_Name_[n]:Practice_Address_State_Name,
+    Practice_Address_Postal_Code_[n]:Practice_Address_Postal_Code,
+    Practice_Telephone_Number_[n]:Practice_Telephone_Number,
+    NPI_[n]:NPI,
+    NPI_Indicator_[n]:NPI_Indicator,
+    Start_Date_Practice_[n]:Start_Date_Practice,
+    Claims_System_PIN_[n]:Claims_System_PIN,
+    Clinical_Laboratory_Improvement_Act_[n]:Clinical_Laboratory_Improvement_Act,
+    Railroad_Board_Indicator_[n]:Railroad_Board_Indicator,
+    Railroad_Board_PIN_[n]:Railroad_Board_PIN,
+    Create_Date_Practice_[n]:Create_Date_Practice,
+    Primary_Practice_Location_Indicator_[n]:Primary_Practice_Location_Indicator"/>
+  
+
 </Configuration>

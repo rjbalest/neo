@@ -28,15 +28,19 @@ public class MongoUtils {
 	private MongoClient client = null;
 	private DB db = null;
 	private DBCollection collection;
+	private String username;
+	private String password;
 
 	public MongoUtils(String database) {
 		this.database = database;
 	}
 
-	public MongoUtils(String url, int port, String database) {
+	public MongoUtils(String url, int port, String database, String username, String password) {
 		this.url = url;
 		this.port = port;
 		this.database = database;
+		this.username = username;
+		this.password = password;
 	}
 
 	public void initDB() {
@@ -47,6 +51,7 @@ public class MongoUtils {
 			return;
 		}
 		db = client.getDB(database);
+		db.authenticate(username, password.toCharArray());
 	}
 	
 	BasicDBObject query = new BasicDBObject("i", 71);

@@ -7,7 +7,9 @@
   <Property name="mongoInsertMode" value="a"/>
   <Property name="mongoPort" value="27017"/>
   <Property name="mongoDatabase" value="healthcare"/>
-  <Property name="mongoCollectionName" value="providers"/>
+  <Property name="mongoUsername" value="liza183"/>
+  <Property name="mongoPassword" value="cmsproject"/>
+  <Property name="mongoCollectionName" value="Providers"/>
   <Property name="mongoCollectionSource" value="example"/>
   <Property name="mongoCollectionFields" value="npi,employ_id,first_name,last_name,mailing_address,country, zipcode, mailing_phone,taxonomy,license_id,tag1,tag1_code,tag2,tag2_code,tag3, tag3_code"/>
   <Property name="concatFields" value="full_name"/>

@@ -40,12 +40,14 @@ public class MongoLoader {
 		String mongoURL = Configuration.getStringValue("mongoURL");
 		int mongoPort = Configuration.getIntegerValue("mongoPort");
 		String mongoDatabase = Configuration.getStringValue("mongoDatabase");
+		String mongoUsername = Configuration.getStringValue("mongoUsername");
+		String mongoPassword = Configuration.getStringValue("mongoPassword");
 
 		MongoUtils mongoUtils;
 		if (mongoURL == null)
 			mongoUtils = new MongoUtils(mongoDatabase);
 		else
-			mongoUtils = new MongoUtils(mongoURL, mongoPort, mongoDatabase);
+			mongoUtils = new MongoUtils(mongoURL, mongoPort, mongoDatabase, mongoUsername, mongoPassword);
 		mongoUtils.initDB();
 		mongoUtils.dropDB(mongoDatabase);
 		mongoUtils.closeDB();
@@ -98,12 +100,14 @@ public class MongoLoader {
 		String mongoURL = Configuration.getStringValue("mongoURL");
 		int mongoPort = Configuration.getIntegerValue("mongoPort");
 		String mongoDatabase = Configuration.getStringValue("mongoDatabase");
+		String mongoUsername = Configuration.getStringValue("mongoUsername");
+		String mongoPassword = Configuration.getStringValue("mongoPassword");
 
 		MongoUtils mongoUtils;
 		if (mongoURL == null)
 			mongoUtils = new MongoUtils(mongoDatabase);
 		else
-			mongoUtils = new MongoUtils(mongoURL, mongoPort, mongoDatabase);
+			mongoUtils = new MongoUtils(mongoURL, mongoPort, mongoDatabase, mongoUsername, mongoPassword);
 		mongoUtils.initDB();
 		long time_s, time_e;
 		time_s = System.currentTimeMillis();
@@ -120,12 +124,14 @@ public class MongoLoader {
 		String mongoURL = Configuration.getStringValue("mongoURL");
 		int mongoPort = Configuration.getIntegerValue("mongoPort");
 		String mongoDatabase = Configuration.getStringValue("mongoDatabase");
+		String mongoUsername = Configuration.getStringValue("mongoUsername");
+		String mongoPassword = Configuration.getStringValue("mongoPassword");
 
 		MongoUtils mongoUtils;
 		if (mongoURL == null)
 			mongoUtils = new MongoUtils(mongoDatabase);
 		else
-			mongoUtils = new MongoUtils(mongoURL, mongoPort, mongoDatabase);
+			mongoUtils = new MongoUtils(mongoURL, mongoPort, mongoDatabase, mongoUsername, mongoPassword);
 		mongoUtils.initDB();
 		long time_s, time_e;
 		time_s = System.currentTimeMillis();
@@ -142,12 +148,14 @@ public class MongoLoader {
 		String mongoURL = Configuration.getStringValue("mongoURL");
 		int mongoPort = Configuration.getIntegerValue("mongoPort");
 		String mongoDatabase = Configuration.getStringValue("mongoDatabase");
+		String mongoUsername = Configuration.getStringValue("mongoUsername");
+		String mongoPassword = Configuration.getStringValue("mongoPassword");
 
 		MongoUtils mongoUtils;
 		if (mongoURL == null)
 			mongoUtils = new MongoUtils(mongoDatabase);
 		else
-			mongoUtils = new MongoUtils(mongoURL, mongoPort, mongoDatabase);
+			mongoUtils = new MongoUtils(mongoURL, mongoPort, mongoDatabase, mongoUsername, mongoPassword);
 		mongoUtils.initDB();
 		long time_s, time_e;
 
@@ -163,15 +171,35 @@ public class MongoLoader {
 	private static void createSecondaryCollection(MongoUtils mongoUtils) {
 		String mongoCollectionSource = Configuration.getStringValue("mongoCollectionSource");
 		String mongoCollectionFieldsToDisintegrate = Configuration.getStringValue("mongoCollectionFieldsToDisintegrate");
-		String collectionName = Configuration.getStringValue("mongoCollectionName");
+		String sourceCollectionName = Configuration.getStringValue("mongoCollectionName");
 		StringTokenizer tokenizer = new StringTokenizer(mongoCollectionFieldsToDisintegrate, ",");
 		ArrayList<String> fieldList = new ArrayList<String>();
 		IdAssigner idAssigner = new IdAssigner();
 
 		while (tokenizer.hasMoreTokens()) {
 			String field = tokenizer.nextToken();
-			fieldList.add(field.trim());
+			field = field.trim();
+			String patternOpen = "[";
+			String patternClosed = "]";
+			int patternOpenIdx = field.indexOf(patternOpen);
+			int patternClosedIdx = field.indexOf(patternClosed);
+
+			if (patternOpenIdx >= 0 && patternClosedIdx >= 0 && patternOpenIdx < patternClosedIdx) {
+				String stringToSubstitute = field.substring(patternOpenIdx + patternOpen.length(), patternClosedIdx);
+				String[] minmaxStr = stringToSubstitute.split("-");
+				int min = Integer.parseInt(minmaxStr[0].trim());
+				int max = Integer.parseInt(minmaxStr[1].trim());
+
+				for (int i = min; i <= max; i++) {
+					String rex = java.util.regex.Pattern.quote(patternOpen + stringToSubstitute + patternClosed);
+					fieldList.add(field.replaceAll(rex, i + "").trim());
+				}
+			} else {
+				fieldList.add(field.trim());
+			}
 		}
+
+		Configuration.expand();
 
 		if (mongoCollectionFieldsToDisintegrate != null) {
 
@@ -179,11 +207,17 @@ public class MongoLoader {
 			if (mongoInsertMode == 'w') {
 				for (int i = 0; i < fieldList.size(); i++) {
 					String fieldName = fieldList.get(i);
-					mongoUtils.setCollection(fieldName);
+
+					if (fieldName.indexOf(":") >= 0) {
+						String[] parsedFiledName = fieldName.split(":");
+						mongoUtils.setCollection(parsedFiledName[1].trim());
+					} else {
+						mongoUtils.setCollection(fieldName);
+					}
 					mongoUtils.clearCollection();
 				}
 			}
-			mongoUtils.setCollection(collectionName);
+			mongoUtils.setCollection(sourceCollectionName);
 			int entryNo = 0;
 			DBCursor cursor = mongoUtils.getCursor();
 			cursor.addOption(Bytes.QUERYOPTION_NOTIMEOUT);
@@ -198,29 +232,40 @@ public class MongoLoader {
 					for (int i = 0; i < fieldList.size(); i++) {
 						String docId = dbo.get("_id").toString();
 						String fieldName = fieldList.get(i);
+						String targetCollectionName = "";
+						if (fieldName.indexOf(":") >= 0) {
+							String[] parsedFieldName = fieldName.split(":");
+							targetCollectionName = parsedFieldName[1].trim();
+							fieldName = parsedFieldName[0].trim();
+						} else {
+							targetCollectionName = fieldName.trim();
+						}
+
 						if (dbo.get(fieldName) != null) {
+
+							String edgeName = Configuration.getStringValue("edgeName:" + fieldName);
+							if (edgeName == null)
+								edgeName = fieldName;
 
 							if (dbo.get(fieldName).getClass() == String.class) {
 								String fieldValue = dbo.get(fieldName).toString();
 								if (fieldValue == null)
 									fieldValue = "";
 								fieldValue = fieldValue.toString().trim();
-								String fieldGroup = Configuration.getStringValue("fieldGrouping:" + fieldName);
-								if (fieldGroup != null)
-									mongoUtils.setCollection(fieldGroup);
-								else
-									mongoUtils.setCollection(fieldName);
+
+								mongoUtils.setCollection(targetCollectionName);
 								ArrayList<String> ref_list = new ArrayList<String>();
-								ref_list.add(collectionName + " | " + docId); // ok
+								ref_list.add(edgeName+"^-1" + " | " + docId); // ok
 
 								if (!fieldValue.equals("")) {
-									String assigned_id = idAssigner.assignId(mongoCollectionSource, fieldName, fieldValue, dbo);
+									String assigned_id = idAssigner.assignId(mongoCollectionSource, fieldName, targetCollectionName, fieldValue, dbo);
 									BasicDBObject doc = new BasicDBObject("_id", assigned_id).append("value", fieldValue).append("ref", ref_list);
 
 									String subFieldNames = Configuration.getStringValue("subFields:" + fieldName);
 									if (subFieldNames != null) {
 										String[] subFields = subFieldNames.split(",");
 										for (String s : subFields) {
+											s = s.trim();
 											String[] parsed_s = s.split(":");
 											if (dbo.get(parsed_s[0].trim()) != null)
 												doc = doc.append(parsed_s[1].trim(), dbo.get(parsed_s[0].trim()));
@@ -235,7 +280,7 @@ public class MongoLoader {
 											// if duplicate key already exists;
 											// update db
 											BasicDBObject searchQuery = new BasicDBObject().append("_id", assigned_id);
-											BasicDBObject newDocument = new BasicDBObject().append("$addToSet", new BasicDBObject().append("ref", docId));
+											BasicDBObject newDocument = new BasicDBObject().append("$addToSet", new BasicDBObject().append("ref", edgeName+"^-1" + " | " + docId));
 
 											mongoUtils.update(searchQuery, newDocument);
 										}
@@ -249,11 +294,9 @@ public class MongoLoader {
 										id = docId;
 									}
 
-									mongoUtils.setCollection(collectionName);
+									mongoUtils.setCollection(sourceCollectionName);
 									BasicDBObject searchQuery = new BasicDBObject().append("_id", id);
-									if (fieldGroup != null)
-										fieldName = fieldGroup;
-									BasicDBObject newDocument = new BasicDBObject().append("$addToSet", new BasicDBObject().append("ref", fieldName + " | " + assigned_id));
+									BasicDBObject newDocument = new BasicDBObject().append("$addToSet", new BasicDBObject().append("ref", edgeName + " | " + assigned_id));
 									mongoUtils.update(searchQuery, newDocument);
 								}
 							} else if (dbo.get(fieldName).getClass() == com.mongodb.BasicDBList.class) {
@@ -338,16 +381,32 @@ public class MongoLoader {
 				}
 			}
 
+			String ignoreFields = Configuration.getStringValue("ignoreFields");
+			if (ignoreFields!=null){
+				ignoreFields = ignoreFields.trim();
+			}
+			HashMap<String, Boolean> ifIgnore = new HashMap<String, Boolean>();
+			if (ignoreFields != null) {
+				String[] ignoreFieldsArray = ignoreFields.split(",");
+				for (String ignoreField : ignoreFieldsArray) {
+					ignoreField = ignoreField.trim();
+					ifIgnore.put(ignoreField, true);
+				}
+			}
+
 			while ((line = br.readLine()) != null) {
+				if (line.trim().equals(""))
+					break;
 				String[] parsed = line.split(seperator + "(?=([^\"]*\"[^\"]*\")*[^\"]*$)");
 				String keyOfSourceValue = parsed[fieldName2Idx.get(keyOfSource)];
-				keyOfSourceValue = keyOfSourceValue.replaceAll("\"", "");
+				keyOfSourceValue = keyOfSourceValue.replaceAll("\"", "").trim();
 
 				BasicDBObject query = new BasicDBObject(keyOfTargetCollection, keyOfSourceValue);
 
 				if (fieldNamesList != null) {
 
 					for (String fieldName : fieldNamesList) {
+						fieldName = fieldName.trim();
 						if (!fieldName.equals(keyOfSource)) {
 
 							String fieldValue = "";
@@ -364,7 +423,7 @@ public class MongoLoader {
 							fieldValue = fieldValue.replaceAll("\"", "");
 							if (isMultiple.equals("Y")) {
 								BasicDBObject newDocument = new BasicDBObject().append("$addToSet", new BasicDBObject().append(fieldName, fieldValue));
-								if (!fieldValue.equals(""))
+								if (!fieldValue.equals("") && !ifIgnore.containsKey(fieldName))
 									mongoUtils.update(query, newDocument);
 							}
 
@@ -374,11 +433,12 @@ public class MongoLoader {
 				}
 
 				for (String fieldName : fieldNames) {
+					fieldName = fieldName.trim();
 					if (!fieldName.equals(keyOfSource)) {
 						String fieldValue = parsed[fieldName2Idx.get(fieldName)];
 						if (fieldValue == null)
 							fieldValue = "";
-						fieldValue = fieldValue.replaceAll("\"", "");
+						fieldValue = fieldValue.replaceAll("\"", "").trim();
 						if (isMultiple.equals("Y")) {
 
 							if (indexHash.containsKey(keyOfSourceValue)) {
@@ -388,12 +448,12 @@ public class MongoLoader {
 							}
 
 							BasicDBObject newDocument = new BasicDBObject().append("$set", new BasicDBObject().append(fieldName + "_" + index, fieldValue));
-							if (!fieldValue.equals(""))
+							if (!fieldValue.equals("") && !ifIgnore.containsKey(fieldName))
 								mongoUtils.update(query, newDocument);
 
 						} else {
 							BasicDBObject newDocument = new BasicDBObject().append("$set", new BasicDBObject().append(fieldName, fieldValue));
-							if (!fieldValue.equals(""))
+							if (!fieldValue.equals("") && !ifIgnore.containsKey(fieldName))
 								mongoUtils.update(query, newDocument);
 						}
 
@@ -402,9 +462,11 @@ public class MongoLoader {
 				if (concatFields != null) {
 					String[] concatFieldsArray = concatFields.split(",");
 					for (String fieldName : concatFieldsArray) {
+						fieldName = fieldName.trim();
 						if (!fieldName.equals(keyOfSource)) {
 							String fieldValue = "";
 							if (!concatInfo.containsKey(fieldName)) {
+								System.out.println(fieldName);
 								fieldValue = parsed[fieldName2Idx.get(fieldName)];
 							} else {
 								for (String field : concatInfo.get(fieldName)) {
@@ -414,7 +476,7 @@ public class MongoLoader {
 							}
 							if (fieldValue == null)
 								fieldValue = "";
-							fieldValue = fieldValue.replaceAll("\"", "");
+							fieldValue = fieldValue.replaceAll("\"", "").trim();
 							if (isMultiple.equals("Y")) {
 
 								if (indexHash.containsKey(keyOfSourceValue)) {
@@ -472,6 +534,15 @@ public class MongoLoader {
 		Configuration.getLogger().log(Level.FINE, "Extract Query Finished");
 		HashMap<String, Integer> indexHash = new HashMap<String, Integer>();
 
+		String ignoreFields = Configuration.getStringValue("ignoreFields").trim();
+		HashMap<String, Boolean> ifIgnore = new HashMap<String, Boolean>();
+		if (ignoreFields != null) {
+			String[] ignoreFieldsArray = ignoreFields.split(",");
+			for (String ignoreField : ignoreFieldsArray) {
+				ignoreField = ignoreField.trim();
+				ifIgnore.put(ignoreField, true);
+			}
+		}
 		if (dbUtils.getResultset() != null) {
 			mongoUtils.setCollection(mongoCollectionName);
 			System.out.println("* Indexing Mongo Documents: " + keyOfTargetCollection);
@@ -513,7 +584,8 @@ public class MongoLoader {
 								}
 								if (isMultiple.equals("Y")) {
 									BasicDBObject newDocument = new BasicDBObject().append("$addToSet", new BasicDBObject().append(fieldName, fieldValue));
-									mongoUtils.update(query, newDocument);
+									if (!fieldValue.equals("") && !ifIgnore.containsKey(fieldName))
+										mongoUtils.update(query, newDocument);
 								}
 
 							}
@@ -521,6 +593,7 @@ public class MongoLoader {
 					}
 
 					for (String fieldName : fieldNames) {
+						fieldName = fieldName.trim();
 						if (!fieldName.equals(keyOfSource)) {
 							if (isMultiple.equals("Y")) {
 
@@ -531,10 +604,12 @@ public class MongoLoader {
 								}
 
 								BasicDBObject newDocument = new BasicDBObject().append("$set", new BasicDBObject().append(fieldName + "_" + index, rs.getString(fieldName)));
-								mongoUtils.update(query, newDocument);
+								if (!rs.getString(fieldName).equals("") && !ifIgnore.containsKey(fieldName))
+									mongoUtils.update(query, newDocument);
 							} else {
 								BasicDBObject newDocument = new BasicDBObject().append("$set", new BasicDBObject().append(fieldName, rs.getString(fieldName)));
-								mongoUtils.update(query, newDocument);
+								if (!rs.getString(fieldName).equals("") && !ifIgnore.containsKey(fieldName))
+									mongoUtils.update(query, newDocument);
 							}
 
 						}
@@ -646,8 +721,8 @@ public class MongoLoader {
 				}
 
 				lineNo++;
-				if (lineNo == 100000)
-					break;
+				//if (lineNo == 10000)
+				//	break;
 				if (lineNo % 10000 == 0) {
 					System.out.println(lineNo + " lines processed.");
 				}
@@ -700,18 +775,14 @@ public class MongoLoader {
 					String value = "";
 
 					for (String field : fields) {
+						field = field.trim();
 						if (!value.equals("<UNAVAIL>"))
 							value = value + " " + rs.getString(field);
 
 					}
 					String fieldGroup = Configuration.getStringValue("fieldGrouping:" + concatField);
-					if (concatField.endsWith("_Address")) {
-						value = resolver.resolveAddress(value);
-					} else if (concatField.endsWith("_Number")) {
-						value = resolver.resolveNumber(value);
-					} else {
-						value = resolver.resolveOthers(value);
-					}
+					value = resolver.resolve(concatField, value);
+
 					if (fieldGroup == null) {
 
 						if (!value.equals("")) {
@@ -747,13 +818,8 @@ public class MongoLoader {
 				if (value.equals("<UNAVAIL>"))
 					value = "";
 				String fieldGroup = Configuration.getStringValue("fieldGrouping:" + field);
-				if (field.endsWith("_Address")) {
-					value = resolver.resolveAddress(value);
-				} else if (field.endsWith("_Number")) {
-					value = resolver.resolveNumber(value);
-				} else {
-					value = resolver.resolveOthers(value);
-				}
+				value = resolver.resolve(field, value);
+
 				if (fieldGroup == null) {
 
 					if (!value.equals("")) {
@@ -782,6 +848,7 @@ public class MongoLoader {
 			}
 		}
 		for (String key : ht.keySet()) {
+			key = key.trim();
 			dbObject = dbObject.append(key, ht.get(key));
 		}
 		dbObject = dbObject.append("ref", new ArrayList<String>());
@@ -851,13 +918,7 @@ public class MongoLoader {
 
 				String fieldGroup = Configuration.getStringValue("fieldGrouping:" + concatField);
 
-				if (concatField.endsWith("_Address")) {
-					value = resolver.resolveAddress(value);
-				} else if (concatField.endsWith("_Number")) {
-					value = resolver.resolveNumber(value);
-				} else {
-					value = resolver.resolveOthers(value);
-				}
+				value = resolver.resolve(concatField, value);
 
 				if (fieldGroup == null) {
 					if (!value.equals("")) {
@@ -886,7 +947,7 @@ public class MongoLoader {
 
 		for (String t : tokens) {
 			t = t.trim();
-			t = t.replaceAll("\"", "");
+			t = t.replaceAll("\"", "").trim();
 			String field = fieldNames[i];
 			i++;
 			String value = t;
@@ -895,13 +956,7 @@ public class MongoLoader {
 
 			String fieldGroup = Configuration.getStringValue("fieldGrouping:" + field);
 
-			if (field.endsWith("_Address")) {
-				value = resolver.resolveAddress(value);
-			} else if (field.endsWith("_Number")) {
-				value = resolver.resolveNumber(value);
-			} else {
-				value = resolver.resolveOthers(value);
-			}
+			value = resolver.resolve(field, value);
 
 			if (fieldGroup == null) {
 
@@ -931,6 +986,7 @@ public class MongoLoader {
 		}
 
 		for (String key : ht.keySet()) {
+			key = key.trim();
 			dbObject = dbObject.append(key, ht.get(key));
 		}
 

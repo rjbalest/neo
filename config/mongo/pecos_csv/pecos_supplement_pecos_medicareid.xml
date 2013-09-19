@@ -2,7 +2,7 @@
 <!--set any default configuration parameters here-->
 <Configuration version="1">
   <Property name="source" value="file"/>
-  <Property name="dataFile" value="csv/pecos_hospital_type.csv"/>
+  <Property name="dataFile" value="csv/pecos_medicareid.csv"/>
   <Property name="mongoURL" value="localhost"/>
   <Property name="mongoInsertMode" value="a"/>
   <Property name="mongoPort" value="27017"/>
@@ -13,25 +13,19 @@
   <Property name="keyOfSource" value="Enrollment_ID_Child"/>
   <Property name="keyOfTargetCollection" value="Enrollment_ID"/>
   <Property name="mongoCollectionFields" value="
-    Record_Type, 
-    Contractor_ID_Child, 
-    Creation_Date_Child, 
-    Child_PAC_ID, 
-    Enrollment_ID_Child, 
-    General, 
-    Acute_Care, 
-    Childrens, 
-    Long_Term, 
-    Psychiatric, 
-    Rehabilitation, 
-    Short_Term, 
-    Swing_Bed, 
-    Psychiatric_Unit, 
-    Other, 
-    Other_Specify, 
-    Physician_Owned_Hospital
+    Record_Type,
+    Contractor_ID_Child,
+    Creation_Date_Child,
+    Child_PAC_ID,
+    Enrollment_ID_Child,
+    MED_ID_TYPE,
+    MED_ID,
+    MED_Effective_Date
   "/>
+  <Property name="concatFields" value="Other_Provider_Identifier_Info"/>
+  <Property name="concatFields:Other_Provider_Identifier_Info" value="MED_ID_TYPE, MED_ID"/>
+  <Property name="mongoCollectionFieldsList" value="Other_Provider_Identifier_Info"/>
   <Property name="ignoreFields" value="Record_Type,Contractor_ID_Child,Creation_Date_Child,Child_PAC_ID, Enrollment_ID_Child"/>
-  <Property name="isMultiple" value="N"/>
+  <Property name="isMultiple" value="Y"/>
   <Property name="seperator" value=","/>
 </Configuration>

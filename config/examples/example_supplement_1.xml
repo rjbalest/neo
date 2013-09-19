@@ -7,7 +7,9 @@
   <Property name="mongoInsertMode" value="a"/>
   <Property name="mongoPort" value="27017"/>
   <Property name="mongoDatabase" value="healthcare"/>
-  <Property name="mongoCollectionName" value="providers"/>
+  <Property name="mongoUsername" value="liza183"/>
+  <Property name="mongoPassword" value="cmsproject"/>
+  <Property name="mongoCollectionName" value="Providers"/>
   <Property name="keyOfSource" value="LCNS_ID"/>
   <Property name="keyOfTargetCollection" value="license_id"/>
   <Property name="mongoCollectionFields" value="LCNS_ID, OTHER_ID, OTHER_ID_TYPE"/>

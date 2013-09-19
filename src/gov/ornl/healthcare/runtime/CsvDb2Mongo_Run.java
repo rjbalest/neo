@@ -14,8 +14,8 @@ public class CsvDb2Mongo_Run {
 	
 	public static void main(String args[]) {
 
-		String configurationURL = "config/simple_example.xml";
-		//String configurationURL = "config/pecos_csv.xml";
+		//String configurationURL = "config/simple_example.xml";
+		String configurationURL = "config/pecos_csv.xml";
 		Configuration.getLogger().setLevel(Level.FINEST);
 		Configuration.addConfigDocument(configurationURL);
 		MongoLoader.run();
