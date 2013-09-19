@@ -255,7 +255,7 @@ public class MongoLoader {
 
 								mongoUtils.setCollection(targetCollectionName);
 								ArrayList<String> ref_list = new ArrayList<String>();
-								ref_list.add(edgeName+"^-1" + " | " + docId); // ok
+								ref_list.add(edgeName + "^-1" + " | " + docId); // ok
 
 								if (!fieldValue.equals("")) {
 									String assigned_id = idAssigner.assignId(mongoCollectionSource, fieldName, targetCollectionName, fieldValue, dbo);
@@ -280,11 +280,22 @@ public class MongoLoader {
 											// if duplicate key already exists;
 											// update db
 											BasicDBObject searchQuery = new BasicDBObject().append("_id", assigned_id);
-											BasicDBObject newDocument = new BasicDBObject().append("$addToSet", new BasicDBObject().append("ref", edgeName+"^-1" + " | " + docId));
+											BasicDBObject newDocument = new BasicDBObject().append("$addToSet", new BasicDBObject().append("ref", edgeName + "^-1" + " | " + docId));
 
 											mongoUtils.update(searchQuery, newDocument);
 										}
 										// do nothing
+									}
+
+									mongoUtils.setCollection("sys.keyDictionary");
+									BasicDBObject dbObject = new BasicDBObject("_id", assigned_id);
+									dbObject = dbObject.append("collectionName", targetCollectionName);
+									if (dbObject != null) {
+										try {
+											mongoUtils.addToCollection(dbObject);
+										} catch (com.mongodb.MongoException e) {
+											// do nothing
+										}
 									}
 
 									Object id = null;
@@ -305,7 +316,9 @@ public class MongoLoader {
 
 							}
 						}
+
 					}
+
 				}
 				System.out.println("* DONE: " + entryNo + " entries processed.");
 			} finally {
@@ -382,7 +395,7 @@ public class MongoLoader {
 			}
 
 			String ignoreFields = Configuration.getStringValue("ignoreFields");
-			if (ignoreFields!=null){
+			if (ignoreFields != null) {
 				ignoreFields = ignoreFields.trim();
 			}
 			HashMap<String, Boolean> ifIgnore = new HashMap<String, Boolean>();
@@ -708,21 +721,29 @@ public class MongoLoader {
 			for (int i = 0; i < fieldNames.length; i++) {
 				fieldName2Idx.put(fieldNames[i].trim(), i);
 			}
-			mongoUtils.setCollection(mongoCollectionName);
 			if (mongoInsertMode == 'w')
 				mongoUtils.clearCollection();
 			String line;
 			int lineNo = 0;
 			while ((line = br.readLine()) != null) {
 
+				mongoUtils.setCollection(mongoCollectionName);
 				BasicDBObject dbObject = createMongoObject(line, fieldNames, fieldName2Idx);
 				if (dbObject != null) {
 					mongoUtils.addToCollection(dbObject);
 				}
 
+				mongoUtils.setCollection("sys.keyDictionary");
+				String id = dbObject.getString("_id");
+				dbObject = new BasicDBObject("_id", id);
+				dbObject = dbObject.append("collectionName", mongoCollectionName);
+				if (dbObject != null) {
+					mongoUtils.addToCollection(dbObject);
+				}
+
 				lineNo++;
-				//if (lineNo == 10000)
-				//	break;
+				if (lineNo == 100)
+					break;
 				if (lineNo % 10000 == 0) {
 					System.out.println(lineNo + " lines processed.");
 				}
