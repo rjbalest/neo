@@ -42,9 +42,9 @@ public class CollectionLoader {
 
 		MongoUtils mongoUtils;
 		if (mongoURL == null)
-			mongoUtils = new MongoUtils(mongoDatabase);
+		    mongoUtils = new MongoUtils(mongoDatabase);
 		else
-			mongoUtils = new MongoUtils(mongoURL, mongoPort, mongoDatabase);
+		    mongoUtils = new MongoUtils(mongoURL, mongoPort, mongoDatabase, "", "");
 		mongoUtils.initDB();
 		mongoUtils.dropDB(mongoDatabase);
 		mongoUtils.closeDB();
@@ -57,9 +57,9 @@ public class CollectionLoader {
 
 		MongoUtils mongoUtils;
 		if (mongoURL == null)
-			mongoUtils = new MongoUtils(mongoDatabase);
+		    mongoUtils = new MongoUtils(mongoDatabase);
 		else
-			mongoUtils = new MongoUtils(mongoURL, mongoPort, mongoDatabase);
+		    mongoUtils = new MongoUtils(mongoURL, mongoPort, mongoDatabase, "", "");
 		mongoUtils.initDB();
 		long time_s, time_e;
 		time_s = System.currentTimeMillis();
@@ -129,7 +129,7 @@ public class CollectionLoader {
 								ref_list.add(docId); // ok
 
 								if (!fieldValue.equals("")) {
-									String assigned_id = idAssigner.assignId(mongoCollectionSource, fieldName, fieldValue, dbo);
+								    String assigned_id = idAssigner.assignId(mongoCollectionSource, fieldName, null, fieldValue, dbo);
 									BasicDBObject doc = new BasicDBObject("_id", assigned_id).append("value", fieldValue).append("ref", ref_list);
 
 									String subFieldNames = Configuration.getStringValue("subFields:" + fieldName);

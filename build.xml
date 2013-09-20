@@ -65,7 +65,7 @@
   </target>
   
   <target name="src">
-    <javac srcdir="${src}" destdir="${build}">
+    <javac srcdir="${src}" debug="true" destdir="${build}">
      <classpath refid="jars"/>
     </javac>
   </target>
