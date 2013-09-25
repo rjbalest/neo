@@ -27,7 +27,9 @@ import org.neo4j.kernel.impl.util.FileUtils;
  */
 public class Neo4JUtils {
 
-	private final String DB_PATH = "db/neo4j_db";
+    /* private final String DB_PATH = "db/neo4j_db";
+     */
+	private final String DB_PATH = "/home/oracle/Desktop/Neo4j/neo4j-community-1.9.3/data/graph.db";
 	GraphDatabaseService graphDb = null;
 	ExecutionEngine engine = null;
 
