@@ -8,16 +8,35 @@
   <Property name="mongoUsername" value="liza183"/>
   <Property name="mongoPassword" value="cmsproject"/>
   <Property name="mongoCollectionName" value="Practice_Location"/>
-  <Property name="mongoCollectionFieldsToDisintegrate" value="Practice_Full_Address:Address"/>
+  <Property name="mongoCollectionFieldsToDisintegrate" value="
+  	Practice_Location_Name:Org_Name,
+    Practice_Location_Address:Address,
+    Practice_Location_Telephone_Number:Phone,
+    Practice_Location_NPI:Identifier,
+    Practice_Location_Claims_System_PIN:Identifier,
+    Practice_Location_Railroad_Board_PIN:Identifier
+  "/>
   <Property name="mongoCollectionSource" value="pecos"/>
+
+    <!--edgeName -->
+  <Property name="edgeName:Practice_Location_Name" value="hasLocationName"/>
+  <Property name="edgeName:Practice_Location_Address" value="hasAddress"/>
+  <Property name="edgeName:Practice_Location_Telephone_Number" value="hasPhone"/>
+  <Property name="edgeName:Practice_Location_NPI" value="hasNPI"/>
+  <Property name="edgeName:Practice_Location_Claims_System_PIN" value="hasPIN"/>
+  <Property name="edgeName:Practice_Location_Railroad_Board_PIN" value="hasRRB"/>
+  	  
+  <Property name="subFields:Practice_Location_Name" value="
+  	Practice_Location_Name:Org_Name,
+  "/>
   
-  <Property name="subFields:Practice_Full_Address" value="
-  	First_Line_Practice_Address:First_Line,
-  	Second_Line_Practice_Address:Second_Line, 
-  	Practice_Address_City_Name:City, 
-  	Practice_Address_State_Name:State,
-  	Practice_Address_Postal_Code:Zip_Code"/>
+  <Property name="subFields:Practice_Location_Address" value="
+  	Practice_Location_Full_Address:Full_Address,
+  	Practice_Location_Address_First_Line:First_Line,
+    Practice_Location_Address_Second_Line:Second_Line,
+    Practice_Location_Address_City:City,
+    Practice_Location_Address_State:State,
+    Practice_Location_Address_Postal_Code:Postal_Code
+	"/>
   
-  <Property name="edgeName:Practice_Full_Address" value="hasAddress"/>
-  	
 </Configuration>

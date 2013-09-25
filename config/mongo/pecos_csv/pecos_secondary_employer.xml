@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--set any default configuration parameters here-->
+<Configuration version="1">
+  <Property name="mongoURL" value="localhost"/>
+  <Property name="mongoInsertMode" value="a"/>
+  <Property name="mongoPort" value="27017"/>
+  <Property name="mongoDatabase" value="healthcare"/>
+  <Property name="mongoUsername" value="liza183"/>
+  <Property name="mongoPassword" value="cmsproject"/>
+  <Property name="mongoCollectionName" value="Employer"/>
+  <Property name="mongoCollectionFieldsToDisintegrate" value="
+  	
+  	Employer_PAC_ID:Identifier,
+  	Employer_Enrollment_ID:Identifier,
+  	Employer_TIN:Identifier,
+  	Employer_Full_Name:Name,
+  	Employer_Legal_Business_Name:Org_Name,
+  	Employer_Telephone_Number:Phone
+  "/>
+  <Property name="mongoCollectionSource" value="pecos"/>
+
+    <!--edgeName -->
+  <Property name="edgeName:Employer_PAC_ID" value="hasPAC"/>
+  <Property name="edgeName:Employer_Enrollment_ID" value="hasEnrollmentID"/>
+  <Property name="edgeName:Employer_TIN" value="hasTIN"/>
+  <Property name="edgeName:Employer_Full_Name" value="hasName"/>
+  <Property name="edgeName:Employer_Legal_Business_Name" value="hasLegalBusinessName"/>
+  <Property name="edgeName:Employer_Telephone_Number" value="hasPhone"/>
+  	  
+  <Property name="subFields:Employer_Legal_Business_Name" value="
+  	Employer_Legal_Business_Name:Org_Name,
+  "/>
+  
+  <Property name="subFields:Employer_Full_Name" value="
+  	Employer_Full_Name:Full_Name,
+  	Employer_First_Name:First_Name,
+  	Employer_Middle_Name:Middle_Name,
+  	Employer_Last_Name:Last_Name
+  "/>
+ 
+</Configuration>

@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--set any default configuration parameters here-->
+<Configuration version="1">
+  <Property name="source" value="file"/>
+  <Property name="dataFile" value="csv/pecos_hospital_type.csv"/>
+  <Property name="mongoURL" value="localhost"/>
+  <Property name="mongoInsertMode" value="a"/>
+  <Property name="mongoPort" value="27017"/>
+  <Property name="mongoDatabase" value="healthcare"/>
+  <Property name="mongoUsername" value="liza183"/>
+  <Property name="mongoPassword" value="cmsproject"/>
+  <Property name="mongoCollectionName" value="Provider_PECOS"/>
+  <Property name="keyOfSource" value="Enrollment_ID_Child"/>
+  <Property name="keyOfTargetCollection" value="Enrollment_ID"/>
+  <Property name="mongoCollectionFields" value="
+    Record_Type, 
+    Contractor_ID_Child, 
+    Creation_Date_Child, 
+    Child_PAC_ID, 
+    Enrollment_ID_Child, 
+    Hospital_Type_General, 
+    Hospital_Type_Acute_Care, 
+    Hospital_Type_Childrens, 
+    Hospital_Type_Long_Term, 
+    Hospital_Type_Psychiatric, 
+    Hospital_Type_Rehabilitation, 
+    Hospital_Type_Short_Term, 
+    Hospital_Type_Swing_Bed, 
+    Hospital_Type_Psychiatric_Unit, 
+    Hospital_Type_Other, 
+    Hospital_Type_Other_Specify, 
+    Hospital_Type_Physician_Owned_Hospital
+  "/>
+  <Property name="ignoreFields" value="Record_Type,Contractor_ID_Child,Creation_Date_Child,Child_PAC_ID, Enrollment_ID_Child"/>
+  <Property name="isMultiple" value="N"/>
+  <Property name="seperator" value=","/>
+</Configuration>

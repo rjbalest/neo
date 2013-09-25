@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--set any default configuration parameters here-->
+<Configuration version="1">
+  <Property name="mongoURL" value="localhost"/>
+  <Property name="mongoInsertMode" value="a"/>
+  <Property name="mongoPort" value="27017"/>
+  <Property name="mongoDatabase" value="healthcare"/>
+  <Property name="mongoUsername" value="liza183"/>
+  <Property name="mongoPassword" value="cmsproject"/>
+  <Property name="mongoCollectionName" value="Org_Name"/>
+  <Property name="mongoCollectionFieldsToDisintegrate" value="Org_Name:HashKey_Org_Name"/>
+  <Property name="remainAfterDisintegrate" value ="Org_Name"/>
+  <Property name="mongoCollectionSource" value="nppes"/>
+
+    <!--edgeName -->
+  <Property name="edgeName:Org_Name" value="hasOrgNameHashKey"/>
+  
+</Configuration>

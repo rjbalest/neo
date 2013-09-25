@@ -12,81 +12,351 @@
   
   <!-- what to disintegrate -->   
   <Property name="mongoCollectionFieldsToDisintegrate" value="
-  	Provider_Full_Name:Full_Name, 
+  	Provider_Base_Full_Name:Name, 
   	Provider_Base_Address:Address,
   	Provider_Base_Telephone_Number:Phone,
-  	PAC_ID:ID, 
-  	Subunit_Consolidation_[1-9999]:Department,
- 	Other_Provider_Identifier_Info_[1-9999]:ID,
-	Practice_Location_[1-9999]:Practice_Location,
+  	Provider_Base_Legal_Business_Name:Org_Name,
+  	Provider_Base_Enrollment_State:State,
+  	PAC_ID:Identifier, 
+  	Contractor_ID:Identifier,
+  	Enrollment_ID:Identifier,
+	Provider_Base_School_Grad_Year:School_Grad_Year,
+	Provider_Base_Non_Physician_Specialty_Type:Non_Physician_Specialty,
+ 	Other_Provider_Identifier_Info_[1-9999]:Identifier,
+	Subunit_Consolidation_Info_[1-9999]:Department,
+  	Practice_Location_Info_[1-9999]:Practice_Location,
+	Chain_Info_[1-9999]:Chain,
+	Health_Home_Agency_Info_[1-9999]:Health_Home_Agency,
+	Specialty_Info_[1-999]:Specialty,
+	Reassignment_Info_[1-9999]:Reassignment,
+	Employer_Info_[1-999]:Employer,
+	Member_Info_[1-999]:Member,
+	Adverse_Legal_Action_[1-9999]:Adverse_Legal_Action,
+	Storage_Location_Info_[1-9999]:Storage_Location,
+	Billing_Agency_Info_[1-9999]:Billing_Agency,
+	Authorized_Delegated_Official_Certification_Statement_[1-9999]:Official_Certification,
+	Ambulance_Service_Service_Area_State_[1-8]:State,
+	Equipment_Info_[1-9999]:IDTF_Equipment,
+	IDTF_CPT4_HCPCS_Codes_[1-9999]:IDTF_CPT4_HCPCS_Code,
+	IDTF_Technician_Info_[1-9999]:IDTF_Technician,
+	IDTF_Supervising_Physician_Info_[1-9999]:IDTF_Physician,
+	IDTF_Attestation_Info_[1-9999]:IDTF_Attestation,
+	State_License_Number_State_[1-9999]:License,
+	PAR_Status_Info_[1-9999]:PAR_Status,
+	Site_Visit_[1-9999]:Site_Visit		
 "/>
 
   <!--edgeName -->
-  <Property name="edgeName:Provider_Full_Name" value="hasFullName"/>
+  <Property name="edgeName:Provider_Base_Full_Name" value="hasBaseName"/>
   <Property name="edgeName:Provider_Base_Address" value="hasBaseAddress"/>
-  <Property name="edgeName:Provider_Base_Telephone_Number" value="hasBaseTelephone"/>
-  <Property name="edgeName:PAC_ID" value="hasOtherID"/>
-  <Property name="edgeName:Subunit_Consolidation_[1-9999]" value="hasDepartment"/>
+  <Property name="edgeName:Provider_Base_Telephone_Number" value="hasBasePhone"/>
+  <Property name="edgeName:Provider_Base_Enrollment_State" value="hasBaseEnollmentState"/>
+  <Property name="edgeName:PAC_ID" value="hasPAC"/>
+  <Property name="edgeName:Provider_Base_School_Grad_Year" value="graduatedFrom"/>
+  <Property name="edgeName:Provider_Base_Non_Physician_Specialty_Type" value="hasNonPhysicianSpecialty"/>
+  <Property name="edgeName:Contractor_ID" value="hasContractorID"/>
+  <Property name="edgeName:Enrollment_ID" value="hasErollmentID"/>
+  <Property name="edgeName:Provider_Base_Legal_Business_Name" value="hasLegalBusinessName"/>
   <Property name="edgeName:Other_Provider_Identifier_Info_[1-9999]" value="hasOtherID"/>
-  <Property name="edgeName:Practice_Location_[1-9999]" value="hasPracticeLocation"/> 
-
+  <Property name="edgeName:Practice_Location_Info_[1-9999]" value="hasPracticeLocation"/>
+  <Property name="edgeName:Subunit_Consolidation_Info_[1-9999]" value="hasDepartment"/>
+  <Property name="edgeName:Chain_Info_[1-9999]" value="hasChain"/>
+  <Property name="edgeName:Health_Home_Agency_Info_[1-9999]" value="hasHealthHomeAgency"/> 
+  <Property name="edgeName:Specialty_Info_[1-999]" value="hasSpecialty"/>  
+  <Property name="edgeName:Reassignment_Info_[1-9999]" value="hasReassignmentInfo"/> 
+  <Property name="edgeName:Employer_Info_[1-999]" value="hasEmployer"/> 
+  <Property name="edgeName:Member_Info_[1-999]" value="hasMember"/>
+  <Property name="edgeName:Adverse_Legal_Action_[1-9999]" value="hasAdverseLegalActionRecord"/>
+  <Property name="edgeName:Storage_Location_Info_[1-9999]" value="hasStorageLocation"/>
+  <Property name="edgeName:Billing_Agency_Info_[1-9999]" value="hasBillingAgency"/>
+  <Property name="edgeName:Authorized_Delegated_Official_Certification_Statement_[1-9999]" value="hasOfficialCertification"/>
+  <Property name="edgeName:Ambulance_Service_Service_Area_State_[1-8]" value="hasAmbulanceServiceArea"/>
+  <Property name="edgeName:Equipment_Info_[1-8]" value="hasEquipment"/>
+  <Property name="edgeName:IDTF_CPT4_HCPCS_Codes_[1-9999]" value="hasHCPCSCode"/>
+  <Property name="edgeName:IDTF_Technician_Info_[1-9999]" value="hasTechnician"/>
+  <Property name="edgeName:IDTF_Supervising_Physician_Info_[1-9999]" value="hasSupervisingPhysician"/>
+  <Property name="edgeName:IDTF_Attestation_Info_[1-9999]" value="hasAttestation"/>
+  <Property name="edgeName:State_License_Number_State_[1-9999]" value="hasStateLicense"/>
+  <Property name="edgeName:PAR_Status_Info_[1-9999]" value="hasPARStatus"/>
+  <Property name="edgeName:Site_Visit_[1-9999]" value="hasSiteVisitInfo"/>
+   
   <!--subFields -->
   
-  <Property name="subFields:Provider_Full_Name" value="
-  	Provider_Last_Name_Legal_Name:Last_Name,
-  	Provider_First_Name:First_Name,
-  	Provider_Middle_Name:Middle_Name"/>
+  <Property name="subFields:Provider_Base_Full_Name" value="
+  	Provider_Base_Full_Name:Full_Name,
+  	Provider_Base_Last_Name:Last_Name,
+  	Provider_Base_First_Name:First_Name,
+  	Provider_Base_Middle_Name:Middle_Name"/>
 
-  <Property name="subFields:Provider_Base_Address" value="
-  	Provider_First_Line_Base_Address:First_Line,
-  	Provider_Second_Line_Base_Address:Second_Line, 
-  	Provider_Base_Address_City_Name:City, 
-  	Provider_Base_Address_State_Name:State,
-  	Provider_Base_Address_Postal_Code:Zip_Code,
-  	Foreign_Address_State_Field:Foreign_State, 
-  	Foreign_Address_Postal_Code:Foreign_Zip_Code,
-  	Foreign_Address_Country:Foreign_Country,
-  	Start_Date:Start_Date"/>   
-  
-  <Property name="subFields:Subunit_Consolidation_[1-9999]" value="
-    Department_Name_[n]:Department_Name,
-  	Medicare_ID_Number_of_Buyer_Seller_Old_New_[n]:Medicare_ID_Number_of_Buyer_Seller_Old_New,
-  	Medicare_Type_[n]:Medicare_Type,
-  	NPI_of_Buyer_Seller_Old_New_[n]:NPI_of_Buyer_Seller_Old_New
-   "/>
-
-  <Property name="subFields:Other_Provider_Identifier_Info_[1-9999]" value="
-    MED_ID_TYPE_[n]:Other_Provider_Identifier_Type_Code,
-    MED_ID_[n]:Other_Provider_Identifier,
-    MED_Effective_Date_[n]:Effective_Date
+  <Property name="subFields:Provider_Base_Legal_Business_Name" value="
+  	Provider_Base_Legal_Business_Name:Org_Name,
   "/>
-  	    
-  <Property name="subFields:Practice_Location_[1-9999]" value="
-  	Practice_Location_Name_[n]:Practice_Location_Name,
-    HHA_Branch_[n]:HHA_Branch,
-    Hospital_Psychiatric_Unit_[n]:Hospital_Psychiatric_Unit,
-    Hospital_Rehabilitation_Unit_[n]:Hospital_Rehabilitation_Unit,
-    OPT_Extension_Site_[n]:OPT_Extension_Site,
-    Hospital_Swing_Bed_Unit_[n]:Hospital_Swing_Bed_Unit,
-    Other_[n]:Other,
-    Other_Specify_[n]:Other_Specify,
-    Location_Type_[n]:Location_Type,
-    Practice_Full_Address_[n]:Practice_Full_Address,
-    First_Line_Practice_Address_[n]:First_Line_Practice_Address,
-    Second_Line_Practice_Address_[n]:Second_Line_Practice_Address,
-    Practice_Address_City_Name_[n]:Practice_Address_City_Name,
-    Practice_Address_State_Name_[n]:Practice_Address_State_Name,
-    Practice_Address_Postal_Code_[n]:Practice_Address_Postal_Code,
-    Practice_Telephone_Number_[n]:Practice_Telephone_Number,
-    NPI_[n]:NPI,
-    NPI_Indicator_[n]:NPI_Indicator,
-    Start_Date_Practice_[n]:Start_Date_Practice,
-    Claims_System_PIN_[n]:Claims_System_PIN,
-    Clinical_Laboratory_Improvement_Act_[n]:Clinical_Laboratory_Improvement_Act,
-    Railroad_Board_Indicator_[n]:Railroad_Board_Indicator,
-    Railroad_Board_PIN_[n]:Railroad_Board_PIN,
-    Create_Date_Practice_[n]:Create_Date_Practice,
-    Primary_Practice_Location_Indicator_[n]:Primary_Practice_Location_Indicator"/>
-  
+  	
+  <Property name="subFields:Provider_Base_Address" value="
+  	Provider_Base_Full_Address:Full_Address,
+  	Provider_Base_Address_First_Line:First_Line,
+  	Provider_Base_Address_Second_Line:Second_Line, 
+  	Provider_Base_Address_City:City, 
+  	Provider_Base_Address_State:State,
+  	Provider_Base_Address_Postal_Code:Postal_Code,
+  	Provider_Base_Foreign_Address_State:Foreign_State, 
+  	Provider_Base_Foreign_Address_Postal_Code:Foreign_Zip_Code,
+  	Provider_Base_Foreign_Address_Country:Foreign_Country,
+  	Provider_Base_Address_Start_Date:Start_Date,
+  	Provider_Base_Foreign_Address_Indicator_Field:IsForeign
+  	"/>   
+  	
+  <Property name="subFields:Provider_Base_School_Grad_Year" value="
+  	Provider_Base_Medical_School_ID:Medical_School_ID,
+  	Provider_Base_Medical_School_Graduation_Year:Graduation_Year"/>
+  	
+  <Property name="subFields:Other_Provider_Identifier_Info_[1-9999]" value="
+    Medicare_ID_Type_[n]:Medicare_ID_Type,
+    Medicare_ID_[n]:Medicare_ID,
+    Medicare_ID_Effective_Date_[n]:MEdicare_ID_Effective_Date
+  "/>
 
+  <Property name="subFields:Practice_Location_Info_[1-9999]" value="
+  	Practice_Location_Name_[n]:Practice_Location_Name,
+    Practice_Location_HHA_Branch_[n]:Practice_Location_HHA_Branch,
+    Practice_Location_Hospital_Psychiatric_Unit_[n]:Practice_Location_Hospital_Psychiatric_Unit,
+    Practice_Location_Hospital_Rehabilitation_Unit_[n]:Practice_Location_Hospital_Rehabilitation_Unit,
+    Practice_Location_OPT_Extension_Site_[n]:Practice_Location_OPT_Extension_Site,
+    Practice_Location_Hospital_Swing_Bed_Unit_[n]:Practice_Location_Hospital_Swing_Bed_Unit,
+    Practice_Location_Other_[n]:Practice_Location_Other,
+    Practice_Location_Other_Specify_[n]:Practice_Location_Other_Specify,
+    Practice_Location_Location_Type_[n]:Practice_Location_Location_Type,
+    Practice_Location_Address_[n]:Practice_Location_Address,
+    Practice_Location_Full_Address_[n]:Practice_Location_Full_Address,
+    Practice_Location_Address_First_Line_[n]:Practice_Location_Address_First_Line,
+    Practice_Location_Address_Second_Line_[n]:Practice_Location_Address_Second_Line,
+    Practice_Location_Address_City_[n]:Practice_Location_Address_City,
+    Practice_Location_Address_State_[n]:Practice_Location_Address_State,
+    Practice_Location_Address_Postal_Code_[n]:Practice_Location_Address_Postal_Code,
+    Practice_Location_Telephone_Number_[n]:Practice_Location_Telephone_Number,
+    Practice_Location_NPI_[n]:Practice_Location_NPI,
+    Practice_Location_NPI_Indicator_[n]:Practice_Location_NPI_Indicator,
+    Practice_Location_Start_Date_[n]:Practice_Location_Start_Date,
+    Practice_Location_Claims_System_PIN_[n]:Practice_Location_Claims_System_PIN,
+    Practice_Location_Clinical_Laboratory_Improvement_Act_[n]:Practice_Location_Clinical_Laboratory_Improvement_Act,
+    Practice_Location_Railroad_Board_Indicator_[n]:Practice_Location_Railroad_Board_Indicator,
+    Practice_Location_Railroad_Board_PIN_[n]:Practice_Location_Railroad_Board_PIN,
+    Practice_Location_Create_Date_[n]:Practice_Location_Create_Date,
+    Practice_Location_Is_Primary_[n]:Practice_Location_Is_Primary"/>
+    
+  <Property name="subFields:Subunit_Consolidation_Info_[1-9999]" value="
+    Subunit_Consolidation_Department_Name_[n]:Subunit_Consolidation_Department_Name,
+    Subunit_Consolidation_Medicare_ID_Number_of_Buyer_Seller_Old_New_[n]:Subunit_Consolidation_Medicare_ID_Buyer_Seller_Etc,
+  	Subunit_Consolidation_Medicare_Type_[n]:Subunit_Consolidation_Medicare_Type_Buyer_Seller_Etc,
+  	Subunit_Consolidation_NPI_of_Buyer_Seller_Old_New_[n]:Subunit_Consolidation_NPI_Buyer_Seller_Etc
+   "/>	
+  	
+  <Property name="subFields:Chain_Info_[1-9999]" value="
+    Chain_Home_Office_Legal_Business_Name_[n]:Chain_Home_Office_Legal_Business_Name,
+  	Chain_Home_Office_TIN_[n]:Chain_Home_Office_TIN,
+  	Chain_Home_Office_Cost_Report_Year_End_Date_[n]:Chain_Home_Office_Cost_Report_Year_End_Date,
+  	Chain_Home_Office_Type_Of_Business_Structure_[n]:Chain_Home_Office_Type_Of_Business_Structure,
+  	Chain_Home_Office_Full_Address_[n]:Chain_Home_Office_Full_Address,
+  	Chain_Home_Office_Address_[n]:Chain_Home_Office_Address,
+  	Chain_Home_Office_Address_First_Line_[n]:Chain_Home_Office_Address_First_Line,
+  	Chain_Home_Office_Address_Second_Line_[n]:Chain_Home_Office_Address_Second_Line,
+  	Chain_Home_Office_Address_City_[n]:Chain_Home_Office_Address_City,
+  	Chain_Home_Office_Address_State_[n]:Chain_Home_Office_Address_State,
+  	Chain_Home_Office_Address_Postal_Code_[n]:Chain_Home_Office_Address_Postal_Code,
+  	Chain_Home_Office_Telephone_Number_[n]:Chain_Home_Office_Telephone_Number,
+  	Chain_Home_Office_Responsible_Contractor_ID_[n]:Chain_Home_Office_Responsible_Contractor_ID,
+  	Chain_Home_Office_Responsible_Contractor_Tie_In_Date_[n]:Chain_Home_Office_Responsible_Contractor_Tie_In_Date,
+  	Chain_Home_Office_Responsible_Contractor_Tie_Out_Date_[n]:Chain_Home_Office_Responsible_Contractor_Tie_Out_Date,
+  	Chain_Home_Office_Affiliation_to_Chain_[n]:Chain_Home_Office_Affiliation_to_Chain
+   "/> 	
+
+  <Property name="subFields:Health_Home_Agency_Info_[1-9999]" value="
+  	Health_Home_Agency_Type_[n]:Health_Home_Agency_Type,
+  	Health_Home_Agency_Projected_Number_of_Visits_in_3_Months_[n]:Health_Home_Agency_Projected_Number_of_Visits_in_3_Months,
+  	Health_Home_Agency_Projected_Number_of_Visits_in_12_Months_[n]:Health_Home_Agency_Projected_Number_of_Visits_in_12_Months,
+  	Health_Home_Agency_Financial_Documment_Submitted_[n]:Health_Home_Agency_Financial_Documment_Submitted,
+  	Health_Home_Agency_Legal_Business_Name_[n]:Health_Home_Agency_Legal_Business_Name,
+  	Health_Home_Agency_Registry_TIN_[n]:Health_Home_Agency_Registry_TIN,
+  	Health_Home_Agency_Address_[n]:Health_Home_Agency_Address,
+  	Health_Home_Agency_Full_Address_[n]:Health_Home_Agency_Full_Address,
+  	Health_Home_Agency_Address_First_Line_[n]:Health_Home_Agency_Address_First_Line,
+  	Health_Home_Agency_Address_Second_Line_[n]:Health_Home_Agency_Address_Second_Line,
+  	Health_Home_Agency_Address_City_[n]:Health_Home_Agency_Address_City,
+  	Health_Home_Agency_Address_State_[n]:Health_Home_Agency_Address_State,
+  	Health_Home_Agency_Address_Postal_Code_[n]:Health_Home_Agency_Address_Postal_Code,
+  	Health_Home_Agency_Telephone_Number_[n]:Health_Home_Agency_Telephone_Number
+  	"/>
+  	
+  <Property name="subFields:Specialty_Info_[1-999]" value="
+  	Specialty_Physician_Specialty_Code_[n]:Specialty_Code,
+	Specialty_Effective_Date_[n]:Specialty_Effective_Date,
+	Specialty_Primary_Specialty_Switch_[n]:Specialty_Primary_Specialty_Switch
+  	"/> 
+  	
+  <Property name="subFields:Reassignment_Info_[1-999]" value="
+  	Reassignment_TIN_[n]:Reassignment_TIN,
+  	Reassignment_Legal_Business_Name_[n]:Reassignment_Legal_Business_Name,
+  	Reassignment_PAC_ID_[n]:Reassignment_PAC_ID,
+  	Reassignment_Enrollment_ID_[n]:Reassignment_Enrollment_ID,
+  	Reassignment_Effective_Date_of_Group_[n]:Reassignment_Effective_Date_of_Group,
+  	Reassignment_First_Name_[n]:Reassignment_First_Name,
+  	Reassignment_Middle_Name_[n]:Reassignment_Middle_Name,
+  	Reassignment_Last_Name_[n]:Reassignment_Last_Name
+  	"/>
+  	
+  <Property name="subFields:Employer_Info_[1-999]" value="
+  	Employer_PAC_ID_[n]:Employer_PAC_ID,
+  	Employer_Enrollment_ID_[n]:Employer_Enrollment_ID,
+  	Employer_TIN_[n]:Employer_TIN,
+  	Employer_Full_Name_[n]:Employer_Full_Name,
+  	Employer_First_Name_[n]:Employer_First_Name,
+  	Employer_Middle_Name_[n]:Employer_Middle_Name,
+  	Employer_Last_Name_[n]:Employer_Last_Name,
+  	Employer_Legal_Business_Name_[n]:Employer_Legal_Business_Name,
+  	Employer_Effective_Date_[n]:Employer_Effective_Date
+  	"/>  
+	
+  <Property name="subFields:Member_Info_[1-999]" value="
+    Member_Full_Name_[n]:Member_Full_Name,
+    Member_First_Name_[n]:Member_First_Name,
+ 	Member_Middle_Name_[n]:Member_Middle_Name,
+ 	Member_Last_Name_[n]:Member_Last_Name,
+ 	Member_PAC_ID_[n]:Member_PAC_ID,
+ 	Member_Enrollment_ID_[n]:Member_Enrollment_ID,
+ 	Member_Effective_Date_[n]:Member_Effective_Date
+ 	"/>
+  	
+  <Property name="subFields:Adverse_Legal_Action_[1-9999]" value="
+    Adverse_Legal_Action_Description_[n]:Description,
+  	Adverse_Legal_Action_Date_[n]:Date,
+  	Adverse_Legal_Action_Law_Enforcement_[n]:Law_Enforcement,
+  	Adverse_Legal_Action_Synopsys_of_Resolution_[n]:Synopsys_of_Resolution
+  	"/>
+  
+  <Property name="subFields:Storage_Location_Info_[1-9999]" value="
+    Storage_Location_Name_[n]:Storage_Location_Name,
+    Storage_Location_Address_[n]:Storage_Location_Address,
+    Storage_Location_Full_Address_[n]:Storage_Location_Full_Address,
+  	Storage_Location_Address_First_Line_[n]:Storage_Location_Address_First_Line,
+  	Storage_Location_Address_Second_Line_[n]:Storage_Location_Address_Second_Line,
+  	Storage_Location_Address_City_[n]:Storage_Location_Address_City,
+  	Storage_Location_Address_State_[n]:Storage_Location_Address_State,
+  	Storage_Location_Address_Postal_Code_[n]:Storage_Location_Address_Postal_Code
+  	"/>
+  
+  <Property name="subFields:Billing_Agency_Info_[1-9999]" value="
+    Billing_Agency_TIN_[n]:Billing_Agency_TIN,
+  	Billing_Agency_Legal_Business_Name_[n]:Billing_Agency_Legal_Business_Name,
+  	Billing_Agency_Full_Name_[n]:Billing_Agency_Full_Name,
+  	Billing_Agency_First_Name_[n]:Billing_Agency_First_Name,
+  	Billing_Agency_Middle_Name_[n]:Billing_Agency_Middle_Name,
+  	Billing_Agency_Last_Name_[n]:Billing_Agency_Last_Name,
+  	Billing_Agency_Foreign_Domestic_Code_[n]:Billing_Agency_Foreign_Domestic_Code,
+  	Billing_Agency_Address_[n]:Billing_Agency_Address,
+  	Billing_Agency_Full_Address_[n]:Billing_Agency_Full_Address,
+  	Billing_Agency_Address_First_Line_[n]:Billing_Agency_Address_First_Line,
+  	Billing_Agency_Address_Second_Line_[n]:Billing_Agency_Address_Second_Line,
+  	Billing_Agency_Address_City_[n]:Billing_Agency_Address_City,
+  	Billing_Agency_Address_State_[n]:Billing_Agency_Address_State,
+  	Billing_Agency_Address_Foreign_State_[n]:Billing_Agency_Address_Foreign_State,
+  	Billing_Agency_Address_Postal_Code_[n]:Billing_Agency_Address_Postal_Code,
+  	Billing_Agency_Address_Foreign_Postal_Code_[n]:Billing_Agency_Address_Foreign_Postal_Code,
+  	Billing_Agency_Address_Country_[n]:Billing_Agency_Address_Country,
+  	Billing_Agency_Telephone_Number_[n]:Billing_Agency_Telephone_Number,
+  	Billing_Agency_Start_Date_[n]:Billing_Agency_Start_Date
+  	"/>
+  	
+   <Property name="subFields:Authorized_Delegated_Official_Certification_Statement_[1-9999]" value="
+    Authorized_Delegated_Official_Certification_Statement_Full_Name_[n]:Official_Certification_Full_Name,
+    Authorized_Delegated_Official_Certification_Statement_First_Name_[n]:Official_Certification_First_Name,
+  	Authorized_Delegated_Official_Certification_Statement_Middle_Name_[n]:Official_Certification_Middle_Name,
+  	Authorized_Delegated_Official_Certification_Statement_Last_Name_[n]:Official_Certification_Last_Name,
+  	Authorized_Delegated_Official_Certification_Statement_Title_[n]:Official_Certification_Title,
+  	Authorized_Delegated_Official_Certification_Statement_Role_[n]:Official_Certification_Role,
+  	Authorized_Delegated_Official_Certification_Statement_Associate_Date_[n]:Official_Certification_Associate_Date,
+  	Authorized_Delegated_Official_Certification_Statement_Signature_Date_[n]:Official_Certification_Signature_Date
+  	"/>
+
+	<Property name="subFields:Equipment_Info_[1-9999]" value="
+   	IDTF_Equipment_If_Standard_[n]:IDTF_Equipment_If_Standard,
+  	IDTF_Equipment_If_Standard_Effective_Date_[n]:IDTF_Equipment_If_Standard_Effective_Date,
+  	IDTF_Equipment_Equipment_Description_[n]:IDTF_Equipment_Equipment_Description,
+  	IDTF_Equipment_Model_No_[n]:IDTF_Equipment_Model_No,
+  	IDTF_Equipment_Effective_Date_[n]:IDTF_Equipment_Effective_Date
+  	"/>
+  	
+  	<Property name="subFields:IDTF_CPT4_HCPCS_Codes_[1-9999]" value="
+   	IDTF_CPT4_HCPCS_If_Standard_[n]:If_Standard,
+  	IDTF_CPT4_HCPCS_If_Standard_Effective_Date_[n]:If_Standard_Effective_Date
+  	"/>
+  	
+  	<Property name="subFields:IDTF_Technician_Info_[1-9999]" value="
+   	IDTF_Technician_If_Standard_[n]:IDTF_Technician_If_Standard,
+  	IDTF_Technician_If_Standard_Effective_Date_[n]:IDTF_Technician_If_Standard_Effective_Date,
+  	IDTF_Technician_Full_Name_[n]:IDTF_Technician_Full_Name,
+  	IDTF_Technician_First_Name_[n]:IDTF_Technician_First_Name,
+  	IDTF_Technician_Middle_Name_[n]:IDTF_Technician_Middle_Name,
+  	IDTF_Technician_Last_Name_[n]:IDTF_Technician_Last_Name,
+  	IDTF_Technician_Associate_Date_[n]:IDTF_Technician_Associate_Date
+  	"/>
+  	
+  	<Property name="subFields:IDTF_Supervising_Physician_Info_[1-9999]" value="
+   	IDTF_Supervising_Physician_If_Standard_[n]:IDTF_Supervising_Physician_If_Standard,
+  	IDTF_Supervising_Physician_If_Standard_Effective_Date_[n]:IDTF_Supervising_Physician_If_Standard_Effective_Date,
+  	IDTF_Supervising_Physician_Full_Name_[n]:IDTF_Supervising_Physician_Full_Name,
+  	IDTF_Supervising_Physician_First_Name_[n]:IDTF_Supervising_Physician_First_Name,
+  	IDTF_Supervising_Physician_Middle_Name_[n]:IDTF_Supervising_Physician_Middle_Name,
+  	IDTF_Supervising_Physician_Last_Name_[n]:IDTF_Supervising_Physician_Last_Name,
+  	IDTF_Supervising_Physician_Associate_Date_[n]:IDTF_Supervising_Physician_Associate_Date,
+  	IDTF_Supervising_Physician_Codes_Not_Supervised_[n]:IDTF_Supervising_Physician_Codes_Not_Supervised
+  	"/>
+  	
+  	<Property name="subFields:IDTF_Attestation_Info_[1-9999]" value="
+   	IDTF_Attestation_If_Standard_[n]:IDTF_Attestation_If_Standard,
+  	IDTF_Attestation_If_Standard_Effective_Date_[n]:IDTF_Attestation_If_Standard_Effective_Date,
+  	IDTF_Attestation_Full_Name_[n]:IDTF_Attestation_Full_Name,
+  	IDTF_Attestation_First_Name_[n]:IDTF_Attestation_First_Name,
+  	IDTF_Attestation_Middle_Name_[n]:IDTF_Attestation_Middle_Name,
+  	IDTF_Attestation_Last_Name_[n]:IDTF_Attestation_Last_Name,
+  	IDTF_Attestation_Associate_Date_[n]:IDTF_Attestation_Associate_Date
+  	"/>
+  	
+  	<Property name="subFields:State_License_Number_State_[1-9999]" value="
+   	State_License_State_[n]:State,
+    State_License_Number_[n]:License_Number
+  	"/>
+  	
+  	<Property name="subFields:PAR_Status_Info_[1-9999]" value="
+   	PAR_Status_[n]:State,
+    PAR_Status_Effective_Date_[n]:Effective_Date,
+    PAR_Status_End_Date_[n]:End_Date
+  	"/>
+  	
+  	<Property name="subFields:Site_Visit_[1-9999]" value="
+   	Site_Visit_Indicator_[n]: Indicator,
+  	Site_Visit_Ordered_Date_[n]:Ordered_Date,
+  	Site_Visit_Reason_Code_[n]:Reason_Code,
+  	Site_Visit_Result_[n]:Result,
+  	Site_Visit_Date_of_First_Attempt_[n]:Date_of_First_Attempt,
+  	Site_Visit_Time_of_First_Attempt_[n]:Time_of_First_Attempt,
+  	Site_Visit_Date_of_Second_Attempt_[n]:Date_of_Second_Attempt,
+  	Site_Visit_Time_of_Second_Attempt_[n]:Time_of_Second_Attempt,
+  	Site_Visit_If_Store_Front_[n]:If_Store_Front,
+  	Site_Visit_If_Warehouse_[n]:If_Warehouse,
+  	Site_Visit_If_Private_Residence_[n]:If_Private_Residence,
+  	Site_Visit_If_Office_Suite_Mall_[n]:If_Office_Suite_Mall,
+  	Site_Visit_If_Office_Suite_Office_Building_[n]:If_Office_Suite_Office_Building,
+  	Site_Visit_If_PO_Box_[n]:If_PO_Box,
+  	Site_Visit_If_Commercial_Mailbox_[n]:If_Commercial_Mailbox,
+  	Site_Visit_If_Other_[n]:If_Other,
+  	Site_Visit_Other_Description_[n]:Other_Description,
+  	Site_Visit_If_Open_for_Business_[n]:If_Open_for_Business,
+  	Site_Visit_If_Employees_Present_[n]:If_Employees_Present,
+  	Site_Visit_If_Customer_Activity_[n]:If_Customer_Activity,
+  	Site_Visit_If_Business_Hour_Posted_[n]:If_Business_Hour_Posted,
+  	Site_Visit_If_Appear_Operational_[n]:If_Appear_Operational,
+  	Site_Visit_Comments_[n]:Comments
+  	"/>
+  	
+  	
 </Configuration>

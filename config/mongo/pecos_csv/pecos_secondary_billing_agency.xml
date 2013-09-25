@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--set any default configuration parameters here-->
+<Configuration version="1">
+  <Property name="mongoURL" value="localhost"/>
+  <Property name="mongoInsertMode" value="a"/>
+  <Property name="mongoPort" value="27017"/>
+  <Property name="mongoDatabase" value="healthcare"/>
+  <Property name="mongoUsername" value="liza183"/>
+  <Property name="mongoPassword" value="cmsproject"/>
+  <Property name="mongoCollectionName" value="Billing_Agency"/>
+  <Property name="mongoCollectionFieldsToDisintegrate" value="
+  	Billing_Agency_TIN:Identifier,
+  	Billing_Agency_Legal_Business_Name:Org_Name,
+  	Billing_Agency_Full_Name:Name,
+  	Billing_Agency_Address:Address,
+  	Billing_Agency_Telephone_Number:Phone
+  "/>
+  <Property name="mongoCollectionSource" value="pecos"/>
+
+    <!--edgeName -->
+  <Property name="edgeName:Billing_Agency_Address" value="hasAddress"/>
+  <Property name="edgeName:Billing_Agency_Full_Name" value="hasName"/>
+  <Property name="edgeName:Billing_Agency_TIN" value="hasTIN"/>
+  <Property name="edgeName:Billing_Agency_Legal_Business_Name" value="hasLegalBusinessName"/>
+  <Property name="edgeName:Billing_Agency_Telephone_Number" value="hasPhone"/>
+  	  
+  <Property name="subFields:Billing_Agency_Legal_Business_Name" value="
+  	Billing_Agency_Legal_Business_Name:Org_Name,
+  "/>
+  
+  <Property name="subFields:Billing_Agency_Address" value="
+  	Billing_Agency_Full_Address:Full_Address,
+  	Billing_Agency_Address_First_Line:First_Line,
+  	Billing_Agency_Address_Second_Line:Second_Line,
+  	Billing_Agency_Address_City:City,
+  	Billing_Agency_Address_State:State,
+  	Billing_Agency_Address_Foreign_State:Foreign_State,
+  	Billing_Agency_Address_Postal_Code:Postal_Code,
+  	Billing_Agency_Address_Foreign_Postal_Code:Foreign_Postal_Code,
+  	Billing_Agency_Address_Country:Country
+	"/>
+  
+  <Property name="subFields:Billing_Agency_Full_Name" value="
+  	Billing_Agency_Full_Name:Full_Name,
+  	Billing_Agency_First_Name:First_Name,
+  	Billing_Agency_Middle_Name:Middle_Name,
+  	Billing_Agency_Last_Name:Last_Name,
+  "/>
+  
+</Configuration>

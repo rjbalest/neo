@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--set any default configuration parameters here-->
+<Configuration version="1">
+  <Property name="source" value="file"/>
+  <Property name="dataFile" value="csv/pecos_location_of_patient_medical_records.csv"/>
+  <Property name="mongoURL" value="localhost"/>
+  <Property name="mongoInsertMode" value="a"/>
+  <Property name="mongoPort" value="27017"/>
+  <Property name="mongoDatabase" value="healthcare"/>
+  <Property name="mongoUsername" value="liza183"/>
+  <Property name="mongoPassword" value="cmsproject"/>
+  <Property name="mongoCollectionName" value="Provider_PECOS"/>
+  <Property name="keyOfSource" value="Enrollment_ID_Child"/>
+  <Property name="keyOfTargetCollection" value="Enrollment_ID"/>
+  <Property name="mongoCollectionFields" value="
+    Record_Type, 
+    Contractor_ID_Child, 
+    Creation_Date_Child, 
+    Child_PAC_ID, 
+    Enrollment_ID_Child, 
+	Storage_Location_Name,
+  	Storage_Location_Address_First_Line,
+  	Storage_Location_Address_Second_Line,
+  	Storage_Location_Address_City,
+  	Storage_Location_Address_State,
+  	Storage_Location_Address_Postal_Code
+  "/>
+
+  <Property name="dummyFields" value="Storage_Location_Info, Storage_Location_Address"/>
+  <Property name="dummyFields:Storage_Location_Info" value="
+  	Storage_Location_Name,
+  	Storage_Location_Address_First_Line,
+  	Storage_Location_Address_Second_Line,
+  	Storage_Location_Address_City,
+  	Storage_Location_Address_State,
+  	Storage_Location_Address_Postal_Code
+  "/>
+
+  <Property name="concatFields" value="Storage_Location_Full_Address"/>
+  <Property name="concatFields:Storage_Location_Full_Address" value="
+  	Storage_Location_Address_First_Line,
+  	Storage_Location_Address_Second_Line,
+  	Storage_Location_Address_City,
+  	Storage_Location_Address_State,
+  	Storage_Location_Address_Postal_Code
+  "/>
+  
+  <Property name="dummyFields:Storage_Location_Address" value="
+  	Storage_Location_Address_First_Line,
+  	Storage_Location_Address_Second_Line,
+  	Storage_Location_Address_City,
+  	Storage_Location_Address_State,
+  	Storage_Location_Address_Postal_Code
+  "/>
+  
+  <Property name="ignoreFields" value="Record_Type,Contractor_ID_Child,Creation_Date_Child,Child_PAC_ID, Enrollment_ID_Child"/>
+  <Property name="isMultiple" value="Y"/>
+  <Property name="seperator" value=","/>
+</Configuration>

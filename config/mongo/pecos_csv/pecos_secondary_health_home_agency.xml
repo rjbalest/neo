@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--set any default configuration parameters here-->
+<Configuration version="1">
+  <Property name="mongoURL" value="localhost"/>
+  <Property name="mongoInsertMode" value="a"/>
+  <Property name="mongoPort" value="27017"/>
+  <Property name="mongoDatabase" value="healthcare"/>
+  <Property name="mongoUsername" value="liza183"/>
+  <Property name="mongoPassword" value="cmsproject"/>
+  <Property name="mongoCollectionName" value="Health_Home_Agency"/>
+  <Property name="mongoCollectionFieldsToDisintegrate" value="
+  	
+  	Health_Home_Agency_Legal_Business_Name:Org_Name,
+  	Health_Home_Agency_Registry_TIN:Identifier,
+  	Health_Home_Agency_Address:Address,
+  	Health_Home_Agency_Telephone_Number:Phone
+  	
+  "/>
+  <Property name="mongoCollectionSource" value="pecos"/>
+
+    <!--edgeName -->
+  <Property name="edgeName:Health_Home_Agency_Legal_Business_Name" value="hasLegalBusinessName"/>
+  <Property name="edgeName:Health_Home_Agency_Registry_TIN" value="hasRegistryTIN"/>
+  <Property name="edgeName:Health_Home_Agency_Address" value="hasAddress"/>
+  <Property name="edgeName:Health_Home_Agency_Telephone_Number" value="hasPhone"/>
+  	  
+  <Property name="subFields:Health_Home_Agency_Legal_Business_Name" value="
+  	Health_Home_Agency_Legal_Business_Name:Org_Name,
+  "/>
+  
+  <Property name="subFields:Health_Home_Agency_Address" value="
+  	Health_Home_Agency_Full_Address:Full_Address,
+  	Health_Home_Agency_Address_First_Line:First_Line,
+  	Health_Home_Agency_Address_Second_Line:Second_Line,
+  	Health_Home_Agency_Address_City:City,
+  	Health_Home_Agency_Address_State:State,
+  	Health_Home_Agency_Address_Postal_Code:Postal_Code
+  "/>
+ 
+</Configuration>

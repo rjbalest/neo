@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--set any default configuration parameters here-->
+<Configuration version="1">
+  <Property name="source" value="file"/>
+  <Property name="dataFile" value="csv/pecos_adverse_legal_action.csv"/>
+  <Property name="mongoURL" value="localhost"/>
+  <Property name="mongoInsertMode" value="a"/>
+  <Property name="mongoPort" value="27017"/>
+  <Property name="mongoDatabase" value="healthcare"/>
+  <Property name="mongoUsername" value="liza183"/>
+  <Property name="mongoPassword" value="cmsproject"/>
+  <Property name="mongoCollectionName" value="Provider_PECOS"/>
+  <Property name="keyOfSource" value="Enrollment_ID_Child"/>
+  <Property name="keyOfTargetCollection" value="Enrollment_ID"/>
+  <Property name="mongoCollectionFields" value="
+    Record_Type, 
+    Contractor_ID_Child, 
+    Creation_Date_Child, 
+    Child_PAC_ID, 
+    Enrollment_ID_Child, 
+	Adverse_Legal_Action_Description,
+  	Adverse_Legal_Action_Date,
+  	Adverse_Legal_Action_Law_Enforcement,
+  	Adverse_Legal_Action_Synopsys_of_Resolution
+  "/>
+  <Property name="dummyFields" value="Adverse_Legal_Action"/>
+  <Property name="dummyFields:Adverse_Legal_Action" value="
+  	Adverse_Legal_Action_Description,
+  	Adverse_Legal_Action_Date,
+  	Adverse_Legal_Action_Law_Enforcement,
+  	Adverse_Legal_Action_Synopsys_of_Resolution
+  "/>
+  <Property name="ignoreFields" value="Record_Type,Contractor_ID_Child,Creation_Date_Child,Child_PAC_ID, Enrollment_ID_Child"/>
+  <Property name="isMultiple" value="Y"/>
+  <Property name="seperator" value=","/>
+</Configuration>

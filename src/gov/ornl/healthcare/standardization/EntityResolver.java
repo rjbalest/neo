@@ -19,12 +19,10 @@ public class EntityResolver {
 	 */
 
 	public String resolve(String field, String value) {
-		if (field.endsWith("_Address")) {
+		if (field.indexOf("Address")>=0) {
 			value = resolveAddress(value);
-		} else if (field.endsWith("_Number")) {
+		} else if (field.indexOf("Telephone")>=0||field.indexOf("Fax")>=0) {
 			value = resolveNumber(value);
-		} else if (field.equals("PAC_ID")) {
-			value = resolvePAC_ID(value);
 		} else {
 			value = resolveOthers(value);
 		}
@@ -57,12 +55,5 @@ public class EntityResolver {
 			raw = "";
 		String resolved = raw.trim().replaceAll(" +", " ");
 		return resolved;
-	}
-
-	public String resolvePAC_ID(String raw) {
-		if (raw == null)
-			raw = "";
-		String resolved = raw.trim().replaceAll(" +", " ");
-		return "PAC " + resolved;
 	}
 }

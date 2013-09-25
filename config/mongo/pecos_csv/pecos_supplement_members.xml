@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--set any default configuration parameters here-->
+<Configuration version="1">
+  <Property name="source" value="file"/>
+  <Property name="dataFile" value="csv/pecos_members.csv"/>
+  <Property name="mongoURL" value="localhost"/>
+  <Property name="mongoInsertMode" value="a"/>
+  <Property name="mongoPort" value="27017"/>
+  <Property name="mongoDatabase" value="healthcare"/>
+  <Property name="mongoUsername" value="liza183"/>
+  <Property name="mongoPassword" value="cmsproject"/>
+  <Property name="mongoCollectionName" value="Provider_PECOS"/>
+  <Property name="keyOfSource" value="Enrollment_ID_Child"/>
+  <Property name="keyOfTargetCollection" value="Enrollment_ID"/>
+  <Property name="mongoCollectionFields" value="
+  	Record_Type,
+  	Contractor_ID_Child,
+  	Creation_Date_Child,
+  	Child_PAC_ID,
+  	Enrollment_ID_Child,
+ 	Member_First_Name,
+ 	Member_Middle_Name,
+ 	Member_Last_Name,
+ 	Member_PAC_ID,
+ 	Member_Enrollment_ID,
+ 	Member_Effective_Date
+  "/>
+  
+  <Property name="concatFields" value="Member_Full_Name"/>
+  <Property name="concatFields:Member_Full_Name" value="Member_First_Name,Member_Middle_Name,Member_Last_Name"/>
+  
+  <Property name="dummyFields" value="Member_Info"/>
+  <Property name="dummyFields:Member_Info" value="
+  	Member_First_Name,
+ 	Member_Middle_Name,
+ 	Member_Last_Name,
+ 	Member_PAC_ID,
+ 	Member_Enrollment_ID,
+ 	Member_Effective_Date
+  "/>
+
+  <Property name="ignoreFields" value="Record_Type,Contractor_ID_Child,Creation_Date_Child,Child_PAC_ID, Enrollment_ID_Child"/>
+  <Property name="isMultiple" value="Y"/>
+  <Property name="seperator" value=","/>
+</Configuration>

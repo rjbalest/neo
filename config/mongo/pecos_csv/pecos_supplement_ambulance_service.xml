@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--set any default configuration parameters here-->
+<Configuration version="1">
+  <Property name="source" value="file"/>
+  <Property name="dataFile" value="csv/pecos_abulance_service.csv"/>
+  <Property name="mongoURL" value="localhost"/>
+  <Property name="mongoInsertMode" value="a"/>
+  <Property name="mongoPort" value="27017"/>
+  <Property name="mongoDatabase" value="healthcare"/>
+  <Property name="mongoUsername" value="liza183"/>
+  <Property name="mongoPassword" value="cmsproject"/>
+  <Property name="mongoCollectionName" value="Provider_PECOS"/>
+  <Property name="keyOfSource" value="Enrollment_ID_Child"/>
+  <Property name="keyOfTargetCollection" value="Enrollment_ID"/>
+  <Property name="mongoCollectionFields" value="
+    Record_Type, 
+    Contractor_ID_Child, 
+    Creation_Date_Child, 
+    Child_PAC_ID, 
+    Enrollment_ID_Child, 
+	Ambulance_Service_If_Contract_with_Basic_Life_Support_Service,
+	Ambulance_Service_If_Participaites_In_Paramedic_Intercept_Service,
+	Ambulance_Service_If_Licensed_In_Services_Rendered_Billed,
+	Ambulance_Service_Service_Area_State_1,
+	Ambulance_Service_Service_Area_State_2,
+	Ambulance_Service_Service_Area_State_3,
+	Ambulance_Service_Service_Area_State_4,
+	Ambulance_Service_Service_Area_State_5,
+	Ambulance_Service_Service_Area_State_6,
+	Ambulance_Service_Service_Area_State_7,
+	Ambulance_Service_Service_Area_State_8
+  "/>
+  <Property name="ignoreFields" value="Record_Type,Contractor_ID_Child,Creation_Date_Child,Child_PAC_ID, Enrollment_ID_Child, Accreditation_Filler"/>
+  <Property name="isMultiple" value="N"/>
+  <Property name="seperator" value=","/>
+</Configuration>

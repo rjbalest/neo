@@ -9,11 +9,17 @@
   <Property name="mongoPassword" value="cmsproject"/>
   <Property name="mongoCollectionName" value="Department"/>
   <Property name="mongoCollectionFieldsToDisintegrate" value="
-  	Medicare_ID_Number_of_Buyer_Seller_Old_New:ID,
-  	NPI_of_Buyer_Seller_Old_New:ID"/>
+  	Subunit_Consolidation_Name:Name,
+  	Subunit_Consolidation_Medicare_ID_Buyer_Seller_Etc:Identifier,
+  	Subunit_Consolidation_NPI_Buyer_Seller_Etc:Identifier"/>
   <Property name="mongoCollectionSource" value="pecos"/>
   
-  <Property name="edgeName:Medicare_ID_Number_of_Buyer_Seller_Old_New" value="hasMedicareID"/>
-  <Property name="edgeName:NPI_of_Buyer_Seller_Old_New" value="hasNPI"/>
-  	
+  <Property name="edgeName:Subunit_Consolidation_Medicare_ID_Buyer_Seller_Etc" value="hasMedicareID"/>
+  <Property name="edgeName:Subunit_Consolidation_NPI_Buyer_Seller_Etc" value="hasNPI"/>
+  
+  <Property name="subFields:Subunit_Consolidation_Medicare_ID_Buyer_Seller_Etc" value="
+  	Subunit_Consolidation_Medicare_ID_Buyer_Seller_Etc:Medicare_ID,
+  	Subunit_Consolidation_Medicare_Type_Buyer_Seller_Etc:Medicare_ID_Type
+  "/>
+	
 </Configuration>

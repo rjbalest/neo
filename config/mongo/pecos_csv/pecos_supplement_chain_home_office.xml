@@ -1,0 +1,73 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--set any default configuration parameters here-->
+<Configuration version="1">
+  <Property name="source" value="file"/>
+  <Property name="dataFile" value="csv/pecos_chain_home_office.csv"/>
+  <Property name="mongoURL" value="localhost"/>
+  <Property name="mongoInsertMode" value="a"/>
+  <Property name="mongoPort" value="27017"/>
+  <Property name="mongoDatabase" value="healthcare"/>
+  <Property name="mongoUsername" value="liza183"/>
+  <Property name="mongoPassword" value="cmsproject"/>
+  <Property name="mongoCollectionName" value="Provider_PECOS"/>
+  <Property name="keyOfSource" value="Enrollment_ID_Child"/>
+  <Property name="keyOfTargetCollection" value="Enrollment_ID"/>
+  <Property name="mongoCollectionFields" value="
+  	Record_Type,
+  	Contractor_ID_Child,
+  	Creation_Date_Child,
+  	Child_PAC_ID,
+  	Enrollment_ID_Child,
+  	Chain_Home_Office_Legal_Business_Name,
+  	Chain_Home_Office_TIN,
+  	Chain_Home_Office_Cost_Report_Year_End_Date,
+  	Chain_Home_Office_Type_Of_Business_Structure,
+  	Chain_Home_Office_Address_First_Line,
+  	Chain_Home_Office_Address_Second_Line,
+  	Chain_Home_Office_Address_City,
+  	Chain_Home_Office_Address_State,
+  	Chain_Home_Office_Address_Postal_Code,
+  	Chain_Home_Office_Telephone_Number,
+  	Chain_Home_Office_Responsible_Contractor_ID,
+  	Chain_Home_Office_Responsible_Contractor_Tie_In_Date,
+  	Chain_Home_Office_Responsible_Contractor_Tie_Out_Date,
+  	Chain_Home_Office_Affiliation_to_Chain
+  "/>
+  <Property name="concatFields" value="Chain_Home_Office_Full_Address"/>
+  <Property name="concatFields:Chain_Home_Office_Full_Address" value="
+  	Chain_Home_Office_Address_First_Line,
+  	Chain_Home_Office_Address_Second_Line,
+  	Chain_Home_Office_Address_City,
+  	Chain_Home_Office_Address_State,
+  	Chain_Home_Office_Address_Postal_Code
+  "/>
+  
+  <Property name="dummyFields" value="Chain_Info, Chain_Home_Office_Address"/>
+  <Property name="dummyFields:Chain_Info" value="
+ 	Chain_Home_Office_Legal_Business_Name,
+  	Chain_Home_Office_TIN,
+  	Chain_Home_Office_Cost_Report_Year_End_Date,
+  	Chain_Home_Office_Type_Of_Business_Structure,
+  	Chain_Home_Office_Address_First_Line,
+  	Chain_Home_Office_Address_Second_Line,
+  	Chain_Home_Office_Address_City,
+  	Chain_Home_Office_Address_State,
+  	Chain_Home_Office_Address_Postal_Code,
+  	Chain_Home_Office_Telephone_Number,
+  	Chain_Home_Office_Responsible_Contractor_ID,
+  	Chain_Home_Office_Responsible_Contractor_Tie_In_Date,
+  	Chain_Home_Office_Responsible_Contractor_Tie_Out_Date,
+  	Chain_Home_Office_Affiliation_to_Chain
+  "/>
+  <Property name="dummyFields:Chain_Home_Office_Address" value="
+ 	Chain_Home_Office_Address_First_Line,
+  	Chain_Home_Office_Address_Second_Line,
+  	Chain_Home_Office_Address_City,
+  	Chain_Home_Office_Address_State,
+  	Chain_Home_Office_Address_Postal_Code
+  "/>
+  <Property name="ignoreFields" value="Record_Type,Contractor_ID_Child,Creation_Date_Child,Child_PAC_ID, Enrollment_ID_Child"/>
+  <Property name="isMultiple" value="Y"/>
+  <Property name="seperator" value=","/>  
+  
+</Configuration>

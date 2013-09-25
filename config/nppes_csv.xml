@@ -12,5 +12,14 @@
 	<Property name="secondary" value="
 		config/mongo/nppes_csv/nppes_secondary_provider.xml,
 		config/mongo/nppes_csv/nppes_secondary_address.xml,
-		config/mongo/nppes_csv/nppes_secondary_license_state.xml"/>
+		config/mongo/nppes_csv/nppes_secondary_name.xml,
+		config/mongo/nppes_csv/nppes_secondary_org_name.xml,
+		config/mongo/nppes_csv/nppes_secondary_license.xml,
+		config/mongo/nppes_csv/nppes_secondary_taxonomy.xml
+		"/>
 </Configuration>
+
+<!--
+
+
+		-->

@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--set any default configuration parameters here-->
+<Configuration version="1">
+  <Property name="source" value="file"/>
+  <Property name="dataFile" value="csv/pecos_authorized_or_delegated_official_and_certification_statement.csv"/>
+  <Property name="mongoURL" value="localhost"/>
+  <Property name="mongoInsertMode" value="a"/>
+  <Property name="mongoPort" value="27017"/>
+  <Property name="mongoDatabase" value="healthcare"/>
+  <Property name="mongoUsername" value="liza183"/>
+  <Property name="mongoPassword" value="cmsproject"/>
+  <Property name="mongoCollectionName" value="Provider_PECOS"/>
+  <Property name="keyOfSource" value="Enrollment_ID_Child"/>
+  <Property name="keyOfTargetCollection" value="Enrollment_ID"/>
+  <Property name="mongoCollectionFields" value="
+  	Record_Type,
+  	Contractor_ID_Child,
+  	Creation_Date_Child,
+  	Child_PAC_ID,
+  	Enrollment_ID_Child,
+  	Authorized_Delegated_Official_Certification_Statement_First_Name,
+  	Authorized_Delegated_Official_Certification_Statement_Middle_Name,
+  	Authorized_Delegated_Official_Certification_Statement_Last_Name,
+  	Authorized_Delegated_Official_Certification_Statement_Title,
+  	Authorized_Delegated_Official_Certification_Statement_Role,
+  	Authorized_Delegated_Official_Certification_Statement_Associate_Date,
+  	Authorized_Delegated_Official_Certification_Statement_Signature_Date
+  "/>
+  
+  <Property name="concatFields" value="Authorized_Delegated_Official_Certification_Statement_Full_Name"/>
+  <Property name="concatFields:Authorized_Delegated_Official_Certification_Statement_Full_Name" value="
+	Authorized_Delegated_Official_Certification_Statement_First_Name,
+  	Authorized_Delegated_Official_Certification_Statement_Middle_Name,
+  	Authorized_Delegated_Official_Certification_Statement_Last_Name
+  "/>
+  
+  <Property name="dummyFields" value="Authorized_Delegated_Official_Certification_Statement"/>
+  <Property name="dummyFields:Authorized_Delegated_Official_Certification_Statement" value="
+	Authorized_Delegated_Official_Certification_Statement_First_Name,
+  	Authorized_Delegated_Official_Certification_Statement_Middle_Name,
+  	Authorized_Delegated_Official_Certification_Statement_Last_Name,
+  	Authorized_Delegated_Official_Certification_Statement_Title,
+  	Authorized_Delegated_Official_Certification_Statement_Role,
+  	Authorized_Delegated_Official_Certification_Statement_Associate_Date,
+  	Authorized_Delegated_Official_Certification_Statement_Signature_Date
+  "/>
+  
+  <Property name="ignoreFields" value="Record_Type,Contractor_ID_Child,Creation_Date_Child,Child_PAC_ID, Enrollment_ID_Child"/>
+  <Property name="isMultiple" value="Y"/>
+  <Property name="seperator" value=","/>
+</Configuration>

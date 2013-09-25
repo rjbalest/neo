@@ -1,0 +1,71 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--set any default configuration parameters here-->
+<Configuration version="1">
+  <Property name="source" value="file"/>
+  <Property name="dataFile" value="csv/pecos_health_home_agency.csv"/>
+  <Property name="mongoURL" value="localhost"/>
+  <Property name="mongoInsertMode" value="a"/>
+  <Property name="mongoPort" value="27017"/>
+  <Property name="mongoDatabase" value="healthcare"/>
+  <Property name="mongoUsername" value="liza183"/>
+  <Property name="mongoPassword" value="cmsproject"/>
+  <Property name="mongoCollectionName" value="Provider_PECOS"/>
+  <Property name="keyOfSource" value="Enrollment_ID_Child"/>
+  <Property name="keyOfTargetCollection" value="Enrollment_ID"/>
+  <Property name="mongoCollectionFields" value="
+  	Record_Type,
+  	Contractor_ID_Child,
+  	Creation_Date_Child,
+  	Child_PAC_ID,
+  	Enrollment_ID_Child,
+  	Health_Home_Agency_Type,
+  	Health_Home_Agency_Projected_Number_of_Visits_in_3_Months,
+  	Health_Home_Agency_Projected_Number_of_Visits_in_12_Months,
+  	Health_Home_Agency_Financial_Documment_Submitted,
+  	Health_Home_Agency_Legal_Business_Name,
+  	Health_Home_Agency_Registry_TIN,
+  	Health_Home_Agency_Address_First_Line,
+  	Health_Home_Agency_Address_Second_Line,
+  	Health_Home_Agency_Address_City,
+  	Health_Home_Agency_Address_State,
+  	Health_Home_Agency_Address_Postal_Code,
+  	Health_Home_Agency_Telephone_Number
+  "/>
+  
+  <Property name="concatFields" value="Health_Home_Agency_Full_Address"/>
+  <Property name="concatFields:Health_Home_Agency_Full_Address" value="
+  	Health_Home_Agency_Address_First_Line,
+  	Health_Home_Agency_Address_Second_Line,
+  	Health_Home_Agency_Address_City,
+  	Health_Home_Agency_Address_State,
+  	Health_Home_Agency_Address_Postal_Code
+  "/>
+  
+  <Property name="dummyFields" value="Health_Home_Agency_Info, Health_Home_Agency_Address"/>
+  <Property name="dummyFields:Health_Home_Agency_Info" value="
+ 	Health_Home_Agency_Type,
+  	Health_Home_Agency_Projected_Number_of_Visits_in_3_Months,
+  	Health_Home_Agency_Projected_Number_of_Visits_in_12_Months,
+  	Health_Home_Agency_Financial_Documment_Submitted,
+  	Health_Home_Agency_Legal_Business_Name,
+  	Health_Home_Agency_Registry_TIN,
+  	Health_Home_Agency_Address_First_Line,
+  	Health_Home_Agency_Address_Second_Line,
+  	Health_Home_Agency_Address_City,
+  	Health_Home_Agency_Address_State,
+  	Health_Home_Agency_Address_Postal_Code,
+  	Health_Home_Agency_Telephone_Number
+  "/>
+  
+  <Property name="dummyFields:Health_Home_Agency_Address" value="
+  	Health_Home_Agency_Address_First_Line,
+  	Health_Home_Agency_Address_Second_Line,
+  	Health_Home_Agency_Address_City,
+  	Health_Home_Agency_Address_State,
+  	Health_Home_Agency_Address_Postal_Code
+  "/>
+  <Property name="ignoreFields" value="Record_Type,Contractor_ID_Child,Creation_Date_Child,Child_PAC_ID, Enrollment_ID_Child"/>
+  <Property name="isMultiple" value="Y"/>
+  <Property name="seperator" value=","/>
+  
+</Configuration>

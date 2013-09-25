@@ -13,29 +13,29 @@
   <Property name="mongoCollectionSource" value="nppes"/>
   
   <!-- working on below -->
-  <Property name="concatFields" value="Provider_Full_Name,Provider_Other_Full_Name,Provider_Other_Last_Name_and_Type,Provider_Business_Mailing_Address,Provider_Business_Practice_Location_Address,NPI_Deactivation,Authorized_Official_Full_Name,Provider_License_Number_and_State_1,Provider_License_Number_and_State_2,Provider_License_Number_and_State_3,Provider_License_Number_and_State_4,Provider_License_Number_and_State_5,Provider_License_Number_and_State_6,Provider_License_Number_and_State_7,Provider_License_Number_and_State_8,Provider_License_Number_and_State_9,Provider_License_Number_and_State_10,Provider_License_Number_and_State_11,Provider_License_Number_and_State_12,Provider_License_Number_and_State_13,Provider_License_Number_and_State_14,Provider_License_Number_and_State_15,Other_Provider_Identifier_Info_1,Other_Provider_Identifier_Info_2,Other_Provider_Identifier_Info_3,Other_Provider_Identifier_Info_4,Other_Provider_Identifier_Info_5,Other_Provider_Identifier_Info_6,Other_Provider_Identifier_Info_7,Other_Provider_Identifier_Info_8,Other_Provider_Identifier_Info_9,Other_Provider_Identifier_Info_10,Other_Provider_Identifier_Info_11,Other_Provider_Identifier_Info_12,Other_Provider_Identifier_Info_13,Other_Provider_Identifier_Info_14,Other_Provider_Identifier_Info_15,Other_Provider_Identifier_Info_16,Other_Provider_Identifier_Info_17,Other_Provider_Identifier_Info_18,Other_Provider_Identifier_Info_19,Other_Provider_Identifier_Info_20,Other_Provider_Identifier_Info_21,Other_Provider_Identifier_Info_22,Other_Provider_Identifier_Info_23,Other_Provider_Identifier_Info_24,Other_Provider_Identifier_Info_25,Other_Provider_Identifier_Info_26,Other_Provider_Identifier_Info_27,Other_Provider_Identifier_Info_28,Other_Provider_Identifier_Info_29,Other_Provider_Identifier_Info_30,Other_Provider_Identifier_Info_31,Other_Provider_Identifier_Info_32,Other_Provider_Identifier_Info_33,Other_Provider_Identifier_Info_34,Other_Provider_Identifier_Info_35,Other_Provider_Identifier_Info_36,Other_Provider_Identifier_Info_37,Other_Provider_Identifier_Info_38,Other_Provider_Identifier_Info_39,Other_Provider_Identifier_Info_40,Other_Provider_Identifier_Info_41,Other_Provider_Identifier_Info_42,Other_Provider_Identifier_Info_43,Other_Provider_Identifier_Info_44,Other_Provider_Identifier_Info_45,Other_Provider_Identifier_Info_46,Other_Provider_Identifier_Info_47,Other_Provider_Identifier_Info_48,Other_Provider_Identifier_Info_49,Other_Provider_Identifier_Info_50"/>
+  <Property name="concatFields" value="Provider_Full_Name,Provider_Other_Full_Name,Provider_Other_Last_Name_and_Type,Provider_Business_Mailing_Full_Address,Provider_Business_Practice_Location_Full_Address,NPI_Deactivation,Authorized_Official_Full_Name,Provider_License_Number_and_State_1,Provider_License_Number_and_State_2,Provider_License_Number_and_State_3,Provider_License_Number_and_State_4,Provider_License_Number_and_State_5,Provider_License_Number_and_State_6,Provider_License_Number_and_State_7,Provider_License_Number_and_State_8,Provider_License_Number_and_State_9,Provider_License_Number_and_State_10,Provider_License_Number_and_State_11,Provider_License_Number_and_State_12,Provider_License_Number_and_State_13,Provider_License_Number_and_State_14,Provider_License_Number_and_State_15,Other_Provider_Identifier_Info_1,Other_Provider_Identifier_Info_2,Other_Provider_Identifier_Info_3,Other_Provider_Identifier_Info_4,Other_Provider_Identifier_Info_5,Other_Provider_Identifier_Info_6,Other_Provider_Identifier_Info_7,Other_Provider_Identifier_Info_8,Other_Provider_Identifier_Info_9,Other_Provider_Identifier_Info_10,Other_Provider_Identifier_Info_11,Other_Provider_Identifier_Info_12,Other_Provider_Identifier_Info_13,Other_Provider_Identifier_Info_14,Other_Provider_Identifier_Info_15,Other_Provider_Identifier_Info_16,Other_Provider_Identifier_Info_17,Other_Provider_Identifier_Info_18,Other_Provider_Identifier_Info_19,Other_Provider_Identifier_Info_20,Other_Provider_Identifier_Info_21,Other_Provider_Identifier_Info_22,Other_Provider_Identifier_Info_23,Other_Provider_Identifier_Info_24,Other_Provider_Identifier_Info_25,Other_Provider_Identifier_Info_26,Other_Provider_Identifier_Info_27,Other_Provider_Identifier_Info_28,Other_Provider_Identifier_Info_29,Other_Provider_Identifier_Info_30,Other_Provider_Identifier_Info_31,Other_Provider_Identifier_Info_32,Other_Provider_Identifier_Info_33,Other_Provider_Identifier_Info_34,Other_Provider_Identifier_Info_35,Other_Provider_Identifier_Info_36,Other_Provider_Identifier_Info_37,Other_Provider_Identifier_Info_38,Other_Provider_Identifier_Info_39,Other_Provider_Identifier_Info_40,Other_Provider_Identifier_Info_41,Other_Provider_Identifier_Info_42,Other_Provider_Identifier_Info_43,Other_Provider_Identifier_Info_44,Other_Provider_Identifier_Info_45,Other_Provider_Identifier_Info_46,Other_Provider_Identifier_Info_47,Other_Provider_Identifier_Info_48,Other_Provider_Identifier_Info_49,Other_Provider_Identifier_Info_50"/>
   <Property name="concatFields:Provider_Full_Name" value="Provider_First_Name,Provider_Middle_Name,Provider_Last_Name_Legal_Name"/>
   <Property name="concatFields:Provider_Other_Full_Name" value="Provider_Other_First_Name,Provider_Other_Middle_Name,Provider_Other_Last_Name"/>
   <Property name="concatFields:Provider_Other_Last_Name_and_Type" value="Provider_Other_Last_Name,Provider_Other_Last_Name_Type_Code"/>
-  <Property name="concatFields:Provider_Business_Mailing_Address" value="Provider_First_Line_Business_Mailing_Address,Provider_Second_Line_Business_Mailing_Address, Provider_Business_Mailing_Address_City_Name, Provider_Business_Mailing_Address_State_Name,Provider_Business_Mailing_Address_Postal_Code,Provider_Business_Mailing_Address_Country_Code"/>
-  <Property name="concatFields:Provider_Business_Practice_Location_Address" value="Provider_First_Line_Business_Practice_Location_Address,Provider_Second_Line_Business_Practice_Location_Address, Provider_Business_Practice_Location_Address_City_Name, Provider_Business_Practice_Location_Address_State_Name,Provider_Business_Practice_Location_Address_Postal_Code,Provider_Business_Practice_Location_Address_Country_Code"/>
+  <Property name="concatFields:Provider_Business_Mailing_Full_Address" value="Provider_First_Line_Business_Mailing_Address,Provider_Second_Line_Business_Mailing_Address, Provider_Business_Mailing_Address_City_Name, Provider_Business_Mailing_Address_State_Name,Provider_Business_Mailing_Address_Postal_Code,Provider_Business_Mailing_Address_Country_Code"/>
+  <Property name="concatFields:Provider_Business_Practice_Location_Full_Address" value="Provider_First_Line_Business_Practice_Location_Address,Provider_Second_Line_Business_Practice_Location_Address, Provider_Business_Practice_Location_Address_City_Name, Provider_Business_Practice_Location_Address_State_Name,Provider_Business_Practice_Location_Address_Postal_Code,Provider_Business_Practice_Location_Address_Country_Code"/>
   <Property name="concatFields:NPI_Deactivation" value="NPI_Deactivation_Reason_Code"/>
   <Property name="concatFields:Authorized_Official_Full_Name" value="Authorized_Official_First_Name,Authorized_Official_Middle_Name,Authorized_Official_Last_Name"/>
-  <Property name="concatFields:Provider_License_Number_and_State_1" value="Provider_License_Number_1,Provider_License_Number_State_Code_1"/>
-  <Property name="concatFields:Provider_License_Number_and_State_2" value="Provider_License_Number_2,Provider_License_Number_State_Code_2"/>
-  <Property name="concatFields:Provider_License_Number_and_State_3" value="Provider_License_Number_3,Provider_License_Number_State_Code_3"/>
-  <Property name="concatFields:Provider_License_Number_and_State_4" value="Provider_License_Number_4,Provider_License_Number_State_Code_4"/>
-  <Property name="concatFields:Provider_License_Number_and_State_5" value="Provider_License_Number_5,Provider_License_Number_State_Code_5"/>
-  <Property name="concatFields:Provider_License_Number_and_State_6" value="Provider_License_Number_6,Provider_License_Number_State_Code_6"/>
-  <Property name="concatFields:Provider_License_Number_and_State_7" value="Provider_License_Number_7,Provider_License_Number_State_Code_7"/>
-  <Property name="concatFields:Provider_License_Number_and_State_8" value="Provider_License_Number_8,Provider_License_Number_State_Code_8"/>
-  <Property name="concatFields:Provider_License_Number_and_State_9" value="Provider_License_Number_9,Provider_License_Number_State_Code_9"/>
-  <Property name="concatFields:Provider_License_Number_and_State_10" value="Provider_License_Number_10,Provider_License_Number_State_Code_10"/>
-  <Property name="concatFields:Provider_License_Number_and_State_11" value="Provider_License_Number_11,Provider_License_Number_State_Code_11"/>
-  <Property name="concatFields:Provider_License_Number_and_State_12" value="Provider_License_Number_12,Provider_License_Number_State_Code_12"/>
-  <Property name="concatFields:Provider_License_Number_and_State_13" value="Provider_License_Number_13,Provider_License_Number_State_Code_13"/>
-  <Property name="concatFields:Provider_License_Number_and_State_14" value="Provider_License_Number_14,Provider_License_Number_State_Code_14"/>
-  <Property name="concatFields:Provider_License_Number_and_State_15" value="Provider_License_Number_15,Provider_License_Number_State_Code_15"/>
+  <Property name="concatFields:Provider_License_Number_and_State_1" value="Provider_License_Number_1,Provider_License_Number_State_1"/>
+  <Property name="concatFields:Provider_License_Number_and_State_2" value="Provider_License_Number_2,Provider_License_Number_State_2"/>
+  <Property name="concatFields:Provider_License_Number_and_State_3" value="Provider_License_Number_3,Provider_License_Number_State_3"/>
+  <Property name="concatFields:Provider_License_Number_and_State_4" value="Provider_License_Number_4,Provider_License_Number_State_4"/>
+  <Property name="concatFields:Provider_License_Number_and_State_5" value="Provider_License_Number_5,Provider_License_Number_State_5"/>
+  <Property name="concatFields:Provider_License_Number_and_State_6" value="Provider_License_Number_6,Provider_License_Number_State_6"/>
+  <Property name="concatFields:Provider_License_Number_and_State_7" value="Provider_License_Number_7,Provider_License_Number_State_7"/>
+  <Property name="concatFields:Provider_License_Number_and_State_8" value="Provider_License_Number_8,Provider_License_Number_State_8"/>
+  <Property name="concatFields:Provider_License_Number_and_State_9" value="Provider_License_Number_9,Provider_License_Number_State_9"/>
+  <Property name="concatFields:Provider_License_Number_and_State_10" value="Provider_License_Number_10,Provider_License_Number_State_10"/>
+  <Property name="concatFields:Provider_License_Number_and_State_11" value="Provider_License_Number_11,Provider_License_Number_State_11"/>
+  <Property name="concatFields:Provider_License_Number_and_State_12" value="Provider_License_Number_12,Provider_License_Number_State_12"/>
+  <Property name="concatFields:Provider_License_Number_and_State_13" value="Provider_License_Number_13,Provider_License_Number_State_13"/>
+  <Property name="concatFields:Provider_License_Number_and_State_14" value="Provider_License_Number_14,Provider_License_Number_State_14"/>
+  <Property name="concatFields:Provider_License_Number_and_State_15" value="Provider_License_Number_15,Provider_License_Number_State_15"/>
   <Property name="concatFields:Other_Provider_Identifier_Info_1" value="Other_Provider_Identifier_1, Other_Provider_Identifier_Type_Code_1, Other_Provider_Identifier_State_1,Other_Provider_Identifier_Issuer_1"/>
   <Property name="concatFields:Other_Provider_Identifier_Info_2" value="Other_Provider_Identifier_2, Other_Provider_Identifier_Type_Code_2, Other_Provider_Identifier_State_2,Other_Provider_Identifier_Issuer_2"/>
   <Property name="concatFields:Other_Provider_Identifier_Info_3" value="Other_Provider_Identifier_3, Other_Provider_Identifier_Type_Code_3, Other_Provider_Identifier_State_3,Other_Provider_Identifier_Issuer_3"/>
@@ -86,102 +86,27 @@
   <Property name="concatFields:Other_Provider_Identifier_Info_48" value="Other_Provider_Identifier_48, Other_Provider_Identifier_Type_Code_48, Other_Provider_Identifier_State_48,Other_Provider_Identifier_Issuer_48"/>
   <Property name="concatFields:Other_Provider_Identifier_Info_49" value="Other_Provider_Identifier_49, Other_Provider_Identifier_Type_Code_49, Other_Provider_Identifier_State_49,Other_Provider_Identifier_Issuer_49"/>
   <Property name="concatFields:Other_Provider_Identifier_Info_50" value="Other_Provider_Identifier_50, Other_Provider_Identifier_Type_Code_50, Other_Provider_Identifier_State_50,Other_Provider_Identifier_Issuer_50"/>
-  <Property name="fieldGrouping:Provider_License_Number_and_State_1" value="Provider_License_Number_and_State"/>  
-  <Property name="fieldGrouping:Provider_License_Number_and_State_2" value="Provider_License_Number_and_State"/>
-  <Property name="fieldGrouping:Provider_License_Number_and_State_3" value="Provider_License_Number_and_State"/>
-  <Property name="fieldGrouping:Provider_License_Number_and_State_4" value="Provider_License_Number_and_State"/>  
-  <Property name="fieldGrouping:Provider_License_Number_and_State_5" value="Provider_License_Number_and_State"/>
-  <Property name="fieldGrouping:Provider_License_Number_and_State_6" value="Provider_License_Number_and_State"/>
-  <Property name="fieldGrouping:Provider_License_Number_and_State_7" value="Provider_License_Number_and_State"/>  
-  <Property name="fieldGrouping:Provider_License_Number_and_State_8" value="Provider_License_Number_and_State"/>
-  <Property name="fieldGrouping:Provider_License_Number_and_State_9" value="Provider_License_Number_and_State"/>
-  <Property name="fieldGrouping:Provider_License_Number_and_State_10" value="Provider_License_Number_and_State"/>  
-  <Property name="fieldGrouping:Provider_License_Number_and_State_11" value="Provider_License_Number_and_State"/>
-  <Property name="fieldGrouping:Provider_License_Number_and_State_12" value="Provider_License_Number_and_State"/>
-  <Property name="fieldGrouping:Provider_License_Number_and_State_13" value="Provider_License_Number_and_State"/>  
-  <Property name="fieldGrouping:Provider_License_Number_and_State_14" value="Provider_License_Number_and_State"/>
-  <Property name="fieldGrouping:Provider_License_Number_and_State_15" value="Provider_License_Number_and_State"/>
-  <Property name="fieldGrouping:Other_Provider_Identifier_Info_1" value="Other_Provider_Identifier_Info"/>
-  <Property name="fieldGrouping:Other_Provider_Identifier_Info_2" value="Other_Provider_Identifier_Info"/>
-  <Property name="fieldGrouping:Other_Provider_Identifier_Info_3" value="Other_Provider_Identifier_Info"/>
-  <Property name="fieldGrouping:Other_Provider_Identifier_Info_4" value="Other_Provider_Identifier_Info"/>
-  <Property name="fieldGrouping:Other_Provider_Identifier_Info_5" value="Other_Provider_Identifier_Info"/>
-  <Property name="fieldGrouping:Other_Provider_Identifier_Info_6" value="Other_Provider_Identifier_Info"/>
-  <Property name="fieldGrouping:Other_Provider_Identifier_Info_7" value="Other_Provider_Identifier_Info"/>
-  <Property name="fieldGrouping:Other_Provider_Identifier_Info_8" value="Other_Provider_Identifier_Info"/>
-  <Property name="fieldGrouping:Other_Provider_Identifier_Info_9" value="Other_Provider_Identifier_Info"/>
-  <Property name="fieldGrouping:Other_Provider_Identifier_Info_10" value="Other_Provider_Identifier_Info"/>
-  <Property name="fieldGrouping:Other_Provider_Identifier_Info_11" value="Other_Provider_Identifier_Info"/>
-  <Property name="fieldGrouping:Other_Provider_Identifier_Info_12" value="Other_Provider_Identifier_Info"/>
-  <Property name="fieldGrouping:Other_Provider_Identifier_Info_13" value="Other_Provider_Identifier_Info"/>
-  <Property name="fieldGrouping:Other_Provider_Identifier_Info_14" value="Other_Provider_Identifier_Info"/>
-  <Property name="fieldGrouping:Other_Provider_Identifier_Info_15" value="Other_Provider_Identifier_Info"/>
-  <Property name="fieldGrouping:Other_Provider_Identifier_Info_16" value="Other_Provider_Identifier_Info"/>
-  <Property name="fieldGrouping:Other_Provider_Identifier_Info_17" value="Other_Provider_Identifier_Info"/>
-  <Property name="fieldGrouping:Other_Provider_Identifier_Info_18" value="Other_Provider_Identifier_Info"/>
-  <Property name="fieldGrouping:Other_Provider_Identifier_Info_19" value="Other_Provider_Identifier_Info"/>
-  <Property name="fieldGrouping:Other_Provider_Identifier_Info_20" value="Other_Provider_Identifier_Info"/>
-  <Property name="fieldGrouping:Other_Provider_Identifier_Info_21" value="Other_Provider_Identifier_Info"/>
-  <Property name="fieldGrouping:Other_Provider_Identifier_Info_22" value="Other_Provider_Identifier_Info"/>
-  <Property name="fieldGrouping:Other_Provider_Identifier_Info_23" value="Other_Provider_Identifier_Info"/>
-  <Property name="fieldGrouping:Other_Provider_Identifier_Info_24" value="Other_Provider_Identifier_Info"/>
-  <Property name="fieldGrouping:Other_Provider_Identifier_Info_25" value="Other_Provider_Identifier_Info"/>
-  <Property name="fieldGrouping:Other_Provider_Identifier_Info_26" value="Other_Provider_Identifier_Info"/>
-  <Property name="fieldGrouping:Other_Provider_Identifier_Info_27" value="Other_Provider_Identifier_Info"/>
-  <Property name="fieldGrouping:Other_Provider_Identifier_Info_28" value="Other_Provider_Identifier_Info"/>
-  <Property name="fieldGrouping:Other_Provider_Identifier_Info_29" value="Other_Provider_Identifier_Info"/>
-  <Property name="fieldGrouping:Other_Provider_Identifier_Info_30" value="Other_Provider_Identifier_Info"/>
-  <Property name="fieldGrouping:Other_Provider_Identifier_Info_31" value="Other_Provider_Identifier_Info"/>
-  <Property name="fieldGrouping:Other_Provider_Identifier_Info_32" value="Other_Provider_Identifier_Info"/>
-  <Property name="fieldGrouping:Other_Provider_Identifier_Info_33" value="Other_Provider_Identifier_Info"/>
-  <Property name="fieldGrouping:Other_Provider_Identifier_Info_34" value="Other_Provider_Identifier_Info"/>
-  <Property name="fieldGrouping:Other_Provider_Identifier_Info_35" value="Other_Provider_Identifier_Info"/>
-  <Property name="fieldGrouping:Other_Provider_Identifier_Info_36" value="Other_Provider_Identifier_Info"/>
-  <Property name="fieldGrouping:Other_Provider_Identifier_Info_37" value="Other_Provider_Identifier_Info"/>
-  <Property name="fieldGrouping:Other_Provider_Identifier_Info_38" value="Other_Provider_Identifier_Info"/>
-  <Property name="fieldGrouping:Other_Provider_Identifier_Info_39" value="Other_Provider_Identifier_Info"/>
-  <Property name="fieldGrouping:Other_Provider_Identifier_Info_40" value="Other_Provider_Identifier_Info"/>
-  <Property name="fieldGrouping:Other_Provider_Identifier_Info_41" value="Other_Provider_Identifier_Info"/>
-  <Property name="fieldGrouping:Other_Provider_Identifier_Info_42" value="Other_Provider_Identifier_Info"/>
-  <Property name="fieldGrouping:Other_Provider_Identifier_Info_43" value="Other_Provider_Identifier_Info"/>
-  <Property name="fieldGrouping:Other_Provider_Identifier_Info_44" value="Other_Provider_Identifier_Info"/>
-  <Property name="fieldGrouping:Other_Provider_Identifier_Info_45" value="Other_Provider_Identifier_Info"/>
-  <Property name="fieldGrouping:Other_Provider_Identifier_Info_46" value="Other_Provider_Identifier_Info"/>
-  <Property name="fieldGrouping:Other_Provider_Identifier_Info_47" value="Other_Provider_Identifier_Info"/>
-  <Property name="fieldGrouping:Other_Provider_Identifier_Info_48" value="Other_Provider_Identifier_Info"/>
-  <Property name="fieldGrouping:Other_Provider_Identifier_Info_49" value="Other_Provider_Identifier_Info"/>
-  <Property name="fieldGrouping:Other_Provider_Identifier_Info_50" value="Other_Provider_Identifier_Info"/>
-  <Property name="fieldGrouping:Healthcare_Provider_Taxonomy_Group_1" value="Healthcare_Provider_Taxonomy_Group"/>
-  <Property name="fieldGrouping:Healthcare_Provider_Taxonomy_Group_2" value="Healthcare_Provider_Taxonomy_Group"/>
-  <Property name="fieldGrouping:Healthcare_Provider_Taxonomy_Group_3" value="Healthcare_Provider_Taxonomy_Group"/>
-  <Property name="fieldGrouping:Healthcare_Provider_Taxonomy_Group_4" value="Healthcare_Provider_Taxonomy_Group"/>    
-  <Property name="fieldGrouping:Healthcare_Provider_Taxonomy_Group_5" value="Healthcare_Provider_Taxonomy_Group"/>
-  <Property name="fieldGrouping:Healthcare_Provider_Taxonomy_Group_6" value="Healthcare_Provider_Taxonomy_Group"/>
-  <Property name="fieldGrouping:Healthcare_Provider_Taxonomy_Group_7" value="Healthcare_Provider_Taxonomy_Group"/>
-  <Property name="fieldGrouping:Healthcare_Provider_Taxonomy_Group_8" value="Healthcare_Provider_Taxonomy_Group"/>
-  <Property name="fieldGrouping:Healthcare_Provider_Taxonomy_Group_9" value="Healthcare_Provider_Taxonomy_Group"/>
-  <Property name="fieldGrouping:Healthcare_Provider_Taxonomy_Group_10" value="Healthcare_Provider_Taxonomy_Group"/>
-  <Property name="fieldGrouping:Healthcare_Provider_Taxonomy_Group_11" value="Healthcare_Provider_Taxonomy_Group"/>
-  <Property name="fieldGrouping:Healthcare_Provider_Taxonomy_Group_12" value="Healthcare_Provider_Taxonomy_Group"/>
-  <Property name="fieldGrouping:Healthcare_Provider_Taxonomy_Group_13" value="Healthcare_Provider_Taxonomy_Group"/>
-  <Property name="fieldGrouping:Healthcare_Provider_Taxonomy_Group_14" value="Healthcare_Provider_Taxonomy_Group"/>
-  <Property name="fieldGrouping:Healthcare_Provider_Taxonomy_Group_15" value="Healthcare_Provider_Taxonomy_Group"/>
-  <Property name="fieldGrouping:Healthcare_Provider_Taxonomy_Code_1" value="Healthcare_Provider_Taxonomy_Code"/>
-  <Property name="fieldGrouping:Healthcare_Provider_Taxonomy_Code_2" value="Healthcare_Provider_Taxonomy_Code"/>
-  <Property name="fieldGrouping:Healthcare_Provider_Taxonomy_Code_3" value="Healthcare_Provider_Taxonomy_Code"/>
-  <Property name="fieldGrouping:Healthcare_Provider_Taxonomy_Code_4" value="Healthcare_Provider_Taxonomy_Code"/>    
-  <Property name="fieldGrouping:Healthcare_Provider_Taxonomy_Code_5" value="Healthcare_Provider_Taxonomy_Code"/>
-  <Property name="fieldGrouping:Healthcare_Provider_Taxonomy_Code_6" value="Healthcare_Provider_Taxonomy_Code"/>
-  <Property name="fieldGrouping:Healthcare_Provider_Taxonomy_Code_7" value="Healthcare_Provider_Taxonomy_Code"/>
-  <Property name="fieldGrouping:Healthcare_Provider_Taxonomy_Code_8" value="Healthcare_Provider_Taxonomy_Code"/>
-  <Property name="fieldGrouping:Healthcare_Provider_Taxonomy_Code_9" value="Healthcare_Provider_Taxonomy_Code"/>
-  <Property name="fieldGrouping:Healthcare_Provider_Taxonomy_Code_10" value="Healthcare_Provider_Taxonomy_Code"/>
-  <Property name="fieldGrouping:Healthcare_Provider_Taxonomy_Code_11" value="Healthcare_Provider_Taxonomy_Code"/>
-  <Property name="fieldGrouping:Healthcare_Provider_Taxonomy_Code_12" value="Healthcare_Provider_Taxonomy_Code"/>
-  <Property name="fieldGrouping:Healthcare_Provider_Taxonomy_Code_13" value="Healthcare_Provider_Taxonomy_Code"/>
-  <Property name="fieldGrouping:Healthcare_Provider_Taxonomy_Code_14" value="Healthcare_Provider_Taxonomy_Code"/>
-  <Property name="fieldGrouping:Healthcare_Provider_Taxonomy_Code_15" value="Healthcare_Provider_Taxonomy_Code"/>
   
+  <Property name="dummyFields" value="Provider_Business_Mailing_Address,Provider_Business_Practice_Location_Address,Provider_Taxonomy_1,Provider_Taxonomy_2,Provider_Taxonomy_3,Provider_Taxonomy_4,Provider_Taxonomy_5,Provider_Taxonomy_6,Provider_Taxonomy_7,Provider_Taxonomy_8,Provider_Taxonomy_9,Provider_Taxonomy_10,Provider_Taxonomy_11,Provider_Taxonomy_12,Provider_Taxonomy_13,Provider_Taxonomy_14,Provider_Taxonomy_15"/>
+  <Property name="dummyFields:Provider_Taxonomy_1" value="Healthcare_Provider_Taxonomy_Code_1, Healthcare_Provider_Primary_Taxonomy_Switch_1"/>
+  <Property name="dummyFields:Provider_Taxonomy_2" value="Healthcare_Provider_Taxonomy_Code_2, Healthcare_Provider_Primary_Taxonomy_Switch_2"/>
+  <Property name="dummyFields:Provider_Taxonomy_3" value="Healthcare_Provider_Taxonomy_Code_3, Healthcare_Provider_Primary_Taxonomy_Switch_3"/>
+  <Property name="dummyFields:Provider_Taxonomy_4" value="Healthcare_Provider_Taxonomy_Code_4, Healthcare_Provider_Primary_Taxonomy_Switch_4"/>
+  <Property name="dummyFields:Provider_Taxonomy_5" value="Healthcare_Provider_Taxonomy_Code_5, Healthcare_Provider_Primary_Taxonomy_Switch_5"/>
+  <Property name="dummyFields:Provider_Taxonomy_6" value="Healthcare_Provider_Taxonomy_Code_6, Healthcare_Provider_Primary_Taxonomy_Switch_6"/>
+  <Property name="dummyFields:Provider_Taxonomy_7" value="Healthcare_Provider_Taxonomy_Code_7, Healthcare_Provider_Primary_Taxonomy_Switch_7"/>
+  <Property name="dummyFields:Provider_Taxonomy_8" value="Healthcare_Provider_Taxonomy_Code_8, Healthcare_Provider_Primary_Taxonomy_Switch_8"/>
+  <Property name="dummyFields:Provider_Taxonomy_9" value="Healthcare_Provider_Taxonomy_Code_9, Healthcare_Provider_Primary_Taxonomy_Switch_9"/>
+  <Property name="dummyFields:Provider_Taxonomy_10" value="Healthcare_Provider_Taxonomy_Code_10, Healthcare_Provider_Primary_Taxonomy_Switch_10"/>
+  <Property name="dummyFields:Provider_Taxonomy_11" value="Healthcare_Provider_Taxonomy_Code_11, Healthcare_Provider_Primary_Taxonomy_Switch_11"/>
+  <Property name="dummyFields:Provider_Taxonomy_12" value="Healthcare_Provider_Taxonomy_Code_12, Healthcare_Provider_Primary_Taxonomy_Switch_12"/>
+  <Property name="dummyFields:Provider_Taxonomy_13" value="Healthcare_Provider_Taxonomy_Code_13, Healthcare_Provider_Primary_Taxonomy_Switch_13"/>
+  <Property name="dummyFields:Provider_Taxonomy_14" value="Healthcare_Provider_Taxonomy_Code_14, Healthcare_Provider_Primary_Taxonomy_Switch_14"/>
+  <Property name="dummyFields:Provider_Taxonomy_15" value="Healthcare_Provider_Taxonomy_Code_15, Healthcare_Provider_Primary_Taxonomy_Switch_15"/>
+  <Property name="dummyFields:Provider_Business_Mailing_Address" value="Provider_First_Line_Business_Mailing_Address,Provider_Second_Line_Business_Mailing_Address, Provider_Business_Mailing_Address_City_Name, Provider_Business_Mailing_Address_State_Name,Provider_Business_Mailing_Address_Postal_Code,Provider_Business_Mailing_Address_Country_Code"/>
+  <Property name="dummyFields:Provider_Business_Practice_Location_Address" value="Provider_First_Line_Business_Practice_Location_Address,Provider_Second_Line_Business_Practice_Location_Address, Provider_Business_Practice_Location_Address_City_Name, Provider_Business_Practice_Location_Address_State_Name,Provider_Business_Practice_Location_Address_Postal_Code,Provider_Business_Practice_Location_Address_Country_Code"/>
+
+
   <Property name="mongoCollectionFields" value=" NPI,
     Entity_Type_Code,
     Replacement_NPI,
@@ -231,63 +156,63 @@
     Authorized_Official_Telephone_Number,
 	Healthcare_Provider_Taxonomy_Code_1,
     Provider_License_Number_1,
-    Provider_License_Number_State_Code_1,
+    Provider_License_Number_State_1,
     Healthcare_Provider_Primary_Taxonomy_Switch_1,
     Healthcare_Provider_Taxonomy_Code_2,
     Provider_License_Number_2,
-    Provider_License_Number_State_Code_2,
+    Provider_License_Number_State_2,
 	Healthcare_Provider_Primary_Taxonomy_Switch_2,
     Healthcare_Provider_Taxonomy_Code_3,
     Provider_License_Number_3,
-    Provider_License_Number_State_Code_3,
+    Provider_License_Number_State_3,
 	Healthcare_Provider_Primary_Taxonomy_Switch_3,
     Healthcare_Provider_Taxonomy_Code_4,
     Provider_License_Number_4,
-    Provider_License_Number_State_Code_4,
+    Provider_License_Number_State_4,
 	Healthcare_Provider_Primary_Taxonomy_Switch_4,
     Healthcare_Provider_Taxonomy_Code_5,
     Provider_License_Number_5,
-    Provider_License_Number_State_Code_5,
+    Provider_License_Number_State_5,
 	Healthcare_Provider_Primary_Taxonomy_Switch_5,
     Healthcare_Provider_Taxonomy_Code_6,
     Provider_License_Number_6,
-    Provider_License_Number_State_Code_6,
+    Provider_License_Number_State_6,
 	Healthcare_Provider_Primary_Taxonomy_Switch_6,
     Healthcare_Provider_Taxonomy_Code_7,
     Provider_License_Number_7,
-    Provider_License_Number_State_Code_7,
+    Provider_License_Number_State_7,
 	Healthcare_Provider_Primary_Taxonomy_Switch_7,
     Healthcare_Provider_Taxonomy_Code_8,
     Provider_License_Number_8,
-    Provider_License_Number_State_Code_8,
+    Provider_License_Number_State_8,
 	Healthcare_Provider_Primary_Taxonomy_Switch_8,
     Healthcare_Provider_Taxonomy_Code_9,
     Provider_License_Number_9,
-    Provider_License_Number_State_Code_9,
+    Provider_License_Number_State_9,
 	Healthcare_Provider_Primary_Taxonomy_Switch_9,
     Healthcare_Provider_Taxonomy_Code_10,
     Provider_License_Number_10,
-    Provider_License_Number_State_Code_10,
+    Provider_License_Number_State_10,
 	Healthcare_Provider_Primary_Taxonomy_Switch_10,
     Healthcare_Provider_Taxonomy_Code_11,
     Provider_License_Number_11,
-    Provider_License_Number_State_Code_11,
+    Provider_License_Number_State_11,
 	Healthcare_Provider_Primary_Taxonomy_Switch_11,
     Healthcare_Provider_Taxonomy_Code_12,
     Provider_License_Number_12,
-    Provider_License_Number_State_Code_12,
+    Provider_License_Number_State_12,
 	Healthcare_Provider_Primary_Taxonomy_Switch_12,
     Healthcare_Provider_Taxonomy_Code_13,
     Provider_License_Number_13,
-    Provider_License_Number_State_Code_13,
+    Provider_License_Number_State_13,
 	Healthcare_Provider_Primary_Taxonomy_Switch_13,
     Healthcare_Provider_Taxonomy_Code_14,
     Provider_License_Number_14,
-    Provider_License_Number_State_Code_14,
+    Provider_License_Number_State_14,
 	Healthcare_Provider_Primary_Taxonomy_Switch_14,
     Healthcare_Provider_Taxonomy_Code_15,
     Provider_License_Number_15,
-    Provider_License_Number_State_Code_15,
+    Provider_License_Number_State_15,
 	Healthcare_Provider_Primary_Taxonomy_Switch_15,
     Other_Provider_Identifier_1,
     Other_Provider_Identifier_Type_Code_1,

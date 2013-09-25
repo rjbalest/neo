@@ -13,48 +13,67 @@
   <Property name="mongoCollectionSource" value="pecos"/>
   <Property name="mongoCollectionFields" value="
 	  Record_Type, 
-	  Medicare_Contractor_ID,
-	  Create_Date,
+	  Contractor_ID,
+	  Provider_Base_Create_Date,
 	  PAC_ID,
 	  Enrollment_ID,
-	  Provider_Organization_Name_Legal_Business_Name,
-	  TIN_Name,
-	  Provider_Type,
-	  Provider_First_Name,
-	  Provider_Middle_Name,
-	  Provider_Last_Name_Legal_Name,
-	  Supplier_Type,
-	  Non_Physician_Type,
-	  Non_Physician_Specialty_Type,
-	  Foreign_Address_Indicator_Field,
-	  Provider_First_Line_Base_Address,
-	  Provider_Second_Line_Base_Address,
-	  Provider_Base_Address_City_Name,
-	  Provider_Base_Address_State_Name,
-	  Foreign_Address_State_Field,
+	  Provider_Base_Legal_Business_Name,
+	  Provider_Base_TIN_Name,
+	  Provider_Base_Type,
+	  Provider_Base_First_Name,
+	  Provider_Base_Middle_Name,
+	  Provider_Base_Last_Name,
+	  Provider_Base_Supplier_Type,
+	  Provider_Base_Non_Physician_Type,
+	  Provider_Base_Non_Physician_Specialty_Type,
+	  Provider_Base_Foreign_Address_Indicator_Field,
+	  Provider_Base_Address_First_Line,
+	  Provider_Base_Address_Second_Line,
+	  Provider_Base_Address_City,
+	  Provider_Base_Address_State,
+	  Provider_Base_Foreign_Address_State,
 	  Provider_Base_Address_Postal_Code,
-	  Foreign_Address_Postal_Code,
-	  Foreign_Address_Country,
-	  Start_Date,
+	  Provider_Base_Foreign_Address_Postal_Code,
+	  Provider_Base_Foreign_Address_Country,
+	  Provider_Base_Address_Start_Date,
 	  Provider_Base_Telephone_Number,
-	  Form_Type_Description_Code,
-	  Enrollment_State,
-	  Medical_School_ID,
-	  Medical_School_Graduation_Year,
-	  Date_Of_Death,
-	  Accepting_New_Patients
+	  Provider_Base_Form_Type_Description_Code,
+	  Provider_Base_Enrollment_State,
+	  Provider_Base_Medical_School_ID,
+	  Provider_Base_Medical_School_Graduation_Year,
+	  Provider_Base_Date_Of_Death,
+	  Provider_Base_Accepting_New_Patients
   "/>
-  <Property name="concatFields" value="Provider_Full_Name,Provider_Base_Address"/>
-  <Property name="concatFields:Provider_Full_Name" value="Provider_First_Name,Provider_Middle_Name,Provider_Last_Name_Legal_Name"/>
-  <Property name="fieldGrouping:PAC_ID" value="Other_Provider_Identifier_Info"/>
-  <Property name="concatFields:Provider_Base_Address" value="
-  	Provider_First_Line_Base_Address,
-  	Provider_Second_Line_Base_Address, 
-  	Provider_Base_Address_City_Name, 
-  	Provider_Base_Address_State_Name,
+  <Property name="concatFields" value="Provider_Base_School_Grad_Year, Provider_Base_Full_Name, Provider_Base_Full_Address"/>
+  <Property name="concatFields:Provider_Base_Full_Name" value="Provider_Base_First_Name,Provider_Base_Middle_Name,Provider_Base_Last_Name"/>
+  <Property name="concatFields:Provider_Base_School_Grad_Year" value="
+  	Provider_Base_Medical_School_ID,
+	Provider_Base_Medical_School_Graduation_Year
+	"/>
+	
+  <Property name="concatFields:Provider_Base_Full_Address" value="
+  	Provider_Base_Address_First_Line,
+  	Provider_Base_Address_Second_Line, 
+  	Provider_Base_Address_City, 
+  	Provider_Base_Address_State,
   	Provider_Base_Address_Postal_Code,
-  	Foreign_Address_State_Field, 
-  	Foreign_Address_Postal_Code,
-  	Foreign_Address_Country"/>
-  <Property name="seperator" value=","/>
+  	Provider_Base_Foreign_Address_State, 
+  	Provider_Base_Foreign_Address_Postal_Code,
+  	Provider_Base_Foreign_Address_Country
+	"/>
+	
+  <Property name="dummyFields" value="Provider_Base_Address"/>
+  <Property name="dummyFields:Provider_Base_Address" value="
+  	Provider_Base_Address_First_Line,
+  	Provider_Base_Address_Second_Line, 
+  	Provider_Base_Address_City, 
+  	Provider_Base_Address_State,
+  	Provider_Base_Address_Postal_Code,
+  	Provider_Base_Foreign_Address_State, 
+  	Provider_Base_Foreign_Address_Postal_Code,
+  	Provider_Base_Foreign_Address_Country"/>
+  	
+	  
+ <Property name="seperator" value=","/>
+ <Property name="ignoreFields" value="Record_Type"/> 
 </Configuration>

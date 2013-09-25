@@ -18,14 +18,20 @@
   	Creation_Date_Child,
   	Child_PAC_ID,
   	Enrollment_ID_Child,
-  	Department_Name,
-  	Medicare_ID_Number_of_Buyer_Seller_Old_New,
-  	Medicare_Type,
-  	NPI_of_Buyer_Seller_Old_New
+  	Subunit_Consolidation_Department_Name,
+  	Subunit_Consolidation_Medicare_ID_Number_of_Buyer_Seller_Old_New,
+  	Subunit_Consolidation_Medicare_Type,
+  	Subunit_Consolidation_NPI_of_Buyer_Seller_Old_New
   "/>
-  <Property name="concatFields" value="Subunit_Consolidation"/>
-  <Property name="concatFields:Subunit_Consolidation" value="Department_Name, Medicare_ID_Number_of_Buyer_Seller_Old_New,Medicare_Type,NPI_of_Buyer_Seller_Old_New"/>
-  <Property name="mongoCollectionFieldsList" value="Subunit_Consolidation"/>
+  
+  <Property name="dummyFields" value="Subunit_Consolidation_Info"/>
+  <Property name="dummyFields:Subunit_Consolidation_Info" value="
+  	Subunit_Consolidation_Department_Name,
+  	Subunit_Consolidation_Medicare_ID_Number_of_Buyer_Seller_Old_New,
+  	Subunit_Consolidation_Medicare_Type,
+  	Subunit_Consolidation_NPI_of_Buyer_Seller_Old_New
+  "/>
+   
   <Property name="ignoreFields" value="Record_Type,Contractor_ID_Child,Creation_Date_Child,Child_PAC_ID, Enrollment_ID_Child"/>
   <Property name="isMultiple" value="Y"/>
   <Property name="seperator" value=","/>

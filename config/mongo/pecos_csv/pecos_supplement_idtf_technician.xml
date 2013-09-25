@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--set any default configuration parameters here-->
+<Configuration version="1">
+  <Property name="source" value="file"/>
+  <Property name="dataFile" value="csv/pecos_idtf_technician.csv"/>
+  <Property name="mongoURL" value="localhost"/>
+  <Property name="mongoInsertMode" value="a"/>
+  <Property name="mongoPort" value="27017"/>
+  <Property name="mongoDatabase" value="healthcare"/>
+  <Property name="mongoUsername" value="liza183"/>
+  <Property name="mongoPassword" value="cmsproject"/>
+  <Property name="mongoCollectionName" value="Provider_PECOS"/>
+  <Property name="keyOfSource" value="Enrollment_ID_Child"/>
+  <Property name="keyOfTargetCollection" value="Enrollment_ID"/>
+  <Property name="mongoCollectionFields" value="
+    Record_Type, 
+    Contractor_ID_Child, 
+    Creation_Date_Child, 
+    Child_PAC_ID, 
+    Enrollment_ID_Child, 
+	IDTF_Technician_If_Standard,
+  	IDTF_Technician_If_Standard_Effective_Date,
+  	IDTF_Technician_First_Name,
+  	IDTF_Technician_Middle_Name,
+  	IDTF_Technician_Last_Name,
+  	IDTF_Technician_Associate_Date
+  "/>
+  
+  <Property name="dummyFields" value="IDTF_Technician_Info"/>
+  <Property name="dummyFields:IDTF_Technician_Info" value="
+  	IDTF_Technician_If_Standard,
+  	IDTF_Technician_If_Standard_Effective_Date,
+  	IDTF_Technician_First_Name,
+  	IDTF_Technician_Middle_Name,
+  	IDTF_Technician_Last_Name,
+  	IDTF_Technician_Associate_Date
+  "/>
+  
+  <Property name="concatFields" value="IDTF_Technician_Full_Name"/>
+  <Property name="concatFields:IDTF_Technician_Full_Name" value="
+  	IDTF_Technician_First_Name,
+  	IDTF_Technician_Middle_Name,
+  	IDTF_Technician_Last_Name
+  "/>
+    
+  <Property name="ignoreFields" value="Record_Type,Contractor_ID_Child,Creation_Date_Child,Child_PAC_ID, Enrollment_ID_Child, Accreditation_Filler"/>
+  <Property name="isMultiple" value="Y"/>
+  <Property name="seperator" value=","/>
+</Configuration>

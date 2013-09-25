@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--set any default configuration parameters here-->
+<Configuration version="1">
+  <Property name="mongoURL" value="localhost"/>
+  <Property name="mongoInsertMode" value="a"/>
+  <Property name="mongoPort" value="27017"/>
+  <Property name="mongoDatabase" value="healthcare"/>
+  <Property name="mongoUsername" value="liza183"/>
+  <Property name="mongoPassword" value="cmsproject"/>
+  <Property name="mongoCollectionName" value="Member"/>
+  <Property name="mongoCollectionFieldsToDisintegrate" value="
+  	Member_Full_Name:Name,
+ 	Member_PAC_ID:Identifier,
+ 	Member_Enrollment_ID:Identifier
+  "/>
+  <Property name="mongoCollectionSource" value="pecos"/>
+
+    <!--edgeName -->
+  <Property name="edgeName:Member_Full_Name" value="hasName"/>
+  <Property name="edgeName:Member_PAC_ID" value="hasPAC"/>
+  <Property name="edgeName:Member_Enrollment_ID" value="hasEnrollmentID"/>
+  	  
+  <Property name="subFields:Billing_Agency_Legal_Business_Name" value="
+  	Billing_Agency_Legal_Business_Name:Org_Name,
+  "/>
+  
+  <Property name="subFields:Member_Full_Name" value="
+    Member_Full_Name:Full_Name,
+  	Member_First_Name:First_Name,
+  	Member_Middle_Name:Middle_Name,
+  	Member_Last_Name:Last_Name,
+  "/>
+  
+</Configuration>

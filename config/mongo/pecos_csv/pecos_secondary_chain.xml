@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--set any default configuration parameters here-->
+<Configuration version="1">
+  <Property name="mongoURL" value="localhost"/>
+  <Property name="mongoInsertMode" value="a"/>
+  <Property name="mongoPort" value="27017"/>
+  <Property name="mongoDatabase" value="healthcare"/>
+  <Property name="mongoUsername" value="liza183"/>
+  <Property name="mongoPassword" value="cmsproject"/>
+  <Property name="mongoCollectionName" value="Chain"/>
+  <Property name="mongoCollectionFieldsToDisintegrate" value="
+  	Chain_Home_Office_TIN:Identifier,
+  	Chain_Home_Office_Legal_Business_Name:Org_Name,
+  	Chain_Home_Office_Address:Address,
+  	Chain_Home_Office_Telephone_Number:Phone,
+  	Chain_Home_Office_Responsible_Contractor_ID:Identifier
+  "/>
+  <Property name="mongoCollectionSource" value="pecos"/>
+
+    <!--edgeName -->
+  <Property name="edgeName:Chain_Home_Office_TIN" value="hasTIN"/>
+  <Property name="edgeName:Chain_Home_Office_Address" value="hasAddress"/>
+  <Property name="edgeName:Chain_Home_Office_Responsible_Contractor_ID" value="hasResponsibleContractorID"/>
+  <Property name="edgeName:Chain_Home_Office_Legal_Business_Name" value="hasLegalBusinessName"/>
+  <Property name="edgeName:Chain_Home_Office_Telephone_Number" value="hasPhone"/>
+  	  
+  <Property name="subFields:Chain_Home_Office_Legal_Business_Name" value="
+  	Chain_Home_Office_Legal_Business_Name:Org_Name,
+  "/>
+  
+  <Property name="subFields:Chain_Home_Office_Address" value="
+  	Chain_Home_Office_Full_Address:Full_Address,
+  	Chain_Home_Office_Address_First_Line:First_Line,
+  	Chain_Home_Office_Address_Second_Line:Scond_Line,
+  	Chain_Home_Office_Address_City:City,
+  	Chain_Home_Office_Address_State:State,
+  	Chain_Home_Office_Address_Postal_Code:Postal_Code
+	"/>
+  
+</Configuration>

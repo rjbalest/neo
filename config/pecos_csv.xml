@@ -9,14 +9,59 @@
 	<Property name="mongoUsername" value="liza183"/>
 	<Property name="mongoPassword" value="cmsproject"/>
 	<Property name="primary" value="config/mongo/pecos_csv/pecos_primary_providerenrollmentbase.xml"/>
+	
 	<Property name="supplement" value="
-	  config/mongo/pecos_csv/pecos_supplement_pecos_hospital_type.xml,
-	  config/mongo/pecos_csv/pecos_supplement_pecos_medicareid.xml,
-	  config/mongo/pecos_csv/pecos_supplement_pecos_practice_location.xml,
-	  config/mongo/pecos_csv/pecos_supplement_subunit_consolidation.xml
+	  config/mongo/pecos_csv/pecos_supplement_hospital_type.xml,
+	  config/mongo/pecos_csv/pecos_supplement_medicareid.xml,
+	  config/mongo/pecos_csv/pecos_supplement_practice_location.xml,
+	  config/mongo/pecos_csv/pecos_supplement_subunit_consolidation.xml,
+	  config/mongo/pecos_csv/pecos_supplement_chain_home_office.xml,
+	  config/mongo/pecos_csv/pecos_supplement_health_home_agency.xml,
+	  config/mongo/pecos_csv/pecos_supplement_specialty.xml,
+	  config/mongo/pecos_csv/pecos_supplement_reassignment.xml,
+	  config/mongo/pecos_csv/pecos_supplement_employer.xml,
+	  config/mongo/pecos_csv/pecos_supplement_members.xml,
+	  config/mongo/pecos_csv/pecos_supplement_accreditation.xml,
+	  config/mongo/pecos_csv/pecos_supplement_adverse_legal_action.xml,
+	  config/mongo/pecos_csv/pecos_supplement_location_of_patient_medical_records.xml,
+	  config/mongo/pecos_csv/pecos_supplement_billing_agency.xml,
+	  config/mongo/pecos_csv/pecos_supplement_authorized_or_delegated_official_and_certification_statement.xml,
+	  config/mongo/pecos_csv/pecos_supplement_ambulance_service.xml,
+	  config/mongo/pecos_csv/pecos_supplement_idtf_equipment.xml,
+	  config/mongo/pecos_csv/pecos_supplement_idtf_cpt4_hcpcs_codes.xml,
+	  config/mongo/pecos_csv/pecos_supplement_idtf_technician.xml,
+	  config/mongo/pecos_csv/pecos_supplement_idtf_supervising_physician.xml,
+	  config/mongo/pecos_csv/pecos_supplement_idtf_attestation.xml,
+	  config/mongo/pecos_csv/pecos_supplement_state_license.xml,
+	  config/mongo/pecos_csv/pecos_supplement_credentials.xml,
+	  config/mongo/pecos_csv/pecos_supplement_par_status.xml,
+	  config/mongo/pecos_csv/pecos_supplement_site_visit.xml
+	  
 	"/>
-	<Property name="secondary" value="config/mongo/pecos_csv/pecos_secondary_provider.xml,
+		
+	<Property name="secondary" value="
+		config/mongo/pecos_csv/pecos_secondary_provider.xml,
+		
+		config/mongo/pecos_csv/pecos_secondary_billing_agency.xml,
+		config/mongo/pecos_csv/pecos_secondary_chain.xml,
+		config/mongo/pecos_csv/pecos_secondary_department.xml,
+		config/mongo/pecos_csv/pecos_secondary_employer.xml,
+		config/mongo/pecos_csv/pecos_secondary_health_home_agency.xml,
+		config/mongo/pecos_csv/pecos_secondary_idtf_attestation.xml,
+		config/mongo/pecos_csv/pecos_secondary_idtf_physician.xml,
+		config/mongo/pecos_csv/pecos_secondary_idtf_technician.xml,
+		config/mongo/pecos_csv/pecos_secondary_member.xml,
+		config/mongo/pecos_csv/pecos_secondary_official_certification.xml,
 		config/mongo/pecos_csv/pecos_secondary_practice_location.xml,
-		config/mongo/pecos_csv/pecos_secondary_department.xml
+		config/mongo/pecos_csv/pecos_secondary_storage_location.xml,
+		config/mongo/pecos_csv/pecos_secondary_reassignment.xml,
+		config/mongo/pecos_csv/pecos_secondary_specialty.xml,
+	
+		config/mongo/pecos_csv/pecos_secondary_address.xml,
+		config/mongo/pecos_csv/pecos_secondary_name.xml,
+		config/mongo/pecos_csv/pecos_secondary_org_name.xml,
+		config/mongo/pecos_csv/pecos_secondary_license.xml
+		
 	"/>
+	
 </Configuration>

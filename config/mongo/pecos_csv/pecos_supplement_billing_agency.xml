@@ -1,0 +1,94 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--set any default configuration parameters here-->
+<Configuration version="1">
+  <Property name="source" value="file"/>
+  <Property name="dataFile" value="csv/pecos_billing_agency.csv"/>
+  <Property name="mongoURL" value="localhost"/>
+  <Property name="mongoInsertMode" value="a"/>
+  <Property name="mongoPort" value="27017"/>
+  <Property name="mongoDatabase" value="healthcare"/>
+  <Property name="mongoUsername" value="liza183"/>
+  <Property name="mongoPassword" value="cmsproject"/>
+  <Property name="mongoCollectionName" value="Provider_PECOS"/>
+  <Property name="keyOfSource" value="Enrollment_ID_Child"/>
+  <Property name="keyOfTargetCollection" value="Enrollment_ID"/>
+  <Property name="mongoCollectionFields" value="
+  	Record_Type,
+  	Contractor_ID_Child,
+  	Creation_Date_Child,
+  	Child_PAC_ID,
+  	Enrollment_ID_Child,
+  	Billing_Agency_TIN,
+  	Billing_Agency_Legal_Business_Name,
+  	Billing_Agency_First_Name,
+  	Billing_Agency_Middle_Name,
+  	Billing_Agency_Last_Name,
+  	Billing_Agency_Foreign_Domestic_Code,
+  	Billing_Agency_Address_First_Line,
+  	Billing_Agency_Address_Second_Line,
+  	Billing_Agency_Address_City,
+  	Billing_Agency_Address_State,
+  	Billing_Agency_Address_Foreign_State,
+  	Billing_Agency_Address_Postal_Code,
+  	Billing_Agency_Address_Foreign_Postal_Code,
+  	Billing_Agency_Address_Country,
+  	Billing_Agency_Telephone_Number,
+  	Billing_Agency_Start_Date
+  "/>
+  
+  <Property name="concatFields" value="Billing_Agency_Full_Name, Billing_Agency_Full_Address"/>
+  <Property name="concatFields:Billing_Agency_Full_Name" value="
+	Billing_Agency_First_Name,
+  	Billing_Agency_Middle_Name,
+  	Billing_Agency_Last_Name
+  "/>
+  
+  <Property name="concatFields:Billing_Agency_Full_Address" value="
+	Billing_Agency_Address_First_Line,
+  	Billing_Agency_Address_Second_Line,
+  	Billing_Agency_Address_City,
+  	Billing_Agency_Address_State,
+  	Billing_Agency_Address_Foreign_State,
+  	Billing_Agency_Address_Postal_Code,
+  	Billing_Agency_Address_Foreign_Postal_Code,
+  	Billing_Agency_Address_Country,
+  	Billing_Agency_Telephone_Number
+  "/>
+  
+  <Property name="dummyFields" value="Billing_Agency_Info,Billing_Agency_Address"/>
+  
+  <Property name="dummyFields:Billing_Agency_Info" value="
+  	Billing_Agency_TIN,
+  	Billing_Agency_Legal_Business_Name,
+  	Billing_Agency_First_Name,
+  	Billing_Agency_Middle_Name,
+  	Billing_Agency_Last_Name,
+  	Billing_Agency_Foreign_Domestic_Code,
+  	Billing_Agency_Address_First_Line,
+  	Billing_Agency_Address_Second_Line,
+  	Billing_Agency_Address_City,
+  	Billing_Agency_Address_State,
+  	Billing_Agency_Address_Foreign_State,
+  	Billing_Agency_Address_Postal_Code,
+  	Billing_Agency_Address_Foreign_Postal_Code,
+  	Billing_Agency_Address_Country,
+  	Billing_Agency_Telephone_Number,
+  	Billing_Agency_Start_Date
+  "/>
+  
+  <Property name="dummyFields:Billing_Agency_Address" value="
+	Billing_Agency_Address_First_Line,
+  	Billing_Agency_Address_Second_Line,
+  	Billing_Agency_Address_City,
+  	Billing_Agency_Address_State,
+  	Billing_Agency_Address_Foreign_State,
+  	Billing_Agency_Address_Postal_Code,
+  	Billing_Agency_Address_Foreign_Postal_Code,
+  	Billing_Agency_Address_Country,
+  	Billing_Agency_Telephone_Number
+  "/>
+  
+  <Property name="ignoreFields" value="Record_Type,Contractor_ID_Child,Creation_Date_Child,Child_PAC_ID, Enrollment_ID_Child"/>
+  <Property name="isMultiple" value="Y"/>
+  <Property name="seperator" value=","/>
+</Configuration>

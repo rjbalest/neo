@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--set any default configuration parameters here-->
+<Configuration version="1">
+  <Property name="mongoURL" value="localhost"/>
+  <Property name="mongoInsertMode" value="a"/>
+  <Property name="mongoPort" value="27017"/>
+  <Property name="mongoDatabase" value="healthcare"/>
+  <Property name="mongoUsername" value="liza183"/>
+  <Property name="mongoPassword" value="cmsproject"/>
+  <Property name="mongoCollectionName" value="IDTF_Technician"/>
+  <Property name="mongoCollectionFieldsToDisintegrate" value="
+  	
+  	IDTF_Technician_Full_Name:Name
+  	
+  "/>
+  <Property name="mongoCollectionSource" value="pecos"/>
+
+    <!--edgeName -->
+  <Property name="edgeName:IDTF_Technician_Full_Name" value="hasName"/>
+  	    
+  <Property name="subFields:IDTF_Technician_Full_Name" value="
+  	IDTF_Technician_Full_Name:Full_Name,
+  	IDTF_Technician_First_Name:First_Name,
+  	IDTF_Technician_Middle_Name:Middle_Name,
+  	IDTF_Technician_Last_Name:Last_Name
+  "/>
+ 
+</Configuration>

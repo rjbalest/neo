@@ -13,9 +13,9 @@
     <!--edgeName -->
   <Property name="edgeName:NPI" value="hasNPI"/>
   <Property name="edgeName:Replacement_NPI" value="hasReplacementNPI"/>
-  <Property name="edgeName:Provider_Full_Name" value="hasFullName"/>
+  <Property name="edgeName:Provider_Full_Name" value="hasName"/>
   <Property name="edgeName:Provider_Other_Organization_Name" value="hasOtherOrgName"/>
-  <Property name="edgeName:Provider_Other_Full_Name" value="hasOtherFullName"/>
+  <Property name="edgeName:Provider_Other_Full_Name" value="hasOtherName"/>
   <Property name="edgeName:Provider_Business_Mailing_Address" value="hasBusinessMailingAddress"/>
   <Property name="edgeName:Provider_Business_Mailing_Address_Telephone_Number" value="hasBusinessMailingAddressPhone"/> 
   <Property name="edgeName:Provider_Business_Mailing_Address_Fax_Number" value="hasBusinessMailingAddressFax"/>
@@ -23,18 +23,18 @@
   <Property name="edgeName:Provider_Business_Practice_Location_Address_Telephone_Number" value="hasPracticeLocationAddressPhone"/>
   <Property name="edgeName:Provider_Business_Practice_Location_Address_Fax_Number" value="hasPracticeLocationAddressFax"/>
   <Property name="edgeName:Authorized_Official_Telephone_Number" value="hasAuthorizedOfficialPhone"/>
-  <Property name="edgeName:Healthcare_Provider_Taxonomy_Code_[1-50]" value="hasProviderTaxonomyCode"/>
   <Property name="edgeName:Provider_License_Number_and_State_[1-50]" value="hasLicense"/>
-  <Property name="edgeName:Other_Provider_Identifier_Info_[1-50]" value="hasOtherID"/>
+  <Property name="edgeName:Other_Provider_Identifier_[1-50]" value="hasOtherID"/>
+  <Property name="edgeName:Provider_Taxonomy_[1-50]" value="hasProviderTaxonomy"/>
   
   <Property name="mongoCollectionFieldsToDisintegrate" value="
-	NPI:ID,
-	Replacement_NPI:ID,
-	Provider_Full_Name:Full_Name,
+	NPI:Identifier,
+	Replacement_NPI:Identifier,
+	Provider_Full_Name:Name,
 	Provider_Other_Organization_Name:Org_Name,
-	Provider_Other_Full_Name:Full_Name,
-	Authorized_Official_Full_Name:Full_Name,
-	Employer_Identification_Number_EIN:ID,
+	Provider_Other_Full_Name:Name,
+	Authorized_Official_Full_Name:Name,
+	Employer_Identification_Number_EIN:Identifier,
 	Provider_Business_Mailing_Address:Address,
 	Provider_Business_Mailing_Address_Telephone_Number:Phone,
 	Provider_Business_Mailing_Address_Fax_Number:Fax,
@@ -42,17 +42,81 @@
 	Provider_Business_Practice_Location_Address_Telephone_Number:Phone,
 	Provider_Business_Practice_Location_Address_Fax_Number:Fax,
 	Authorized_Official_Telephone_Number:Phone,
-	Healthcare_Provider_Taxonomy_Code_[1-50]:Taxonomy_Code,
 	Provider_License_Number_and_State_[1-50]:License,
-	Other_Provider_Identifier_Info_[1-50]:ID
+	Other_Provider_Identifier_[1-50]:Identifier,
+	Provider_Taxonomy_[1-50]:Provider_Taxonomy
 	"/>
+	
+  <Property name="subFields:Provider_Full_Name" value="
+  	Provider_Full_Name:Full_Name,
+  	Provider_First_Name:First_Name,
+  	Provider_Middle_Name:Middle_Name,
+  	Provider_Last_Name_Legal_Name:Last_Name,
+  	Provider_Name_Prefix_Text:Prefix_Txt,
+  	Provider_Name_Suffix_Text:Suffix_Txt,
+  	Provider_Credential_Text:Credential_Txt
+  	"/>
+  	
+  <Property name="subFields:Provider_Other_Organization_Name" value="
+  	Provider_Other_Organization_Name:Org_Name
+  	"/>
+  	
+  <Property name="subFields:Provider_Other_Full_Name" value="
+  	Provider_Other_Full_Name:Full_Name,
+  	Provider_Other_Last_Name:Last_Name,
+  	Provider_Other_First_Name:First_Name,
+  	Provider_Other_Middle_Name:Middle_Name,
+  	Provider_Other_Name_Prefix_Text:Prefix_Txt,
+  	Provider_Other_Name_Suffix_Text:Suffix_Txt,
+  	Provider_Other_Credential_Text:Credential_Txt
+  	"/>
   
-  <Property name="subFields:Provider_Full_Name" value="Provider_Last_Name_Legal_Name:Last_Name,Provider_First_Name:First_Name,Provider_Middle_Name:Middle_Name,Provider_Name_Prefix_Text:Prefix_Txt,Provider_Name_Suffix_Text:Suffix_Txt,Provider_Credential_Text:Credential_Txt"/>
-  <Property name="subFields:Provider_Other_Full_Name" value="Provider_Other_Last_Name:Last_Name,Provider_Other_First_Name:First_Name,Provider_Other_Middle_Name:Middle_Name,Provider_Other_Name_Prefix_Text:Prefix_Txt,Provider_Other_Name_Suffix_Text:Suffix_Txt,Provider_Other_Credential_Text:Credential_Txt"/>
-  <Property name="subFields:Provider_Business_Mailing_Address" value="Provider_First_Line_Business_Mailing_Address:First_Line,Provider_Second_Line_Business_Mailing_Address:Second_Line,Provider_Business_Mailing_Address_City_Name:City,Provider_Business_Mailing_Address_State_Name:State,Provider_Business_Mailing_Address_Postal_Code:Zip_Code,Provider_Business_Mailing_Address_Country_Code:Country_Code"/>
-  <Property name="subFields:Provider_Business_Practice_Location_Address" value="Provider_First_Line_Business_Practice_Location_Address:First_Name, Provider_Second_Line_Business_Practice_Location_Address:Second_Line,Provider_Business_Practice_Location_Address_City_Name:City,Provider_Business_Practice_Location_Address_State_Name:State,Provider_Business_Practice_Location_Address_Postal_Code:Zip_Code,Provider_Business_Practice_Location_Address_Country_Code:Country_Code"/>
-  <Property name="subFields:NPI_Deactivation" value="NPI_Deactivation_Reason_Code:NPI_Deactivation_Reason_Code,NPI_Deactivation_Date:NPI_Deactivation_Date"/>
-  <Property name="subFields:Authorized_Official_Full_Name" value="Authorized_Official_Last_Name:Last_Name,Authorized_Official_First_Name:First_Name,Authorized_Official_Middle_Name:Middle_Name,Authorized_Official_Title_or_Position:Title_Position,Authorized_Official_Name_Prefix_Text:Prefix_Txt,Authorized_Official_Name_Suffix_Text:Suffix_Txt,Authorized_Official_Credential_Text:Credential_Txt"/>
-  <Property name="subFields:Provider_License_Number_and_State_[1-50]" value="Provider_License_Number_[n]:Provider_License_Number,Provider_License_Number_State_Code_[n]:Provider_License_Number_State_Code"/>
-  <Property name="subFields:Other_Provider_Identifier_Info_[1-50]" value="Other_Provider_Identifier_[n]:Other_Provider_Identifier, Other_Provider_Identifier_Type_Code_[n]:Other_Provider_Identifier_Type_Code,Other_Provider_Identifier_State_[n]:Other_Provider_Identifier_State,Other_Provider_Identifier_Issuer_[n]:Other_Provider_Identifier_Issuer"/>
+  <Property name="subFields:Provider_Business_Mailing_Address" value="
+  	Provider_Business_Mailing_Full_Address:Full_Address,
+  	Provider_First_Line_Business_Mailing_Address:First_Line,
+  	Provider_Second_Line_Business_Mailing_Address:Second_Line,
+  	Provider_Business_Mailing_Address_City_Name:City,
+  	Provider_Business_Mailing_Address_State_Name:State,
+  	Provider_Business_Mailing_Address_Postal_Code:Postal_Code,
+  	Provider_Business_Mailing_Address_Country_Code:Country_Code
+  	"/>
+  	
+  <Property name="subFields:Provider_Business_Practice_Location_Address" value="
+  	Provider_Business_Practice_Location_Full_Address:Full_Address,
+  	Provider_First_Line_Business_Practice_Location_Address:First_Name, 
+  	Provider_Second_Line_Business_Practice_Location_Address:Second_Line,
+  	Provider_Business_Practice_Location_Address_City_Name:City,
+  	Provider_Business_Practice_Location_Address_State_Name:State,
+  	Provider_Business_Practice_Location_Address_Postal_Code:Postal_Code,
+  	Provider_Business_Practice_Location_Address_Country_Code:Country_Code
+  	"/>
+  	
+  <Property name="subFields:Authorized_Official_Full_Name" value="
+  	Authorized_Official_Full_Name:Full_Name,
+  	Authorized_Official_First_Name:First_Name,
+  	Authorized_Official_Middle_Name:Middle_Name,
+  	Authorized_Official_Last_Name:Last_Name,
+  	Authorized_Official_Title_or_Position:Title_Position,
+  	Authorized_Official_Name_Prefix_Text:Prefix_Txt,
+  	Authorized_Official_Name_Suffix_Text:Suffix_Txt,
+  	Authorized_Official_Credential_Text:Credential_Txt
+  	"/>
+  	
+  <Property name="subFields:Provider_License_Number_and_State_[1-50]" value="
+  	Provider_License_Number_[n]:License_Number,
+  	Provider_License_Number_State_[n]:State
+  	"/>
+  	
+  <Property name="subFields:Other_Provider_Identifier_[1-50]" value="
+  	Other_Provider_Identifier_[n]:Other_Provider_Identifier, 
+  	Other_Provider_Identifier_Type_Code_[n]:Other_Provider_Identifier_Type_Code,
+  	Other_Provider_Identifier_State_[n]:Other_Provider_Identifier_State,
+  	Other_Provider_Identifier_Issuer_[n]:Other_Provider_Identifier_Issuer
+  	"/>
+  
+  <Property name="subFields:Provider_Taxonomy_[1-50]" value="
+  	Healthcare_Provider_Taxonomy_Code_[n]:Provider_Taxonomy_Code, 
+  	Healthcare_Provider_Primary_Taxonomy_Switch_[n]:Primary_Switch
+  "/>
+  
   </Configuration>

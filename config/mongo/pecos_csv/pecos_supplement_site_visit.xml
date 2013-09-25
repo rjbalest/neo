@@ -1,0 +1,75 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--set any default configuration parameters here-->
+<Configuration version="1">
+  <Property name="source" value="file"/>
+  <Property name="dataFile" value="csv/pecos_site_visit.csv"/>
+  <Property name="mongoURL" value="localhost"/>
+  <Property name="mongoInsertMode" value="a"/>
+  <Property name="mongoPort" value="27017"/>
+  <Property name="mongoDatabase" value="healthcare"/>
+  <Property name="mongoUsername" value="liza183"/>
+  <Property name="mongoPassword" value="cmsproject"/>
+  <Property name="mongoCollectionName" value="Provider_PECOS"/>
+  <Property name="keyOfSource" value="Enrollment_ID_Child"/>
+  <Property name="keyOfTargetCollection" value="Enrollment_ID"/>
+  <Property name="mongoCollectionFields" value="
+    Record_Type,
+    Contractor_ID_Child,
+    Creation_Date_Child,
+    Child_PAC_ID,
+    Enrollment_ID_Child,
+    Site_Visit_Indicator,
+  	Site_Visit_Ordered_Date,
+  	Site_Visit_Reason_Code,
+  	Site_Visit_Result,
+  	Site_Visit_Date_of_First_Attempt,
+  	Site_Visit_Time_of_First_Attempt,
+  	Site_Visit_Date_of_Second_Attempt,
+  	Site_Visit_Time_of_Second_Attempt,
+  	Site_Visit_If_Store_Front,
+  	Site_Visit_If_Warehouse,
+  	Site_Visit_If_Private_Residence,
+  	Site_Visit_If_Office_Suite_Mall,
+  	Site_Visit_If_Office_Suite_Office_Building,
+  	Site_Visit_If_PO_Box,
+  	Site_Visit_If_Commercial_Mailbox,
+  	Site_Visit_If_Other,
+  	Site_Visit_Other_Description,
+  	Site_Visit_If_Open_for_Business,
+  	Site_Visit_If_Employees_Present,
+  	Site_Visit_If_Customer_Activity,
+  	Site_Visit_If_Business_Hour_Posted,
+  	Site_Visit_If_Appear_Operational,
+  	Site_Visit_Comments
+
+  "/>
+  <Property name="dummyFields" value="Site_Visit"/>
+  <Property name="dummyFields:Site_Visit" value="
+  	Site_Visit_Indicator,
+  	Site_Visit_Ordered_Date,
+  	Site_Visit_Reason_Code,
+  	Site_Visit_Result,
+  	Site_Visit_Date_of_First_Attempt,
+  	Site_Visit_Time_of_First_Attempt,
+  	Site_Visit_Date_of_Second_Attempt,
+  	Site_Visit_Time_of_Second_Attempt,
+  	Site_Visit_If_Store_Front,
+  	Site_Visit_If_Warehouse,
+  	Site_Visit_If_Private_Residence,
+  	Site_Visit_If_Office_Suite_Mall,
+  	Site_Visit_If_Office_Suite_Office_Building,
+  	Site_Visit_If_PO_Box,
+  	Site_Visit_If_Commercial_Mailbox,
+  	Site_Visit_If_Other,
+  	Site_Visit_Other_Description,
+  	Site_Visit_If_Open_for_Business,
+  	Site_Visit_If_Employees_Present,
+  	Site_Visit_If_Customer_Activity,
+  	Site_Visit_If_Business_Hour_Posted,
+  	Site_Visit_If_Appear_Operational,
+  	Site_Visit_Comments
+  "/>
+  <Property name="ignoreFields" value="Record_Type,Contractor_ID_Child,Creation_Date_Child,Child_PAC_ID, Enrollment_ID_Child"/>
+  <Property name="isMultiple" value="Y"/>
+  <Property name="seperator" value=","/>
+</Configuration>
