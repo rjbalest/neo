@@ -56,7 +56,7 @@ public class MongoLoader {
 	public static void run() {
 
 		String clearDB = Configuration.getStringValue("clearDB").trim();
-		String primaryConfig = Configuration.getStringValue("primary").trim();
+		String primaryConfigs = Configuration.getStringValue("primary").trim();
 		String supplementConfigs = Configuration.getStringValue("supplement");
 		String secondaryConfigs = Configuration.getStringValue("secondary");
 
@@ -64,12 +64,18 @@ public class MongoLoader {
 			clearDB();
 		}
 
-		if (primaryConfig != null) {
+		if (primaryConfigs != null) {
 			// build primary
 			Configuration.init();
 			Configuration.getLogger().setLevel(Level.FINEST);
-			Configuration.addConfigDocument(primaryConfig);
-			create_primary();
+			String[] primaryConfigArray = primaryConfigs.split(",");
+			for (String primaryConfig : primaryConfigArray) {
+				primaryConfig = primaryConfig.trim();
+				Configuration.init();
+				Configuration.getLogger().setLevel(Level.FINEST);
+				Configuration.addConfigDocument(primaryConfig);
+				create_primary();
+			}
 		}
 		// build supplements
 		if (supplementConfigs != null) {
@@ -315,7 +321,7 @@ public class MongoLoader {
 											newDocument = new BasicDBObject().append("$addToSet", new BasicDBObject().append("_" + edgeName + "^-1", docId));
 											mongoUtils.update(searchQuery, newDocument);
 											
-											newDocument = new BasicDBObject().append("$addToSet", new BasicDBObject().append("_rel_types", edgeName));
+											newDocument = new BasicDBObject().append("$addToSet", new BasicDBObject().append("_rel_types", "_" + edgeName + "^-1"));
 											mongoUtils.update(searchQuery, newDocument);
 											
 											newDocument = new BasicDBObject().append("$addToSet", new BasicDBObject().append("_rel_ref", docId));
@@ -341,7 +347,7 @@ public class MongoLoader {
 									searchQuery = new BasicDBObject().append("_id", id);
 									newDocument = new BasicDBObject().append("$addToSet", new BasicDBObject().append("_" + edgeName, assigned_id));
 									mongoUtils.update(searchQuery, newDocument);
-									newDocument = new BasicDBObject().append("$addToSet", new BasicDBObject().append("_rel_types", edgeName));
+									newDocument = new BasicDBObject().append("$addToSet", new BasicDBObject().append("_rel_types", "_"+edgeName));
 									mongoUtils.update(searchQuery, newDocument);
 									newDocument = new BasicDBObject().append("$addToSet", new BasicDBObject().append("_rel_ref", assigned_id));
 									mongoUtils.update(searchQuery, newDocument);
@@ -854,8 +860,8 @@ public class MongoLoader {
 				}
 
 				lineNo++;
-				//if (lineNo == 100)
-				//	break;
+				if (lineNo == 100)
+					break;
 				if (lineNo % 10000 == 0) {
 					System.out.println(lineNo + " lines processed.");
 				}
