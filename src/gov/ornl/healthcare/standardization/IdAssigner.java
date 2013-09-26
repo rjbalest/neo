@@ -75,7 +75,15 @@ public class IdAssigner {
 		} else if (fieldName.equals("State") && mongoCollectionSource.equals("nppes")) {
 			assigned_id = assignId_state_nppes(mongoCollectionSource, fieldName, raw, dbo);
 		} else if (fieldName.equals("Provider_Taxonomy_Code") && mongoCollectionSource.equals("nppes")) {
+			assigned_id = assignId_taxonomy_code_nppes(mongoCollectionSource, fieldName, raw, dbo);
+		}
+		
+		else if (fieldName.startsWith("Provider_Taxonomy") && mongoCollectionSource.equals("nppes")) {
 			assigned_id = assignId_taxonomy_nppes(mongoCollectionSource, fieldName, raw, dbo);
+		}
+		
+		else if (fieldName.startsWith("Provider_License_Number_and_State") && mongoCollectionSource.equals("nppes")) {
+			assigned_id = assignId_license_id_nppes(mongoCollectionSource, fieldName, raw, dbo);
 		}
 
 		// processing pecos ids
@@ -480,8 +488,15 @@ public class IdAssigner {
 		return assigned_id;
 	}
 
+	
 	public String assignId_taxonomy_nppes(String mongoCollectionSource, String fieldName, String raw, DBObject dbo) {
 		String abbr = "TAX::";
+		String assigned_id = abbr + raw.trim().replaceAll(" ", "_");
+		return assigned_id;
+	}
+	
+	public String assignId_taxonomy_code_nppes(String mongoCollectionSource, String fieldName, String raw, DBObject dbo) {
+		String abbr = "TAC::";
 		String assigned_id = abbr + raw.trim().replaceAll(" ", "_");
 		return assigned_id;
 	}

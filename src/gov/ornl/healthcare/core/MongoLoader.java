@@ -174,16 +174,16 @@ public class MongoLoader {
 		String sourceCollectionName = Configuration.getStringValue("mongoCollectionName");
 		String remainAfterDisintegrate = Configuration.getStringValue("remainAfterDisintegrate");
 		StringTokenizer tokenizer = new StringTokenizer(mongoCollectionFieldsToDisintegrate, ",");
-		
+
 		ArrayList<String> remainAfterDisintegrateList = new ArrayList<String>();
-		if(remainAfterDisintegrate!=null){
+		if (remainAfterDisintegrate != null) {
 			String[] remainAfterDisintegrateArray = remainAfterDisintegrate.split(",");
-			for(String s: remainAfterDisintegrateArray){
+			for (String s : remainAfterDisintegrateArray) {
 				s = s.trim();
 				remainAfterDisintegrateList.add(s);
 			}
 		}
-		
+
 		ArrayList<String> fieldList = new ArrayList<String>();
 		IdAssigner idAssigner = new IdAssigner();
 
@@ -270,17 +270,20 @@ public class MongoLoader {
 									fieldValue = "";
 								fieldValue = fieldValue.toString().trim();
 								ArrayList<String> ref_list = new ArrayList<String>();
-								ref_list.add(edgeName + "^-1" + " | " + docId); // ok
+								ref_list.add(docId); // ok
+								
+								ArrayList<String> rel_types_list = new ArrayList<String>();
+								rel_types_list.add("_"+edgeName + "^-1");
 
 								if (!fieldValue.equals("")) {
 									String assigned_id = idAssigner.assignId(mongoCollectionSource, fieldName, targetCollectionName, fieldValue, dbo);
 									mongoUtils.setCollection(sourceCollectionName);
 									BasicDBObject searchQuery = new BasicDBObject().append("_id", id);
 									BasicDBObject newDocument = new BasicDBObject("$unset", new BasicDBObject().append(fieldName.trim(), 1));
-									if(!remainAfterDisintegrateList.contains(fieldName.trim()))
-											mongoUtils.update(searchQuery, newDocument);
+									if (!remainAfterDisintegrateList.contains(fieldName.trim()))
+										mongoUtils.update(searchQuery, newDocument);
 
-									BasicDBObject doc = new BasicDBObject("_id", assigned_id).append("value", fieldValue).append("ref", ref_list);
+									BasicDBObject doc = new BasicDBObject("_id", assigned_id).append("value", fieldValue).append("_" + edgeName + "^-1", ref_list).append("_rel_types", rel_types_list).append("_rel_ref", ref_list);
 
 									String subFieldNames = Configuration.getStringValue("subFields:" + fieldName);
 									if (subFieldNames != null) {
@@ -292,8 +295,8 @@ public class MongoLoader {
 												doc = doc.append(parsed_s[1].trim(), dbo.get(parsed_s[0].trim()));
 												searchQuery = new BasicDBObject().append("_id", id);
 												newDocument = new BasicDBObject("$unset", new BasicDBObject().append(parsed_s[0].trim(), 1));
-												if(!remainAfterDisintegrateList.contains(fieldName.trim()))
-												mongoUtils.update(searchQuery, newDocument);
+												if (!remainAfterDisintegrateList.contains(fieldName.trim()))
+													mongoUtils.update(searchQuery, newDocument);
 
 											}
 										}
@@ -309,9 +312,16 @@ public class MongoLoader {
 											// if duplicate key already exists;
 											// update db
 											searchQuery = new BasicDBObject().append("_id", assigned_id);
-											newDocument = new BasicDBObject().append("$addToSet", new BasicDBObject().append("ref", edgeName + "^-1" + " | " + docId));
-
+											newDocument = new BasicDBObject().append("$addToSet", new BasicDBObject().append("_" + edgeName + "^-1", docId));
 											mongoUtils.update(searchQuery, newDocument);
+											
+											newDocument = new BasicDBObject().append("$addToSet", new BasicDBObject().append("_rel_types", edgeName));
+											mongoUtils.update(searchQuery, newDocument);
+											
+											newDocument = new BasicDBObject().append("$addToSet", new BasicDBObject().append("_rel_ref", docId));
+											mongoUtils.update(searchQuery, newDocument);
+											
+											
 										}
 										// do nothing
 									}
@@ -329,7 +339,11 @@ public class MongoLoader {
 
 									mongoUtils.setCollection(sourceCollectionName);
 									searchQuery = new BasicDBObject().append("_id", id);
-									newDocument = new BasicDBObject().append("$addToSet", new BasicDBObject().append("ref", edgeName + " | " + assigned_id));
+									newDocument = new BasicDBObject().append("$addToSet", new BasicDBObject().append("_" + edgeName, assigned_id));
+									mongoUtils.update(searchQuery, newDocument);
+									newDocument = new BasicDBObject().append("$addToSet", new BasicDBObject().append("_rel_types", edgeName));
+									mongoUtils.update(searchQuery, newDocument);
+									newDocument = new BasicDBObject().append("$addToSet", new BasicDBObject().append("_rel_ref", assigned_id));
 									mongoUtils.update(searchQuery, newDocument);
 
 								}
@@ -484,7 +498,7 @@ public class MongoLoader {
 							fieldValue = resolver.resolve(fieldName, fieldValue);
 
 							if (isMultiple.equals("Y")) {
-								
+
 								BasicDBObject newDocument = new BasicDBObject().append("$addToSet", new BasicDBObject().append(fieldName, fieldValue));
 								if (!fieldValue.equals("") && !ifIgnore.containsKey(fieldName)) {
 									mongoUtils.update(query, newDocument);
@@ -514,7 +528,7 @@ public class MongoLoader {
 							}
 
 							BasicDBObject newDocument = new BasicDBObject().append("$set", new BasicDBObject().append(fieldName + "_" + index, fieldValue));
-							if (!fieldValue.equals("") && !ifIgnore.containsKey(fieldName) &&!toListFields.contains(fieldName))
+							if (!fieldValue.equals("") && !ifIgnore.containsKey(fieldName) && !toListFields.contains(fieldName))
 								mongoUtils.update(query, newDocument);
 
 						} else {
@@ -830,14 +844,13 @@ public class MongoLoader {
 				BasicDBObject dbObject = createMongoObject(line, fieldNames, fieldName2Idx);
 				if (dbObject != null) {
 					mongoUtils.addToCollection(dbObject);
-				}
-
-				mongoUtils.setCollection("cms.keyDictionary");
-				String id = dbObject.getString("_id");
-				dbObject = new BasicDBObject("_id", id);
-				dbObject = dbObject.append("collectionName", mongoCollectionName);
-				if (dbObject != null) {
-					mongoUtils.addToCollection(dbObject);
+					mongoUtils.setCollection("cms.keyDictionary");
+					String id = dbObject.getString("_id");
+					dbObject = new BasicDBObject("_id", id);
+					dbObject = dbObject.append("collectionName", mongoCollectionName);
+					if (dbObject != null) {
+						mongoUtils.addToCollection(dbObject);
+					}
 				}
 
 				lineNo++;
@@ -971,7 +984,6 @@ public class MongoLoader {
 			key = key.trim();
 			dbObject = dbObject.append(key, ht.get(key));
 		}
-		dbObject = dbObject.append("ref", new ArrayList<String>());
 		return dbObject;
 	}
 
@@ -1014,8 +1026,6 @@ public class MongoLoader {
 		int i = 0;
 		String[] tokens = line.split(seperator + "(?=([^\"]*\"[^\"]*\")*[^\"]*$)");
 		if (fieldName2Idx.size() != tokens.length) {
-			System.out.println(fieldName2Idx.size());
-			System.out.println(tokens.length);
 			System.out.println("* Warning (wrong data format): " + line);
 			return null;
 		}
@@ -1185,7 +1195,6 @@ public class MongoLoader {
 			dbObject = dbObject.append(key, ht.get(key));
 		}
 
-		dbObject = dbObject.append("ref", new ArrayList<String>());
 		return dbObject;
 	}
 
